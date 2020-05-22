@@ -41,7 +41,7 @@ sav_name = objness_thresh_20.txt
 FDRs = 0.20
 
 ```
-It will not use the **FDRs** defined in the configuaration file, but It will use a range of FDRs from 0 to 0.2 predefined in the threshold detection codes. If you have aldready preprocessed the **verite_terrain.txt** and **test_set.txt** at the first time of the execution, at second time you just need to load them by setting **load_bb = True**, **load_sel_prd = True** to accelarate the execution. 
+It will not use the **FDRs** defined in the configuaration file, but It will use a range of FDRs from 0 to 0.2 predefined in the threshold detection codes. If you have aldready preprocessed the **verite_terrain.txt** and **test_set.txt** at the first time of the execution, another time you just need to load them by setting **load_bb = True**, **load_sel_prd = True** to accelarate the execution. 
 
 The result will be the **individual_threshold.txt** file, which showes an optimal objectness threshold for each category.
 
