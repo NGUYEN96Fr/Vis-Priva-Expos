@@ -90,8 +90,8 @@ def prepro_files(path, is_gt = True):
         raise Exception('The file path is not correct.')
 
     imgs_bboxes = {} #an img and its bboxes
-    if is_gt:
-        id_name = {} #map between object ids and object names
+    #if is_gt:
+    #    id_name = {} #map between object ids and object names
 
     with open(path) as fp:
         
@@ -114,9 +114,6 @@ def prepro_files(path, is_gt = True):
             else:
                 obj_nname = obj_name[0]
 
-            if is_gt:
-                id_name[obj_id] = obj_nname #add to the map
-
             if img_name not in imgs_bboxes: #the img name aldready added ?
                 imgs_bboxes[img_name] = {}
                 imgs_bboxes[img_name][obj_nname] = [] #add the obj to the img 
@@ -126,11 +123,8 @@ def prepro_files(path, is_gt = True):
                     imgs_bboxes[img_name][obj_nname] = []
                 imgs_bboxes[img_name][obj_nname].append(bboxes)
 
-    with open(path.split('/')[-1].split('.')[0]+'.json','w') as fp:
+    with open('preprocessed_'+path.split('/')[-1].split('.')[0]+'.json','w') as fp:
         json.dump(imgs_bboxes,fp)
-    if is_gt:
-        with open('id_name_map.json','w') as fp:
-            json.dump(id_name,fp)
 
     return imgs_bboxes
 
@@ -177,8 +171,8 @@ def preproc_user_file(path):
             
             users_meta[user_id][img_id][cate].append(( objness, bbox)) #add the object info to the user
 
-    with open('users_meta.json','w') as fp:
-        json.dump(users_meta,fp)
+    #with open('users_meta.json','w') as fp:
+    #   json.dump(users_meta,fp)
 
     return users_meta
 

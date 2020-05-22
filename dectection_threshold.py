@@ -83,15 +83,15 @@ def sel_prediction(imgs_gtbboxes,imgs_prdbboxes,iou_thresh):
         Sorted_Toprd[obj] = sorted(scores)
 
     ##save to files
-    with open('Faoprd.json','w') as fp:
+    with open('selected_false_predictions.json','w') as fp:
         json.dump(Sorted_Faoprd,fp)
-    with open('Toprd.json','w') as fp:
+    with open('selected_true_predictions.json','w') as fp:
         json.dump(Sorted_Toprd,fp)
 
     return Sorted_Faoprd,Sorted_Toprd
 
 
-def objness_thresh(Faoprd,Toprd,FDRs,save_name):
+def objness_thresh(Faoprd,Toprd,FDRs,save_name,indi_thresh_flag):
     """Calculate objness thresholds for FDRs
     
     Parameters
@@ -104,7 +104,9 @@ def objness_thresh(Faoprd,Toprd,FDRs,save_name):
         A list of false discovery rates 
     save_name: string
         saved file name
-    
+    indi_thresh_flag : bool
+        Dont save the current result (if true), the indiviual threshold method is used
+
     Returns
     -------    
     dict
@@ -120,19 +122,23 @@ def objness_thresh(Faoprd,Toprd,FDRs,save_name):
     objness_threshs = {} #objectness thresholds
     objness_ranges = [0.01*i for i in range(30,101)] #objectness ranges
     #objness_ranges = [0.01*i for i in range(100,-1,-1)] #objectness ranges
-    writer = open('./%s'%save_name,'w') #write to a .txt file
-    writer.write('FDR ')
+    if not indi_thresh_flag:
+        writer = open('./%s'%save_name,'w') #write to a .txt file
+        writer.write('FDR ')
 
     for FDR in FDRs:
-        if FDR != FDRs[-1]:
-            writer.write('%s '%FDR)
-        else:
-            writer.write('%s\n'%FDR)
+        
+        if not indi_thresh_flag:
+            if FDR != FDRs[-1]:
+                writer.write('%s '%FDR)
+            else:
+                writer.write('%s\n'%FDR)
 
     for obj, Tscores in Toprd.items(): #object and true prediction scores
         if obj in Faoprd: 
             Fscores = Faoprd[obj] #false prediction scores
-            writer.write('%s '%obj)
+            if not indi_thresh_flag:
+                writer.write('%s '%obj)
             objness_threshs[obj] = []
             #nb of predicted objs
             N = len(Fscores) + len(Tscores)
@@ -151,26 +157,32 @@ def objness_thresh(Faoprd,Toprd,FDRs,save_name):
                         break
 
                 objness_threshs[obj].append(objness)
-                if FDR == FDRs[-1]:
-                    writer.write('%s\n'%str(round(objness,2)))
-                else:
-                    writer.write('%s '%str(round(objness,2)))
+
+                if not indi_thresh_flag:
+                    if FDR == FDRs[-1]:
+                        writer.write('%s\n'%str(round(objness,2)))
+                    else:
+                        writer.write('%s '%str(round(objness,2)))
         else:
             sml_thresh = objness_ranges[0]
             objness_threshs[obj] = []
-            writer.write('%s '%obj)
+            if not indi_thresh_flag:
+                writer.write('%s '%obj)
+            
             for k in range(len(FDRs)):
                 objness_threshs[obj].append(sml_thresh)
                 
-                if k != len(FDRs) - 1:
-                    writer.write('%s '%sml_thresh)
-                else:
-                    writer.write('%s\n'%sml_thresh)
+                if not indi_thresh_flag:
+                    if k != len(FDRs) - 1:
+                        writer.write('%s '%sml_thresh)
+                    else:
+                        writer.write('%s\n'%sml_thresh)
     
     for obj, Fscores in Faoprd.items():
 
         if obj not in Toprd:
-            writer.write('%s '%obj)
+            if not indi_thresh_flag:
+                writer.write('%s '%obj)
             objness_threshs[obj] = []
 
             for FDR in FDRs:
@@ -183,12 +195,14 @@ def objness_thresh(Faoprd,Toprd,FDRs,save_name):
 
                 objness_threshs[obj].append(objness)
                 
-                if FDR == FDRs[-1]:
-                    writer.write('%s\n'%str(round(objness,2)))
-                else:
-                    writer.write('%s '%str(round(objness,2)))             
-
-    writer.close()
+                if not indi_thresh_flag:
+                    if FDR == FDRs[-1]:
+                        writer.write('%s\n'%str(round(objness,2)))
+                    else:
+                        writer.write('%s '%str(round(objness,2)))             
+                        
+    if not indi_thresh_flag:
+        writer.close()
     
     return objness_threshs
 
@@ -218,7 +232,7 @@ def opt_thresh_class(objness_threshs,FDRs):
 
     """ 
     opt_threshs = {}
-    writer = open('./opt_thresh.txt','w') #write to a .txt file
+    writer = open('./individual_threshold.txt','w') #write to a .txt file
     writer.write('Class Thresh FDR\n')
         
     for obj, threshs in objness_threshs.items():
@@ -226,9 +240,9 @@ def opt_thresh_class(objness_threshs,FDRs):
         if kneedle.elbow is not None:
             fdr = round(kneedle.elbow,2)
             if kneedle.knee_y is None:
-                print('knee_y problem: ',obj)
-                fdr = FDRs[-1]
-                thresh = threshs[-1]
+                print('knee_y error: ',obj) ##can not file the elbow point for this category
+                fdr = FDRs[-1]              ##take the threshold corresponding to the biggest FDR value 
+                thresh = threshs[-1]        ##for that category
             else:    
                 thresh = round(kneedle.knee_y,2)
         else:
@@ -256,18 +270,22 @@ def main():
     load_sel_prd = conf.getboolean('load_sel_prd')
     indi_thresh_flag = conf.getboolean('indi_thresh_flag')
     save_name = conf['sav_name']
-    FDRs_ = conf['FDRs'].split('_')
-    FDRs = [float(fdr) for fdr in FDRs_] ## FDRs list
-    #FDRs = [0.01*i for i in range(21)]
+
+    if indi_thresh_flag == True:
+        FDRs = [0.01*i for i in range(21)]  ## FDRs list
+    else:
+        FDRs_ = conf['FDRs'].split('_')
+        FDRs = [float(fdr) for fdr in FDRs_]
+
     if not load_bb:
         print('Preprocess files !')
         imgs_gtbboxes = prepro_files(gt_path, is_gt= True) 
         imgs_prdbboxes = prepro_files(prd_path, is_gt= False) 
     else:
         print('Load preprocessed files !')
-        with open(gt_path.split('/')[-1].split('.')[0]+'.json','r') as fp:
+        with open('preprocessed_'+gt_path.split('/')[-1].split('.')[0]+'.json','r') as fp:
             imgs_gtbboxes = json.load(fp)
-        with open(prd_path.split('/')[-1].split('.')[0]+'.json','r') as fp:
+        with open('preprocessed_'+prd_path.split('/')[-1].split('.')[0]+'.json','r') as fp:
             imgs_prdbboxes = json.load(fp)
 
     if not load_sel_prd:
@@ -275,14 +293,14 @@ def main():
         Faoprd, Toprd = sel_prediction(imgs_gtbboxes,imgs_prdbboxes,iou_thresh)
     else:
         print('Load selected predictions !')
-        with open('Faoprd.json','r') as fp:
+        with open('selected_false_predictions.json','r') as fp:
             Faoprd = json.load(fp)
-        with open('Toprd.json','r') as fp:
+        with open('selected_true_predictions.json','r') as fp:
             Toprd = json.load(fp)
     
     ##objness score thresholds
     print('Thresholds - FDRs !')
-    objness_threshs = objness_thresh(Faoprd,Toprd,FDRs,save_name)
+    objness_threshs = objness_thresh(Faoprd,Toprd,FDRs,save_name,indi_thresh_flag)
     ## optimal threshold per a class
     if indi_thresh_flag:
         print('Optimal Threshold per a class !')
