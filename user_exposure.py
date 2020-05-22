@@ -75,7 +75,7 @@ def user_vis_prav_expos(users_meta, situ_scores, threshs):
                         if max_objness >= cate_thresh:
                             obj_domain = situ_scores[cate][1]
                             situ_obj_score = situ_scores[cate][0]# object score per a situ
-                            expos = round(max_objness*situ_obj_score,2) # *** user img object exposure
+                            expos = max_objness*situ_obj_score # *** user img object exposure
                             
                             if obj_domain not in  user_expos[user_key]['domain_expos']: #check domain exist, update user exposure
                                 user_expos[user_key]['domain_expos'][obj_domain] = 0.0

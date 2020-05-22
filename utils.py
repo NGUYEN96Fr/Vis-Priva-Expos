@@ -157,7 +157,7 @@ def preproc_user_file(path):
             user_id = meta[0]
             img_id = meta[1]
             cate = meta[2] #category
-            objness = round(float(meta[3]),2) #objectness score
+            objness = float(meta[3]) #objectness score
             bbox = [float(meta[k]) for k in range(4,8)] #predicted bbox
 
             if user_id not in users_meta: #check if the user aldready existed
@@ -177,7 +177,7 @@ def preproc_user_file(path):
     return users_meta
 
 
-def prepro_obj_score(path, print_ = False):
+def prepro_obj_score(path, print_ = True):
     """Preprocess the object scores per situation file
 
     Parameters
@@ -220,12 +220,15 @@ def prepro_obj_score(path, print_ = False):
         for obj, score in objs.items():
             
             if obj not in situ_scores:
-                situ_scores[obj] = (score - 3,domain,_is_threat)
+                situ_scores[obj] = (score - 4,domain,_is_threat)
             
             else:
                 if print_:
                     print('+ ',obj)
                 #raise Exception('Object existed !!!')
+
+    with open('./prepro_annotations/preprocessed_%s.json'%situ_name,'w') as fp:
+        json.dump(situ_scores,fp)
 
     return situ_name, situ_scores
     
