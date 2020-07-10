@@ -305,6 +305,10 @@ def main():
     opidpath = conf['opidpath']
     inetpath = conf['inetpath']
     savpath = conf['savpath']
+    heavy_file_path = conf['heavy_file_path']
+
+    if not os.path.exists(heavy_file_path):
+        os.mkdir(heavy_file_path)
 
     ##get a list of interresting classes
     classes = sel_classes(cpath)

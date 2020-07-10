@@ -98,7 +98,7 @@ def label_key_mapping(labels_ds, path, dataset):
     return keys_ds
 
 
-def retrieve_img(dataset, keys, img_path, sel_classes,save_path):
+def retrieve_img(dataset, keys, img_path, sel_classes,heavy_file_path):
     """retrieve images by keys
 
     :param img_path: string
@@ -154,13 +154,16 @@ def retrieve_img(dataset, keys, img_path, sel_classes,save_path):
                 print('not exist: ',nb_img_not_exist,'/',len(imgs))
 
 
-    with open(save_path+'/image_paths_'+str(dataset)+'.json', 'w') as fp0:
+    with open(heavy_file_path + '/image_paths_'+str(dataset)+'.json', 'w') as fp0:
         json.dump(image_paths, fp0)
+
+    if dataset == 'IMNET':
+        print(image_paths)
 
     return image_paths
 
 
-def combine_images(paths, save_path, nb_abb, class_maxsize, sel_classes, voi, manual_retrieve, auto_retrieve):
+def combine_images(paths, save_path, heavy_file_path, nb_abb, class_maxsize, sel_classes, voi, manual_retrieve, auto_retrieve):
     """Combine images from IMNET, OID1, OID2 to form two distinct sets
     ,including a manual annotation set, and a automatic annotation set.
 
@@ -216,10 +219,10 @@ def combine_images(paths, save_path, nb_abb, class_maxsize, sel_classes, voi, ma
                 else:
                     auto[label].append(img_path)
 
-    with open('auto_anno_imgPaths_Imnet_openImg_'+voi+'.json', 'w') as fp0:
+    with open(heavy_file_path + '/auto_anno_imgPaths_Imnet_openImg_'+voi+'.json', 'w') as fp0:
         json.dump(auto, fp0)
 
-    with open('manual_anno_imgPaths_Imnet_openImg_'+voi+'.json', 'w') as fp1:
+    with open(heavy_file_path+'/manual_anno_imgPaths_Imnet_openImg_'+voi+'.json', 'w') as fp1:
         json.dump(manual, fp1)
 
     writer = open('selected_classes_Statistics_Imnet_openImg_'+voi+'.txt','w')
@@ -282,12 +285,15 @@ def combine_images(paths, save_path, nb_abb, class_maxsize, sel_classes, voi, ma
         print('Automatic annotations !')
         if auto_retrieve:
             for class_, img_srcs in auto.items():
+                print(class_)
                 class_path = os.path.join(auto_path, class_.replace(' ', '_'))
                 class_img_count = 0
                 if not os.path.exists(class_path):
                     os.mkdir(class_path)
 
                 for img_src in tqdm.tqdm(img_srcs):
+
+                    class_img_count += 1
 
                     if class_img_count <= class_maxsize:
                         ## Extract .tar files of ImgNet to a scratch_global/vankhoa/..
@@ -304,14 +310,15 @@ def combine_images(paths, save_path, nb_abb, class_maxsize, sel_classes, voi, ma
 
                         auto_list.append(new_img_src)
                         shutil.copy(new_img_src, class_path +'/'+ img_src.split('/')[-1])
-                else:
-                    break
+
+                    else:
+                        break
 
         ## generate retrieved image lists
-        with open('retrieved_manual_img_paths_ImgNet_OpenImage_' + voi + '.json', 'w') as fp1:
+        with open(heavy_file_path + '/retrieved_manual_img_paths_ImgNet_OpenImage_' + voi + '.json', 'w') as fp1:
             json.dump(manual_list, fp1)
 
-        with open('retrieved_auto_img_paths_ImgNet_OpenImage_' + voi + '.json', 'w') as fp0:
+        with open(heavy_file_path + '/retrieved_auto_img_paths_ImgNet_OpenImage_' + voi + '.json', 'w') as fp0:
             json.dump(auto_list, fp0)
 
 def main():
@@ -327,10 +334,14 @@ def main():
     sel_path = conf['sel_class_path']
     save_path = conf['save_path']
     load = conf.getboolean('load') #load image paths
-    voi = conf.getboolean('voi') #version of the openimage
+    voi = conf['voi'] #version of the openimage
     manual_retrieve = conf.getboolean('manual_retrieve')
     auto_retrieve = conf.getboolean('auto_retrieve')
     class_maxsize = conf.getint('class_maxsize')
+    heavy_file_path = conf['heavy_file_path']
+
+    if not os.path.exists(heavy_file_path):
+        os.mkdir(heavy_file_path)
 
     # create the saved directory
     if not os.path.exists(save_path):
@@ -346,29 +357,29 @@ def main():
     # get labels and its corresponding image paths
     if not load:
         imnet_labels = read_label(label_path, 'IMNET')
-        imnet_keys = label_key_mapping(imnet_labels, './IMNET/synsets_words_size_map.txt', 'IMNET')
-        imnet_path = retrieve_img('IMNET', imnet_keys, '/scratch_global/DATASETS/ImageNet/imageLists',sel_classes,save_path)
+        imnet_keys = label_key_mapping(imnet_labels, '/home/vankhoa/DATA/IMNET_Sources/synsets_words_size_map.txt', 'IMNET')
+        imnet_path = retrieve_img('IMNET', imnet_keys, '/scratch_global/DATASETS/ImageNet/imageLists',sel_classes,heavy_file_path)
 
         oid1_labels = read_label(label_path, 'OID1')
-        oid1_keys = label_key_mapping(oid1_labels, './Statistics_ImgNet_OpenImage_'+voi+'/OID/human_verified_img_paths.json', 'OID1')
-        oid1_path = retrieve_img('OID1', oid1_keys, '/scratch_global/vankhoa/images',sel_classes,save_path)
+        oid1_keys = label_key_mapping(oid1_labels,heavy_file_path + '/Statistics_ImgNet_OpenImage_'+voi+'/OID/human_verified_img_paths.json', 'OID1')
+        oid1_path = retrieve_img('OID1', oid1_keys, '/scratch_global/vankhoa/images',sel_classes,heavy_file_path)
 
         oid2_labels = read_label(label_path, 'OID2')
-        oid2_keys = label_key_mapping(oid2_labels, './Statistics_ImgNet_OpenImage_'+voi+'/OID/machine_generated_img_paths.json', 'OID2')
-        oid2_path = retrieve_img('OID2',oid2_keys, '/scratch_global/vankhoa/images',sel_classes,save_path)
+        oid2_keys = label_key_mapping(oid2_labels,heavy_file_path + '/Statistics_ImgNet_OpenImage_'+voi+'/OID/machine_generated_img_paths.json', 'OID2')
+        oid2_path = retrieve_img('OID2',oid2_keys, '/scratch_global/vankhoa/images',sel_classes,heavy_file_path)
 
     else:
-        with open('./image_paths_' +'IMNET' + '.json', 'w') as fp0:
+        with open(heavy_file_path + '/image_paths_' +'IMNET' + '.json', 'r') as fp0:
             imnet_path = json.loads(fp0.read())
 
-        with open('./image_paths_' +'OID1' + '.json', 'w') as fp1:
+        with open(heavy_file_path + '/image_paths_' +'OID1' + '.json', 'r') as fp1:
             oid1_path = json.loads(fp1.read())
 
-        with open('./image_paths_' +'OID2' + '.json', 'w') as fp2:
+        with open(heavy_file_path + '/image_paths_' +'OID2' + '.json', 'r') as fp2:
             oid2_path = json.loads(fp2.read())
 
     # combine images from ImageNet and Open Image and retrieve them.
-    combine_images([oid1_path,imnet_path,oid2_path], save_path, nb_abb, class_maxsize, sel_classes,voi, manual_retrieve, auto_retrieve)
+    combine_images([oid1_path,imnet_path,oid2_path], save_path, heavy_file_path, nb_abb, class_maxsize, sel_classes,voi, manual_retrieve, auto_retrieve)
 
 
 if __name__ == '__main__':
