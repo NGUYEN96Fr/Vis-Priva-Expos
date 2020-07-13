@@ -14,8 +14,8 @@ contributor: 'nguyen.cea'
 category_path: './classes.txt'
 
 ##image paths
-image_paths: '/home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/250'
-saved_path: '/home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/train/'
+image_paths: '/home/nguyen/Documents/intern20/DATA/250_imgs_per_class_cluster_IMT/250_per_class/250'
+saved_path: '/home/nguyen/Documents/intern20/DATA/250_imgs_per_class_cluster_IMT/train/'
 
 ##annotation paths
-ann_paths: '/home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/250'
+ann_paths: '/home/nguyen/Documents/intern20/DATA/250_imgs_per_class_cluster_IMT/250_per_class/250'
