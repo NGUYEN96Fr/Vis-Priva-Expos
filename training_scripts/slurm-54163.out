@@ -1,0 +1,30 @@
+
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+
+loading annotations into memory...
+Traceback (most recent call last):
+  File "train.py", line 331, in <module>
+    train(opt)
+  File "train.py", line 121, in train
+    Resizer(input_sizes[opt.compound_coef])]))
+  File "/home/users/vnguyen/intern20/Vis-Priva-Expos/models/EfficientDet.pytorch/efficientdet/dataset.py", line 17, in __init__
+    self.coco = COCO(os.path.join(self.root_dir, 'annotations', 'instances_' + self.set_name + '.json'))
+  File "/home/users/vnguyen/.local/lib/python3.7/site-packages/pycocotools/coco.py", line 84, in __init__
+    dataset = json.load(open(annotation_file, 'r'))
+FileNotFoundError: [Errno 2] No such file or directory: '/home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/annotations/instances_train.json'

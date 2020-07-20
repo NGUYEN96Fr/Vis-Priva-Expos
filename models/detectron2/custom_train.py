@@ -25,7 +25,7 @@ def config(params):
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file(os.path.join("COCO-Detection", params['model']['name']+".yaml")))
     cfg.DATASETS.TRAIN = (params['dataset']['train']['name'],)
-    cfg.DATASETS.TEST = (params['dataset']['test']['name'],)
+    cfg.DATASETS.TEST = (params['dataset']['train']['name'],)
     cfg.DATALOADER.NUM_WORKERS = params['data_loader']['num_workers']
     cfg.MODEL.WEIGHTS = params['model']['weight']
     cfg.SOLVER.IMS_PER_BATCH = params['solver']['ims_per_batch']
