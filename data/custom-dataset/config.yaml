@@ -1,0 +1,18 @@
+###### CONFIGURATION ######
+######conver2coco.py#######
+
+source: 'custom'
+saved_data_name: 'coco_formatted_dataset.json'
+
+## data information
+description: 'custom data-set'
+url: ''
+version: 1.0
+contributor: 'nguyen.cea'
+
+##image paths
+img_path: '/home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/250'
+save_path: ''
+
+##annotation paths
+ann_file: './nicu1857.txt'
