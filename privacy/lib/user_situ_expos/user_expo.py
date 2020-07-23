@@ -1,6 +1,5 @@
 from photo_situ_expos.photo_expo import photo_expo
 
-
 def _photos_user(user_photos, f_top, detectors):
     """Estimate photo exposure for an user
 
@@ -19,13 +18,14 @@ def _photos_user(user_photos, f_top, detectors):
     Returns
     -------
         photo_expo_per_user : dict
-            {photo1: expo_score1,...}
+            photo exposure and its objectness
+                {photo1: ( expo_score1, sum_objectness),...}
 
     """
     photos_expo_per_user = {}
 
     for photo in user_photos:
-        photos_expo_per_user[photo] = photo_expo(phto, f_top, detectors)
+        photos_expo_per_user[photo] = photo_expo(user_photos[photo], f_top, detectors)
 
     return photos_expo_per_user
 
@@ -47,8 +47,21 @@ def _photos_users(users, f_top, detectors):
 
     Returns
     -------
-        
+        photo_user_expos : dict
+            {user1: {photo1: (expo, sum_objectness), ...}, ...}
+
     """
+    photo_user_expos = {}
+
+    for user, photos in users.items():
+        photo_user_expos[user] = _photos_user(photos, f_top, detectors)
+
+    return photo_user_expos
+
+
+
+
+
 
 
 

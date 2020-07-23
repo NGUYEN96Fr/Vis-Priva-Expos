@@ -69,8 +69,8 @@ def retrieve_detected_objects(path):
 
             userID = parts[0]
             photoID = parts[1]
-            class_ = parts[2]
-            objectness = parts[3]
+            class_ = parts[3]
+            objectness = float(parts[4])
 
             if userID not in objects_photo_per_user:
                 objects_photo_per_user[userID] = {}

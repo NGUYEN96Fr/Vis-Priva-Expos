@@ -17,15 +17,14 @@ def photo_expo(photo, f_top, detectors):
 
     Returns
     -------
-        photo_expo : float
+        expo_obj : tuple
+            photo exposure and its objectness sum
 
     """
     photo_expo = 0
     sum_objectness = 0
 
-
     for object_, scores in photo.items():
-        
         if object_ in detectors:
             
             objectness = sum([score for score in scores if score >= f_top])
@@ -33,6 +32,10 @@ def photo_expo(photo, f_top, detectors):
             sum_objectness += objectness
             photo_expo += objectness*detectors[object_]
 
-    photo_expo = photo_expo/objectness
+    expo_obj = (0 , 0) # no interesting objects
 
-    return photo_expo
+    if sum_objectness != 0: # if have
+        photo_expo = photo_expo/sum_objectness
+        expo_obj = (photo_expo, sum_objectness)
+
+    return expo_obj
