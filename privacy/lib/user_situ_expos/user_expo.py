@@ -19,7 +19,7 @@ def _photos_user(user_photos, f_top, detectors):
     -------
         photo_expo_per_user : dict
             photo exposure and its objectness
-                {photo1: ( expo_score1, sum_objectness),...}
+                {photo1: ( expo +, expo -, sum_objectness),...}
 
     """
     photos_expo_per_user = {}
@@ -48,7 +48,7 @@ def _photos_users(users, f_top, detectors):
     Returns
     -------
         photo_user_expos : dict
-            {user1: {photo1: (expo, sum_objectness), ...}, ...}
+            {user1: {photo1: (expo +, expo-, sum_objectness), ...}, ...}
 
     """
     photo_user_expos = {}
