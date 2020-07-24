@@ -2,6 +2,11 @@ import os
 import sys
 import  configparser
 import _init_paths
+import seaborn as sns
+import scipy
+import numpy as np
+import matplotlib.pyplot as plt
+
 from user_imgs.retrieve import retrieve_detected_objects, retrieve_photos
 from situations.load_situs import load_situs
 from user_situ_expos.user_expo import _photos_users
@@ -44,6 +49,7 @@ def main():
     ## STUDY OF FOCAL EXPOSURE IMPACT ON PHOTO EXPOSURE HISTOGRAM IN EACH SITUATION
     gamma_vals = [0,1,2,3,4]
     scaled_exposure_situs = {}
+
     for situ_name, users in user_photo_expo_situs.items():
         scaled_exposure_situs[situ_name] = {}
 
@@ -53,6 +59,17 @@ def main():
                     if gamma_ not in scaled_exposure_situs[situ_name]:
                         scaled_exposure_situs[situ_name][gamma_] = []
                     scaled_exposure_situs[situ_name][gamma_].append(focal_exposure(score_obj[0],gamma_,K))
+
+        for gamma_, scores in scaled_exposure_situs[situ_name].items():
+            norm_cdf = scipy.stats.norm.cdf(np.absolute(scores))
+            sns.lineplot(x=np.absolute(scores), y=norm_cdf, label = r'$\gamma$'+'='+str(gamma_))
+            #sns.distplot(scores, kde=False, label = r'$\gamma$'+'='+str(gamma_))
+
+        plt.title(situ_name+' '+'K='+str(K))
+        plt.legend()
+        plt.savefig(situ_name+'_CDF.png')
+        plt.clf()
+
 
     print('Done!')
 
