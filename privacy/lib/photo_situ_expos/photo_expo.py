@@ -1,5 +1,5 @@
-def photo_expo(photo, f_top, detectors):
-    
+def photo_expo(photo, f_top, detectors, absolute = True):
+
     """Estimate photo exposure
     
     Parameters
@@ -19,23 +19,28 @@ def photo_expo(photo, f_top, detectors):
     -------
         expo_obj : tuple
             photo exposure and its objectness sum
-
+                {exp +, expo -, objness}
     """
-    photo_expo = 0
+    expo_pos = 0 #positive exposure
+    expo_neg = 0 #negative exposure
+
     sum_objectness = 0
 
     for object_, scores in photo.items():
         if object_ in detectors:
             
             objectness = sum([score for score in scores if score >= f_top])
-            
             sum_objectness += objectness
-            photo_expo += objectness*detectors[object_]
 
-    expo_obj = (0 , 0) # no interesting objects
+            if detectors[object_] >= 0:
+                expo_pos += objectness*detectors[object_]
+            else:
+                expo_neg += objectness*detectors[object_]
+
+    expo_obj = (0 , 0, 0) # no interesting objects
 
     if sum_objectness != 0: # if have
-        photo_expo = photo_expo/sum_objectness
-        expo_obj = (photo_expo, sum_objectness)
+        #photo_expo = photo_expo/sum_objectness
+        expo_obj = (expo_pos, expo_neg, sum_objectness)
 
     return expo_obj

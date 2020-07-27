@@ -7,4 +7,4 @@ The directory contains ground-truth visual exposures of users. The exposures wer
 
 Format of each .txt file:
 
-id_user // situation[0-3]  // score[1-6] 
+id_user // situation[0-3]  // score[1-7] 
