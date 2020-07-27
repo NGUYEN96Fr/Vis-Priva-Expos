@@ -6,6 +6,8 @@ import _init_paths
 # import scipy
 # import numpy as np
 # import matplotlib.pyplot as plt
+import scipy.stats as stats
+from sklearn.metrics import make_scorer
 
 from user_imgs.retrieve import retrieve_detected_objects, retrieve_photos
 from situations.load_situs import load_situs
@@ -14,7 +16,7 @@ from detectors.active import active_detectors
 from clustering.features import clustering_photo_feature
 from clustering.clustering import photo_user_expo_clustering
 from regression.features import regression_features
-from regression.regression import train_test_split_situ, train_regressor, test_regressor
+from regression.regression import train_test_split_situ, train_regressor, test_regressor, parameter_search, pear_corr, normalizer
 from preprocess.user import load_gt_user_profiles
 
 def main():
@@ -36,6 +38,8 @@ def main():
     gamma = float(conf['gamma'])
     N = int(conf['N'])
     train_ratio = float(conf['train_ratio'])
+    normalize = False
+    fine_tuning = True
 
     ##Load crowdsourcing user privacy exposure scores in each situation
     gt_user_expo_situs = load_gt_user_profiles(os.path.join(root,user_profile_path))
@@ -90,12 +94,29 @@ def main():
     
     print('Train and test regressor by situation ...')
     for situ, data in train_test_situs.items():
-        print(' ',situ)
-        print('Training...')
-        model, normalizer = train_regressor(data['x_train'], data['y_train'], max_depth = 7)
-        print('Testing...')
-        #test_regressor(model,normalizer,data['x_train'],data['y_train'])
-        test_regressor(model,normalizer,data['x_test'],data['y_test'])
+
+        x_train, y_train, x_test, y_test = data['x_train'], data['y_train'], data['x_test'], data['y_test']
+        if normalize:
+            x_train, x_test = normalizer(x_train, x_test)
+            data = {'x_train': x_train, 'y_train': y_train, 'x_test':x_test, 'y_test':y_test}
+
+        if not fine_tuning:
+            print(' ',situ)
+            print('Training...')
+            model = train_regressor(x_train, y_train)
+            print('Testing...')
+            # test_regressor(model, x_train, y_train)
+            test_regressor(model, x_test, y_test)
+
+        else:
+            print(' ', situ)
+            print('Fine Tuning ...')
+            tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4, 1e-5],
+                                 'C': [1, 10, 100, 1000]},
+                                {'kernel': ['linear'], 'C': [1, 10, 100, 1000]}]
+            scores = {'pear_corr': make_scorer(pear_corr)}
+            parameter_search(data, tuned_parameters, scores)
+
 
     print('Done!')
 
