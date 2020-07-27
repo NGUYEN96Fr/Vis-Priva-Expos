@@ -10,6 +10,7 @@ def feature_photo(photo_expo, gamma, K= 10):
         initial photo exposure and its objectness sum
             (expo +, expo -, sum_objectness)
 
+
     :param gamma: float
         focusing factor
 
