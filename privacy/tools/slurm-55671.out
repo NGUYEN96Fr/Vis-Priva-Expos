@@ -1,0 +1,62 @@
+Estimate exposure user photos ...
+Done!
+####################
+#### CLUSTERING ####
+####################
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+######################
+##### REGRESSION #####
+######################
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+Train and test regressor by situation ...
+  job_search_IT
+Fine Tuning ...
+Fine tuning for:  pearson correlation
+Best parameters:
+{'C': 10, 'gamma': 0.0001, 'kernel': 'sigmoid'}
+
+The scores are computed on the full evaluation set.
+pearson score:  0.4253112448157251
+  bank_credit
+Fine Tuning ...
+Fine tuning for:  pearson correlation
+Best parameters:
+{'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
+
+The scores are computed on the full evaluation set.
+pearson score:  0.5579525917432879
+  job_search_waiter_waitress
+Fine Tuning ...
+Fine tuning for:  pearson correlation
+Best parameters:
+{'C': 7, 'gamma': 0.001, 'kernel': 'linear'}
+
+The scores are computed on the full evaluation set.
+pearson score:  -0.3157282576313579
+  accommodation_search
+Fine Tuning ...
+Fine tuning for:  pearson correlation
+Best parameters:
+{'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
+
+The scores are computed on the full evaluation set.
+pearson score:  0.39810558734614465
+Done!

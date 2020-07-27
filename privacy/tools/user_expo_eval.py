@@ -16,7 +16,8 @@ from detectors.active import active_detectors
 from clustering.features import clustering_photo_feature
 from clustering.clustering import photo_user_expo_clustering
 from regression.features import regression_features
-from regression.regression import train_test_split_situ, train_regressor, test_regressor, parameter_search, pear_corr, normalizer
+from regression.regression import train_test_split_situ, train_regressor, test_regressor, pear_corr, kendall_corr, normalizer
+from regression.parameter_search import parameter_search
 from preprocess.user import load_gt_user_profiles
 
 def main():
@@ -39,7 +40,8 @@ def main():
     N = int(conf['N'])
     train_ratio = float(conf['train_ratio'])
     normalize = False
-    fine_tuning = True
+    fine_tuning = False
+    regm = 'svm' #regression method
 
     ##Load crowdsourcing user privacy exposure scores in each situation
     gt_user_expo_situs = load_gt_user_profiles(os.path.join(root,user_profile_path))
@@ -91,8 +93,8 @@ def main():
     print('Split into train and test sets ...')
     train_test_situs = train_test_split_situ(regession_feature_situations,gt_user_expo_situs,train_ratio)
     print('Done!')
-    
-    print('Train and test regressor by situation ...')
+
+
     for situ, data in train_test_situs.items():
 
         x_train, y_train, x_test, y_test = data['x_train'], data['y_train'], data['x_test'], data['y_test']
@@ -100,23 +102,25 @@ def main():
             x_train, x_test = normalizer(x_train, x_test)
             data = {'x_train': x_train, 'y_train': y_train, 'x_test':x_test, 'y_test':y_test}
 
-        if not fine_tuning:
-            print(' ',situ)
-            print('Training...')
-            model = train_regressor(x_train, y_train)
-            print('Testing...')
-            # test_regressor(model, x_train, y_train)
-            test_regressor(model, x_test, y_test)
+        print('********************************************')
+        print(' ', situ)
 
-        else:
-            print(' ', situ)
-            print('Fine Tuning ...')
-            tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4, 1e-5],
-                                 'C': [1, 10, 100, 1000]},
-                                {'kernel': ['linear'], 'C': [1, 10, 100, 1000]}]
-            scores = {'pear_corr': make_scorer(pear_corr)}
-            parameter_search(data, tuned_parameters, scores)
+        print('Searching best parameters by regressor ...')
+        if regm == 'svm': #support vector machine
+            tunning_parameters = {'kernel': ['rbf', 'linear'],
+                                  'gamma': [1e-3, 1e-4, 1e-5],
+                                   'C': [1, 5, 7, 10]}
 
+        elif regm == 'rf': #random forest
+            tunning_parameters = {'bootstrap': [True, False],
+                                 'max_depth': [5,7,10,13,17],
+                                 'max_features': ['auto', 'sqrt'],
+                                 'min_samples_leaf': [1, 2, 4],
+                                 'min_samples_split': [2, 5, 7],
+                                 'n_estimators': [100,130,160,200]}
+
+        scores = {'pear_corr': make_scorer(pear_corr, greater_is_better=True)}
+        best_result = parameter_search(data, tunning_parameters, scores)
 
     print('Done!')
 
