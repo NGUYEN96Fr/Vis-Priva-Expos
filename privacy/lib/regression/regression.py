@@ -4,7 +4,115 @@ import scipy.stats as stats
 from sklearn.feature_selection import SelectKBest, f_regression, mutual_info_regression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import SVR
+from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
 
+def parameter_search(data, tuned_parameters, scores):
+    """
+
+    Parameters
+    ----------
+    data: dict
+        data to fine tune
+    tuned_parameters: list
+        list of parameters to fine tune
+    scores: list
+        criteria
+
+    Returns
+    -------
+
+    """
+    x_train, y_train, x_test, y_test = data['x_train'], data['y_train'], data['x_test'], data['y_test']
+    print('Fine tuning for: ', 'pearson correlation')
+    regr = GridSearchCV(SVR(), tuned_parameters)
+
+    regr.fit(x_train, y_train)
+    print('Best parameters:')
+    print(regr.best_params_)
+    print("Grid scores on development set:")
+    means = regr.cv_results_['mean_test_score']
+    stds = regr.cv_results_['std_test_score']
+
+    for mean, std, params in zip(means, stds, regr.cv_results_['params']):
+        print("%0.3f (+/-%0.03f) for %r"
+              % (mean, std * 2, params))
+    print()
+    print("The scores are computed on the full evaluation set.")
+    y_true, y_pred = y_test, regr.predict(x_test)
+    print('pearson score: ', pear_corr(y_true, y_pred))
+
+
+def train_regressor(x_train, y_train):
+    """Train regressor by each situation
+
+    :param: x_train: numpy array
+        training data
+
+    :param: y_train: numpy array
+        training target
+
+
+    return:
+        trained model
+        normalizer of training data
+
+    """
+    # regr = RandomForestRegressor(max_depth = max_depth, random_state= 0)
+    regr = SVR(C =1, gamma =0.001, kernel ='rbf')
+    regr.fit(x_train, y_train)
+
+    return regr
+
+def test_regressor(model, x_test, y_test):
+    """Test regressor model
+
+    :param: model
+        trained model
+
+    :param: normalizer
+        data normalizer
+
+    :param: fs
+        feature selection
+
+    :param: x_test
+        test data
+
+    :param: y_test
+        test target
+
+
+    """
+    y_pred = model.predict(x_test)
+    y_true = y_test
+
+    for i in range(x_test.shape[0]):
+        print('gt = ', y_true[i], ' prediction =', y_pred[i])
+
+    r, _ = stats.pearsonr(y_true, y_pred)
+    print('Pearson correlation = ', r)
+
+
+def normalizer(x_train, x_test):
+    """
+
+    Parameters
+    ----------
+    x_train
+    x_test
+
+    Returns
+    -------
+        normalized data-set
+    """
+    mean_x = np.mean(x_train, axis=0)
+    std_x = np.std(x_train, axis=0)
+
+    x_train_normalized = np.divide(x_train - mean_x, std_x)
+    x_test_normalized = np.divide(x_test - mean_x, std_x)
+
+    return x_train_normalized, x_test_normalized
 
 def train_test_split(regression_features, gt_expo_scores, train_ratio):
     """Split data into train and test set for a given situation
@@ -44,23 +152,22 @@ def train_test_split(regression_features, gt_expo_scores, train_ratio):
     X = np.asarray(X)
     Y = np.asarray(Y)
 
-    indexes = np.linspace(0, nb_users-nb_user_not_consistent -1, nb_users - nb_user_not_consistent, dtype=np.int32)
+    indexes = np.linspace(0, nb_users - nb_user_not_consistent - 1, nb_users - nb_user_not_consistent, dtype=np.int32)
     random.shuffle(indexes)
 
-    train_index = indexes[:int(nb_users*train_ratio)]
-    test_index = indexes[int(nb_users*train_ratio):]
+    train_index = indexes[:int(nb_users * train_ratio)]
+    test_index = indexes[int(nb_users * train_ratio):]
 
     situ_data = {'x_train': X[train_index, :], 'y_train': Y[train_index],
                  'x_test': X[test_index, :], 'y_test': Y[test_index]}
 
     print('     nb of users: ', nb_users - nb_user_not_consistent)
-    print('     train profiles:',train_index.shape[0])
+    print('     train profiles:', train_index.shape[0])
 
     return situ_data
 
 
-
-def train_test_split_situ(regress_feature_situs, gt_user_expo_situs, train_ratio = 0.8):
+def train_test_split_situ(regress_feature_situs, gt_user_expo_situs, train_ratio=0.8):
     """Train test split by situation
 
     :param: regress_feature_situs: dict
@@ -80,64 +187,23 @@ def train_test_split_situ(regress_feature_situs, gt_user_expo_situs, train_ratio
     train_test_situs = {}
 
     for situ, gt_expo_user_scores in gt_user_expo_situs.items():
-        print('  ',situ)
-        train_test_situs[situ] = train_test_split(regress_feature_situs[situ],gt_expo_user_scores, train_ratio)
+        print('  ', situ)
+        train_test_situs[situ] = train_test_split(regress_feature_situs[situ], gt_expo_user_scores, train_ratio)
 
     return train_test_situs
 
+def pear_corr(y_true, y_pred):
+    """Calculate pearson correlation
 
+    Parameters
+    ----------
+    y_true
+    y_pred
 
-def train_regressor(x_train, y_train, max_depth = 5):
-    """Train regressor by each situation
-    
-    :param: x_train: numpy array
-        training data
-
-    :param: y_train: numpy array
-        training target
-
-    
-    return: 
-        trained model
-        normalizer of training data
-
+    Returns
+    -------
+        r : float
+            correlation value
     """
-    #regr = RandomForestRegressor(max_depth = max_depth, random_state= 0)
-    regr = SVR()
-    
-    mean_x = np.mean(x_train, axis = 0)
-    std_x = np.std(x_train,axis=0)
-    normalizer = (mean_x,std_x)
-    normalized_x_train = np.divide(x_train - mean_x, std_x)
-    print('Parameter Search ...')
-    fs = SelectKBest(score_func = mutual_info_regression, k = 'all')
-    fs.fit(x_train, y_train) 
-    print(fs.scores_)   
-
-    regr.fit(normalized_x_train,y_train)
-
-    return regr, normalizer
-
-
-def test_regressor(model, normalizer, x_test, y_test):
-    """Test regressor model
-
-    :param: model
-        trained model
-
-    :param: x_test
-        test data
-
-    :param: y_test
-        test target
-
-    
-    """
-    normalized_x_test = np.divide(x_test - normalizer[0], normalizer[1])
-    prediction = model.predict(normalized_x_test)
-
-    for i in range(x_test.shape[0]):
-        print('gt = ',y_test[i],' prediction =',prediction[i])
-
-    tau, p_value = stats.pearsonr(list(prediction),list(y_test))
-    print('Kendall tau = ',tau)
+    r, _ = stats.pearsonr(y_true,y_pred)
+    return r
