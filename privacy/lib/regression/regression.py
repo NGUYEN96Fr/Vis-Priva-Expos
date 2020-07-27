@@ -1,5 +1,9 @@
 import random
 import numpy as np
+import scipy.stats as stats
+from sklearn.feature_selection import SelectKBest, f_regression, mutual_info_regression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.svm import SVR
 
 
 def train_test_split(regression_features, gt_expo_scores, train_ratio):
@@ -24,6 +28,8 @@ def train_test_split(regression_features, gt_expo_scores, train_ratio):
                 Y_train, Y_test : numpy array
                     (N, )
     """
+    random.seed(0)
+
     nb_users = len(list(gt_expo_scores.keys()))
     nb_user_not_consistent = 0
     X = []
@@ -53,6 +59,7 @@ def train_test_split(regression_features, gt_expo_scores, train_ratio):
     return situ_data
 
 
+
 def train_test_split_situ(regress_feature_situs, gt_user_expo_situs, train_ratio = 0.8):
     """Train test split by situation
 
@@ -77,3 +84,60 @@ def train_test_split_situ(regress_feature_situs, gt_user_expo_situs, train_ratio
         train_test_situs[situ] = train_test_split(regress_feature_situs[situ],gt_expo_user_scores, train_ratio)
 
     return train_test_situs
+
+
+
+def train_regressor(x_train, y_train, max_depth = 5):
+    """Train regressor by each situation
+    
+    :param: x_train: numpy array
+        training data
+
+    :param: y_train: numpy array
+        training target
+
+    
+    return: 
+        trained model
+        normalizer of training data
+
+    """
+    #regr = RandomForestRegressor(max_depth = max_depth, random_state= 0)
+    regr = SVR()
+    
+    mean_x = np.mean(x_train, axis = 0)
+    std_x = np.std(x_train,axis=0)
+    normalizer = (mean_x,std_x)
+    normalized_x_train = np.divide(x_train - mean_x, std_x)
+    print('Parameter Search ...')
+    fs = SelectKBest(score_func = mutual_info_regression, k = 'all')
+    fs.fit(x_train, y_train) 
+    print(fs.scores_)   
+
+    regr.fit(normalized_x_train,y_train)
+
+    return regr, normalizer
+
+
+def test_regressor(model, normalizer, x_test, y_test):
+    """Test regressor model
+
+    :param: model
+        trained model
+
+    :param: x_test
+        test data
+
+    :param: y_test
+        test target
+
+    
+    """
+    normalized_x_test = np.divide(x_test - normalizer[0], normalizer[1])
+    prediction = model.predict(normalized_x_test)
+
+    for i in range(x_test.shape[0]):
+        print('gt = ',y_test[i],' prediction =',prediction[i])
+
+    tau, p_value = stats.pearsonr(list(prediction),list(y_test))
+    print('Kendall tau = ',tau)

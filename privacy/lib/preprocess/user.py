@@ -1,4 +1,6 @@
 import os
+import numpy as np
+
 
 def load_class_decoding():
     """
@@ -46,7 +48,7 @@ def load_gt_user_profiles(path):
                 if user_ID not in user_score_situs[situ_name]:
                     user_score_situs[situ_name][user_ID] = []
 
-                score = float(parts[2]) - 4
+                score = float(parts[2])
                 user_score_situs[situ_name][user_ID].append(score)
 
 

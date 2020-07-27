@@ -14,7 +14,7 @@ from detectors.active import active_detectors
 from clustering.features import clustering_photo_feature
 from clustering.clustering import photo_user_expo_clustering
 from regression.features import regression_features
-from regression.regression import train_test_split_situ
+from regression.regression import train_test_split_situ, train_regressor, test_regressor
 from preprocess.user import load_gt_user_profiles
 
 def main():
@@ -87,6 +87,18 @@ def main():
     print('Split into train and test sets ...')
     train_test_situs = train_test_split_situ(regession_feature_situations,gt_user_expo_situs,train_ratio)
     print('Done!')
+    
+    print('Train and test regressor by situation ...')
+    for situ, data in train_test_situs.items():
+        print(' ',situ)
+        print('Training...')
+        model, normalizer = train_regressor(data['x_train'], data['y_train'], max_depth = 7)
+        print('Testing...')
+        #test_regressor(model,normalizer,data['x_train'],data['y_train'])
+        test_regressor(model,normalizer,data['x_test'],data['y_test'])
+
+    print('Done!')
+
 
 if __name__ == '__main__':
     main()
