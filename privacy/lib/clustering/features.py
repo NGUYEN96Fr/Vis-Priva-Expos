@@ -32,7 +32,7 @@ def feature_photo(photo_expo, gamma, K= 10):
 def feature_user_photos(expo_photos, gamma, K= 10):
     """Extracting features for all user's photos
     :param: expo_photos: dict
-        exposure of all user's photo and its objectness scores
+        exposure of all user's photos and its objectness scores
             {photo1: (expo, sum_objectness), ...}
     :param gamma:
 
