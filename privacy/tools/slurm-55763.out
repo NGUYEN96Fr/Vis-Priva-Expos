@@ -1,0 +1,587 @@
+##########################################
+######## Focusing Exposure Search ########
+###########################################
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.5172637164952457
+mse:  0.14961814781811447
+Evaluation on test sets: 
+pearson score:  0.1889300369428168
+mse:  0.24020493234931264
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.0001, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.2697093679297762
+mse:  0.29362310766416005
+Evaluation on test sets: 
+pearson score:  0.3802719871453868
+mse:  0.2011756820521271
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 10, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.6451068221623887
+mse:  0.13872121565665202
+Evaluation on test sets: 
+pearson score:  0.4648220427108471
+mse:  0.21628902906350342
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.0001, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.3205903171190355
+mse:  0.2928207378219
+Evaluation on test sets: 
+pearson score:  0.5054050867002771
+mse:  0.22190820597057132
+Done!
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': False, 'max_depth': 10, 'max_features': 'auto', 'min_samples_leaf': 2, 'min_samples_split': 2, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.9539309849675475
+mse:  0.01822468112244898
+Evaluation on test sets: 
+pearson score:  0.1274251786867735
+mse:  0.3133196652345148
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 13, 'max_features': 'auto', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200}
+Evaluation on train sets: 
+Pearson score:  0.9757678073771003
+mse:  0.05044315639161314
+Evaluation on test sets: 
+pearson score:  0.33231050761569003
+mse:  0.21365857955160208
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 10, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.9783526998507668
+mse:  0.02941280409992216
+Evaluation on test sets: 
+pearson score:  0.13956372099145992
+mse:  0.264569619252929
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 7, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 7, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.9279627270073421
+mse:  0.09818054416058417
+Evaluation on test sets: 
+pearson score:  0.7057335539909029
+mse:  0.13688677059515433
+Done!
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.5821373317965345
+mse:  0.13399806632096575
+Evaluation on test sets: 
+pearson score:  0.08265884923745179
+mse:  0.21970579218851294
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 1e-05, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.23742118580974714
+mse:  0.29927422271778287
+Evaluation on test sets: 
+pearson score:  0.45271081697686644
+mse:  0.20842450531666876
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.6882940372314587
+mse:  0.12546959008840114
+Evaluation on test sets: 
+pearson score:  0.07937303233220516
+mse:  0.4264686827804761
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 1e-05, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.24322536476619158
+mse:  0.31702191125623
+Evaluation on test sets: 
+pearson score:  0.38839571512538734
+mse:  0.2691784104964048
+Done!
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 17, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 2, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.9435892247398878
+mse:  0.052721610121897744
+Evaluation on test sets: 
+pearson score:  0.6130291359336009
+mse:  0.16124754919014891
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 7, 'max_features': 'auto', 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 130}
+Evaluation on train sets: 
+Pearson score:  0.9490893979762195
+mse:  0.07474639912187639
+Evaluation on test sets: 
+pearson score:  0.3096575092211525
+mse:  0.20921516372671364
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': False, 'max_depth': 7, 'max_features': 'auto', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 130}
+Evaluation on train sets: 
+Pearson score:  0.9547687396722131
+mse:  0.020994897959183672
+Evaluation on test sets: 
+pearson score:  0.048411721123056375
+mse:  0.46062995800027656
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': False, 'max_depth': 5, 'max_features': 'sqrt', 'min_samples_leaf': 4, 'min_samples_split': 2, 'n_estimators': 130}
+Evaluation on train sets: 
+Pearson score:  0.89169429398398
+mse:  0.09727693956722437
+Evaluation on test sets: 
+pearson score:  0.5122032254318201
+mse:  0.1825557942252406
+Done!
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.39286484205880423
+mse:  0.17328201685633854
+Evaluation on test sets: 
+pearson score:  -0.3401416065770132
+mse:  1.7265153113491716
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 1e-05, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.30352829888081
+mse:  0.2788028193834572
+Evaluation on test sets: 
+pearson score:  0.4128523577504576
+mse:  0.18932757249293417
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.7155617940782885
+mse:  0.1169699606777113
+Evaluation on test sets: 
+pearson score:  -0.1326629650652613
+mse:  1.4329697339662868
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.5087592611850857
+mse:  0.23741676051643074
+Evaluation on test sets: 
+pearson score:  0.43513326896430865
+mse:  0.38277203031111245
+Done!
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': False, 'max_depth': 5, 'max_features': 'sqrt', 'min_samples_leaf': 4, 'min_samples_split': 5, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.8562282193853906
+mse:  0.07786814445114101
+Evaluation on test sets: 
+pearson score:  0.2948974934014032
+mse:  0.19015520324095952
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 10, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 130}
+Evaluation on train sets: 
+Pearson score:  0.9735136862717133
+mse:  0.04479483780257798
+Evaluation on test sets: 
+pearson score:  0.11334569309987585
+mse:  0.24414228777028651
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': False, 'max_depth': 7, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.972951285727115
+mse:  0.016317461270542493
+Evaluation on test sets: 
+pearson score:  0.1389704823718112
+mse:  0.26084381699676884
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 17, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 7, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.9369824601092689
+mse:  0.09068402609646298
+Evaluation on test sets: 
+pearson score:  0.38844920362533375
+mse:  0.23098152094176658
+Done!
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 10, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.47267260972978076
+mse:  0.15924264388868098
+Evaluation on test sets: 
+pearson score:  0.31917042581299426
+mse:  0.4918998258302647
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.41997292866519975
+mse:  0.2557633513166375
+Evaluation on test sets: 
+pearson score:  0.554001782061943
+mse:  0.1555936228442617
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.7157370000846661
+mse:  0.11648819389760293
+Evaluation on test sets: 
+pearson score:  -0.09049333068517137
+mse:  2.742082147551867
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 1e-05, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.3164188960912664
+mse:  0.2908629906237902
+Evaluation on test sets: 
+pearson score:  0.40079385670118367
+mse:  0.24131250619048403
+Done!
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'sqrt', 'min_samples_leaf': 4, 'min_samples_split': 5, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.8628908648002986
+mse:  0.10050127598128329
+Evaluation on test sets: 
+pearson score:  0.5240431539691186
+mse:  0.19571471521669342
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': False, 'max_depth': 5, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.9271847915919509
+mse:  0.05706965687347003
+Evaluation on test sets: 
+pearson score:  0.2476636206811721
+mse:  0.24572017128271367
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 7, 'max_features': 'auto', 'min_samples_leaf': 2, 'min_samples_split': 7, 'n_estimators': 130}
+Evaluation on train sets: 
+Pearson score:  0.9042701456093771
+mse:  0.06499496568632576
+Evaluation on test sets: 
+pearson score:  0.28556992591392466
+mse:  0.24007785624100478
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 7, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 7, 'n_estimators': 100}
+Evaluation on train sets: 
+Pearson score:  0.9050684264956408
+mse:  0.10221222150927159
+Evaluation on test sets: 
+pearson score:  0.42710879145714464
+mse:  0.2104447043844794
+Done!
+Traceback (most recent call last):
+  File "main.py", line 35, in <module>
+    ablation_study()
+  File "main.py", line 27, in ablation_study
+    gamma_study(gamma_list, conf, root, gamma_file)
+  File "/home/users/vnguyen/intern20/Vis-Priva-Expos/privacy/lib/ablation_studies/focusing_exposure.py", line 45, in gamma_study
+    ## save file
+TypeError: dumps() takes 1 positional argument but 2 were given
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/stats.py:3845: PearsonRConstantInputWarning: An input array is constant; the correlation coefficent is not defined.
+  warnings.warn(PearsonRConstantInputWarning())
