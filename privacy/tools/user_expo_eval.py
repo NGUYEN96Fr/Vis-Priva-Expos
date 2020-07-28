@@ -2,7 +2,8 @@ import os
 import sys
 import  configparser
 import _init_paths
-from ablation_studies.param_search import parameter_search
+from ablation_studies.focusing_exposure import gamma_study, gamma_plot
+
 
 
 def ablation_study():
@@ -14,21 +15,20 @@ def ablation_study():
     conf = configparser.ConfigParser()
     conf.read(sys.argv[1])
     conf = conf[os.path.basename(__file__)]
+    only_plot = False
+    gamma_path = 'out/abalation/gamma' ## abalation path
+    gamma_file = 'gamma.json'
 
-    ##get params
-    inference_file = conf['inference_file']
-    siutation_file = conf['situation_file']
-    user_profile_path = conf['user_profile_path']
-    f_top = float(conf['f_top'])
-    K = float(conf['K'])
-    gamma = float(conf['gamma'])
-    N = int(conf['N'])
-    train_ratio = float(conf['train_ratio'])
-    normalize = False
-    regm = 'svm' #regression method
+    if not only_plot:
+        print('##########################################')
+        print('######## Focusing Exposure Search ########')
+        print('###########################################')
+        gamma_list = [0, 3, 5, 7]
+        gamma_study(gamma_list, conf, root, gamma_file)
+        gamma_plot(os.path.join(gamma_path), gamma_file)
 
-    best_result_situs = parameter_search(root, user_profile_path, inference_file, siutation_file, f_top, gamma, K, N, train_ratio, regm,
-                     normalize)
+    else:
+        gamma_plot(os.path.join(gamma_path), gamma_file)
 
 
 if __name__ == '__main__':
