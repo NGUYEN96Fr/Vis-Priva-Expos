@@ -1,0 +1,30 @@
+##########################################
+######## Focusing Exposure Search ########
+###########################################
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Split into train and test sets ...
+   job_search_IT
+     nb of users:  99
+     train profiles: 80
+   bank_credit
+     nb of users:  99
+     train profiles: 80
+   job_search_waiter_waitress
+     nb of users:  99
+     train profiles: 80
+   accommodation_search
+     nb of users:  99
+     train profiles: 80
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...

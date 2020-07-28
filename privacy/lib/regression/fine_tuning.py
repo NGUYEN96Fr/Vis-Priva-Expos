@@ -2,7 +2,7 @@ from sklearn.ensemble import RandomForestRegressor as RFR
 from sklearn.svm import SVR
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
-from regression import pear_corr
+from regression.regression import pear_corr
 
 def regress_fine_tuning(data, tuned_parameters, scores, regm):
     """Estimate best parameters for regression
@@ -27,7 +27,7 @@ def regress_fine_tuning(data, tuned_parameters, scores, regm):
 
     best_result={}
     best_result['reg_method'] = regm
-    best_result['corr_type'] = list[scores.keys()][0]
+    best_result['corr_type'] = list(scores.keys())[0]
 
     x_train, y_train, x_test, y_test = data['x_train'], data['y_train'], data['x_test'], data['y_test']
 

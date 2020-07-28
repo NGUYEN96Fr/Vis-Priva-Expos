@@ -11,7 +11,7 @@ from regression.regression import train_test_split_situ, train_regressor, test_r
 from regression.fine_tuning import regress_fine_tuning
 from preprocess.user import load_gt_user_profiles
 
-def parameter_search(root, user_profile_path, inference_file, siutation_file, f_top, gamma, K, N, train_ratio, regm, normalize):
+def parameter_search(root, user_profile_path, inference_file, siutation_file, f_top, gamma, K, N, train_ratio, regm, normalize, debug = True):
     """Searching best regression result for a current configuration
 
     :param root: string
@@ -36,6 +36,7 @@ def parameter_search(root, user_profile_path, inference_file, siutation_file, f_
         regression method
     :param: normalize: string
         if apply data normalization
+    :param: debug mode
 
     :return:
         best_result_situs : dict
@@ -102,21 +103,30 @@ def parameter_search(root, user_profile_path, inference_file, siutation_file, f_
         print(' ', situ)
 
         print('Searching best parameters by regressor ...')
-        if regm == 'svm':  # support vector machine
-            tunning_parameters = {'kernel': ['rbf', 'linear'],
-                                  'gamma': [1e-3, 1e-4, 1e-5],
-                                  'C': [1, 5, 7, 10]}
+        if not debug:
 
-        elif regm == 'rf':  # random forest
-            tunning_parameters = {'bootstrap': [True, False],
-                                  'max_depth': [5, 7, 10, 13, 17],
-                                  'max_features': ['auto', 'sqrt'],
-                                  'min_samples_leaf': [1, 2, 4],
-                                  'min_samples_split': [2, 5, 7],
-                                  'n_estimators': [100, 130, 160, 200]}
+            if regm == 'svm':  # support vector machine
+                tunning_parameters = {'kernel': ['rbf', 'linear', 'sigmoid'],
+                                      'gamma': [1e-3, 1e-4, 1e-5],
+                                      'C': [1, 5, 7, 10]}
+
+            elif regm == 'rf':  # random forest
+                tunning_parameters = {'bootstrap': [True, False],
+                                      'max_depth': [3, 5, 7],
+                                      'max_features': ['auto', 'sqrt'],
+                                      'min_samples_leaf': [1, 2, 4],
+                                      'min_samples_split': [2, 3, 5],
+                                      'n_estimators': [100, 130, 160]}
+        else:
+            tunning_parameters = {'bootstrap': [True],
+                                  'max_depth': [3, 5, 7],
+                                  'max_features': ['auto'],
+                                  'min_samples_leaf': [4],
+                                  'min_samples_split': [2],
+                                  'n_estimators': [100]}
 
         scores = {'pear_corr': make_scorer(pear_corr, greater_is_better=True)}
-        best_result = regress_fine_tuning(data, tunning_parameters, scores)
+        best_result = regress_fine_tuning(data, tunning_parameters, scores, regm)
         best_result_situs[situ] = best_result
 
     print('Done!')
