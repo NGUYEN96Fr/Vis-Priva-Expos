@@ -2,48 +2,12 @@ import random
 import numpy as np
 import scipy.stats as stats
 from sklearn.feature_selection import SelectKBest, f_regression, mutual_info_regression
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor as RFR
 from sklearn.svm import SVR
 from sklearn.metrics import r2_score
-from sklearn.model_selection import GridSearchCV
-
-def parameter_search(data, tuned_parameters, scores):
-    """
-
-    Parameters
-    ----------
-    data: dict
-        data to fine tune
-    tuned_parameters: list
-        list of parameters to fine tune
-    scores: list
-        criteria
-
-    Returns
-    -------
-
-    """
-    x_train, y_train, x_test, y_test = data['x_train'], data['y_train'], data['x_test'], data['y_test']
-    print('Fine tuning for: ', 'pearson correlation')
-    regr = GridSearchCV(SVR(), tuned_parameters)
-
-    regr.fit(x_train, y_train)
-    print('Best parameters:')
-    print(regr.best_params_)
-    print("Grid scores on development set:")
-    means = regr.cv_results_['mean_test_score']
-    stds = regr.cv_results_['std_test_score']
-
-    for mean, std, params in zip(means, stds, regr.cv_results_['params']):
-        print("%0.3f (+/-%0.03f) for %r"
-              % (mean, std * 2, params))
-    print()
-    print("The scores are computed on the full evaluation set.")
-    y_true, y_pred = y_test, regr.predict(x_test)
-    print('pearson score: ', pear_corr(y_true, y_pred))
 
 
-def train_regressor(x_train, y_train):
+def train_regressor(x_train, y_train, params, regm):
     """Train regressor by each situation
 
     :param: x_train: numpy array
@@ -52,14 +16,23 @@ def train_regressor(x_train, y_train):
     :param: y_train: numpy array
         training target
 
+    :param: params: dict
+        parameter to train model
 
-    return:
+    :param: regm: string
+        regression method
+
+    :return:
         trained model
-        normalizer of training data
 
     """
-    # regr = RandomForestRegressor(max_depth = max_depth, random_state= 0)
-    regr = SVR(C =1, gamma =0.001, kernel ='rbf')
+
+    if regm == 'svm':
+        regr = SVR(kernel=params['kernel'], C=params['C'], gamma=params['gamma'])
+
+    elif regm == 'rf':
+        regr = RFR(bootstrap=params['bootstrap'], max_depth=params['max_depth'], max_features =params['max_features'],
+                   min_samples_leaf=params['min_samples_leaf'],min_samples_split=params['min_samples_split'],n_estimators=params['n_estimators'])
     regr.fit(x_train, y_train)
 
     return regr
@@ -73,15 +46,11 @@ def test_regressor(model, x_test, y_test):
     :param: normalizer
         data normalizer
 
-    :param: fs
-        feature selection
-
     :param: x_test
         test data
 
     :param: y_test
         test target
-
 
     """
     y_pred = model.predict(x_test)
@@ -206,4 +175,21 @@ def pear_corr(y_true, y_pred):
             correlation value
     """
     r, _ = stats.pearsonr(y_true,y_pred)
+    return r
+
+def kendall_corr(y_true, y_pred):
+    """Calculate pearson correlation
+
+    Parameters
+    ----------
+    y_true
+    y_pred
+
+    Returns
+    -------
+        r : float
+            correlation value
+    """
+    r, _ = stats.kendalltau(y_true,y_pred)
+
     return r
