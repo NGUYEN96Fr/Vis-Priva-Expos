@@ -161,6 +161,7 @@ def train_test_split_situ(regress_feature_situs, gt_user_expo_situs, train_ratio
 
     return train_test_situs
 
+
 def pear_corr(y_true, y_pred):
     """Calculate pearson correlation
 

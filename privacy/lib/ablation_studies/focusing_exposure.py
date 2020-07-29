@@ -83,10 +83,10 @@ def gamma_plot(gamma_path, gamma_file):
             train_mse_errors.append(results['train_mse'])
             test_mse_errors.append(results['test_mse'])
 
-            ax[0][0].bar(x + (2 * k - 1) / 2 * width, train_corr_erros, width, label='TODO')
-            ax[0][1].bar(x + (2 * k - 1) / 2 * width, train_mse_errors, width, label='TODO')
-            ax[1][0].bar(x + (2 * k - 1) / 2 * width, test_corr_erros, width, label='TODO')
-            ax[1][1].bar(x + (2 * k - 1) / 2 * width, test_mse_errors, width, label='TODO')
+            ax[0][0].bar(x + (2 * k - 1) / 2 * width, train_corr_erros, width, label=r'$\gamma$'+'='+str(gamma))
+            ax[0][1].bar(x + (2 * k - 1) / 2 * width, train_mse_errors, width, label=r'$\gamma$'+'='+str(gamma))
+            ax[1][0].bar(x + (2 * k - 1) / 2 * width, test_corr_erros, width, label=r'$\gamma$'+'='+str(gamma))
+            ax[1][1].bar(x + (2 * k - 1) / 2 * width, test_mse_errors, width, label=r'$\gamma$'+'='+str(gamma))
 
     ax[0][0].set_ylabel('correlation')
     ax[1][0].set_ylabel('correlation')
@@ -113,4 +113,6 @@ def gamma_plot(gamma_path, gamma_file):
     ax[1][1].legend()
 
     fig.tight_layout()
+
     plt.show()
+    plt.savefig(gamma_file.split('.')[0]+'.png')
