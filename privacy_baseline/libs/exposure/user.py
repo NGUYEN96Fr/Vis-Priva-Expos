@@ -1,6 +1,6 @@
 from photo import photo_exposure
 
-def user_expo(photos, detectors, infer_mode, t_max_O, t_max_D):
+def user_expo(photos, detectors, infer_mode):
     """Estimate user exposure
 
     :param photos: dict
@@ -13,12 +13,6 @@ def user_expo(photos, detectors, infer_mode, t_max_O, t_max_D):
 
     :param infer_mode: boolean
         if in the inference mode, if not in searching an optimal subset of classes
-
-    :param t_max_O: dict
-        object and its best correlation score (individually taking)
-
-    :param t_max_D: float
-        the best correlation score of an optimal subset of objects in a given situation
 
     :return:
         user_score: float
@@ -39,7 +33,8 @@ def user_expo(photos, detectors, infer_mode, t_max_O, t_max_D):
 
     return user_score
 
-def user_expo_situ(users, detectors,  infer_mode = False, t_max_O = {}, t_max_D = 0):
+
+def user_expo_situ(users, detectors,  infer_mode = False):
     """
 
     :param users:
@@ -47,17 +42,11 @@ def user_expo_situ(users, detectors,  infer_mode = False, t_max_O = {}, t_max_D 
             {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}
 
     :param detectors: dict
-         {detector: (threshold, object_score)} for not inference_mode
+        {detector1: (threshold, object_score), ...} for not inference_mode
         {detector1: object_score, ...} for inference_mode
 
     :param infer_mode: boolean
         if in the inference mode, if not in searching an optimal subset of classes
-
-    :param t_max_O: dict
-        object and its best correlation score (individually taking)
-
-    :param t_max_D: float
-        the best correlation score of an optimal subset of objects in a given situation
 
     :return:
         community_expo: dict
