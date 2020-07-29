@@ -32,9 +32,9 @@ def regress_fine_tuning(data, tuned_parameters, scores, regm):
     x_train, y_train, x_test, y_test = data['x_train'], data['y_train'], data['x_test'], data['y_test']
 
     if regm == 'svm':
-        regr = GridSearchCV(SVR(), tuned_parameters, cv=10, scoring=scores, refit=list(scores.keys())[0], n_jobs=-1)
+        regr = GridSearchCV(SVR(), tuned_parameters, cv=10, scoring=scores, refit=list(scores.keys())[0], n_jobs=2)
     elif regm == 'rf':
-        regr = GridSearchCV(RFR(), tuned_parameters, cv=10, scoring=scores, refit=list(scores.keys())[0], n_jobs=-1)
+        regr = GridSearchCV(RFR(), tuned_parameters, cv=10, scoring=scores, refit=list(scores.keys())[0], n_jobs=2)
 
     regr.fit(x_train, y_train)
     print('Best parameters:')

@@ -91,9 +91,6 @@ def clustering_photo_feature(situ_name , users, gamma, K=10, plot = False):
 
     if plot:
         plt.title(situ_name)
-        # plt.ylabel('f_expo_neg')
-        # plt.xlabel('f_expo_pos')
-        # plt.zlabel('f_dens')
 
         ax.set_xlabel('f_expo_pos')
         ax.set_ylabel('f_expo_neg')

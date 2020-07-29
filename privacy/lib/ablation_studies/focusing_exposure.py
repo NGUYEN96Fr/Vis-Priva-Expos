@@ -3,48 +3,60 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 from ablation_studies.param_search import parameter_search
+from loader.data_loader import load_train_test, load_gt_user_expo, load_situs
 
-def gamma_study(gamma_list, conf, root, gamma_file):
+def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all):
     """Study impact of the gamma parameter
 
     :param conf: current configuration
     :param gamma_list: list of gamma values
     :param root: current working directory
-    :param gamma_file: gamma saved file
+    :param gamma_file: gamma saved file name
+    :param normalize: if normalize regression features
+    :param regm: regression method
+    :param score_type: score type (kendall or pearson)
+    :param train_all: if use all training data
+    :param debug: turn on debug mode
 
     :return:
 
     """
     ##get params
-    inference_file = conf['inference_file']
-    siutation_file = conf['situation_file']
-    user_profile_path = conf['user_profile_path']
+    train_test_path = conf['train_test_path']
+    gt_expo_path = conf['gt_expo_path']
+    siutation_file = conf['situation_path']
     outdir = conf['outdir']
     f_top = float(conf['f_top'])
     K = float(conf['K'])
     N = int(conf['N'])
-    train_ratio = float(conf['train_ratio'])
-    normalize = False
-    regm = 'svm' #regression method
-    debug = False
 
-    gamma_search = {}
-    for gamma in gamma_list:
-        gamma_search[gamma] = parameter_search(root, user_profile_path, inference_file, siutation_file, f_top, gamma, K, N, train_ratio, regm,
-                     normalize, debug)
+    ##Load crowdsourcing user privacy exposure scores in each situation
+    gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
+    ##Load train and test data
+    minibatches, test_data = load_train_test(root, train_test_path)
+    ##Read object exposures in each situation
+    object_expo_situs = load_situs(root, siutation_file)
 
-    abalation_dir = os.path.join(outdir,'abalation')
-    if not os.path.exists(abalation_dir):
-        os.makedirs(abalation_dir)
+    if train_all:
+        gamma_search = {}
+        train_data = minibatches['100']
 
-    save_dir = os.path.join(abalation_dir,'gamma')
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
+        for gamma in gamma_list:
+            gamma_search[gamma] = parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
+                         normalize, score_type, debug)
 
-    ## save file
-    print('Saving files ...')
-    with open(os.path.join(save_dir, gamma_file), 'w') as fp:
-        json.dump(gamma_search, fp)
+        abalation_dir = os.path.join(root, outdir, 'abalation')
+        if not os.path.exists(abalation_dir):
+            os.makedirs(abalation_dir)
+
+        save_dir = os.path.join(root, abalation_dir, 'gamma')
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+
+        ## save file
+        print('Saving files ...')
+        with open(os.path.join(save_dir, gamma_file), 'w') as fp:
+            json.dump(gamma_search, fp)
 
 
 def gamma_plot(gamma_path, gamma_file):

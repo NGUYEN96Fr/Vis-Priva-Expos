@@ -1,0 +1,82 @@
+import os
+import json
+
+def load_train_test(root, path):
+    """Load pre-processed data
+
+    :param root: string
+        current working absolute path
+    :param path: string
+        relative path to saved train vs test data
+
+    :return:
+           train_data: dict
+                training mini-batches
+                    {ratio: {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}, ...}
+
+            test_data: dict
+                test data
+                    {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}
+
+    """
+    train_test_info = json.load(open(os.path.join(root, path)))
+    test_data = train_test_info['test']
+    train_data = train_test_info['train']
+
+    return train_data, test_data
+
+
+def load_gt_user_expo(root, path):
+    """Load crowd-sourcing user exposure
+
+    :param root:
+    :param path:
+
+    :return:
+        gt_usr_expo : dict
+            ground-truth user exposure by situation
+                 {situ1: {user1: avg_score, ...}, ...}
+    """
+    gt_usr_expo = json.load(open(os.path.join(root, path)))
+
+    return gt_usr_expo
+
+
+def load_situs(root, path, denormalization = True):
+    """Load object situation under a dictionary form
+
+    :param root: string
+    :param path: string
+        path to situations
+    :param denormalization: boolean
+
+    :return:
+        class_situs : dict
+            situation and its crowd-sourcing class exposure scores
+                {situ1: {class1: score, ...}, ...}
+    """
+    class_situs = {}
+    situs = os.listdir(os.path.join(root, path))
+
+
+    for situ in situs:
+
+        class_situs[situ] = {}
+        with open(os.path.join(root, path, situ)) as fp:
+
+            lines = fp.readlines()
+            for line in lines:
+                parts = line.split(' ')
+                class_ = parts[0]
+                if denormalization:
+                    score = float(parts[1])*3
+                else:
+                    score = float(parts[1])
+
+                class_situs[situ][class_] = score
+
+    for situ, classes in class_situs.items():
+        class_list = list(classes.keys())
+        class_situs[situ]['classes'] = class_list
+
+    return class_situs

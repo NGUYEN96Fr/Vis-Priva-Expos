@@ -83,10 +83,14 @@ def normalizer(x_train, x_test):
 
     return x_train_normalized, x_test_normalized
 
-def train_test_split(regression_features, gt_expo_scores, train_ratio):
-    """Split data into train and test set for a given situation
+def train_test_combine(train_regression_features,test_regression_features, gt_expo_scores):
+    """Combine train and test sets into a dict for a given situation
 
-    :param: regression_features : dict
+    :param: train_regression_features : dict
+        indiviual user and its feature
+            {user1: [feature1,...], ...}
+
+    :param: test_regression_features : dict
         indiviual user and its feature
             {user1: [feature1,...], ...}
 
@@ -105,43 +109,44 @@ def train_test_split(regression_features, gt_expo_scores, train_ratio):
                 Y_train, Y_test : numpy array
                     (N, )
     """
-    random.seed(0)
 
-    nb_users = len(list(gt_expo_scores.keys()))
-    nb_user_not_consistent = 0
-    X = []
-    Y = []
-    for user, score in gt_expo_scores.items():
-        if user in regression_features:
-            Y.append(score)
-            X.append(regression_features[user])
-        else:
-            nb_user_not_consistent += 1
+    x_train = []
+    y_train = []
+    x_test = []
+    y_test = []
 
-    X = np.asarray(X)
-    Y = np.asarray(Y)
+    for user, features in train_regression_features.items():
+        x_train.append(x_train)
+        y_train.append(gt_expo_scores[user])
 
-    indexes = np.linspace(0, nb_users - nb_user_not_consistent - 1, nb_users - nb_user_not_consistent, dtype=np.int32)
-    random.shuffle(indexes)
+    for user, features in test_regression_features.items():
+        x_test.append(features)
+        y_test.append(gt_expo_scores[user])
 
-    train_index = indexes[:int(nb_users * train_ratio)]
-    test_index = indexes[int(nb_users * train_ratio):]
+    x_train = np.asarray(x_train)
+    x_test = np.asarray(x_test)
+    y_train = np.asarray(y_train)
+    y_test = np.asarray(y_test)
 
-    situ_data = {'x_train': X[train_index, :], 'y_train': Y[train_index],
-                 'x_test': X[test_index, :], 'y_test': Y[test_index]}
+    situ_data = {'x_train': x_train, 'y_train': y_train,
+                 'x_test': x_test, 'y_test': y_test}
 
-    print('     nb of users: ', nb_users - nb_user_not_consistent)
-    print('     train profiles:', train_index.shape[0])
+    print('Number of training data: ', x_train.shape[0])
+    print('Number of test data: ', x_test.shape[0])
 
     return situ_data
 
 
-def train_test_split_situ(regress_feature_situs, gt_user_expo_situs, train_ratio=0.8):
-    """Train test split by situation
+def train_test_situs(train_regession_feature_situations, test_regession_feature_situations, gt_user_expo_situs):
+    """Train test data by situation
 
-    :param: regress_feature_situs: dict
-        user regression features in each situation
-        {situ1: {user1: [feature1,...], ...}, ...}
+    :param: train_regession_feature_situations: dict
+        training regression features in each situation
+            {situ1: {user1: [feature1,...], ...}, ...}
+
+    :param: test_regession_feature_situations: dict
+        testing regression features in each situation
+            {situ1: {user1: [feature1,...], ...}, ...}
 
     :param: gt_user_expo_situs: dict
         users and its ground truth crowd-sourcing user exposure scores in each situation
@@ -149,17 +154,19 @@ def train_test_split_situ(regress_feature_situs, gt_user_expo_situs, train_ratio
 
     Returns
     -------
-        train_test_situs: dict
+        train_test: dict
             train and test data in each situation
                 {situ1: {'x_train': ,'y_train': ,'x_test': ,'y_test': }, ...}
     """
-    train_test_situs = {}
+    train_test= {}
 
     for situ, gt_expo_user_scores in gt_user_expo_situs.items():
         print('  ', situ)
-        train_test_situs[situ] = train_test_split(regress_feature_situs[situ], gt_expo_user_scores, train_ratio)
+        train_test[situ] = train_test_combine(train_regession_feature_situations[situ],
+                                            test_regession_feature_situations[situ],
+                                            gt_expo_user_scores)
 
-    return train_test_situs
+    return train_test
 
 
 def pear_corr(y_true, y_pred):
@@ -177,6 +184,7 @@ def pear_corr(y_true, y_pred):
     """
     r, _ = stats.pearsonr(y_true,y_pred)
     return r
+
 
 def kendall_corr(y_true, y_pred):
     """Calculate pearson correlation

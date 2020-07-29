@@ -30,7 +30,7 @@ def _photos_user(user_photos, f_top, detectors):
     return photos_expo_per_user
 
 
-def _photos_users(users, f_top, detectors):
+def usr_photo_expo(users, f_top, detectors):
     """Estimate photo exposure for all users in a given situation
 
     Parameters
@@ -51,12 +51,12 @@ def _photos_users(users, f_top, detectors):
             {user1: {photo1: (expo +, expo-, sum_objectness), ...}, ...}
 
     """
-    photo_user_expos = {}
+    expo = {}
 
     for user, photos in users.items():
-        photo_user_expos[user] = _photos_user(photos, f_top, detectors)
+        expo[user] = _photos_user(photos, f_top, detectors)
 
-    return photo_user_expos
+    return expo
 
 
 

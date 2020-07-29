@@ -55,8 +55,8 @@ def train_test_split(usr_photos, train_ratio, ratios):
     Results
     -------
         train_test_info: dict
-            {train: {ratio: {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}, ...}
-            test: {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}
+            {train: {ratio: {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}, ...},
+            test: {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...},
             users: [user1, user2, ...]}
             
     """
