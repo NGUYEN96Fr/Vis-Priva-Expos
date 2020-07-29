@@ -25,8 +25,8 @@ def gamma_study(gamma_list, conf, root, gamma_file):
     N = int(conf['N'])
     train_ratio = float(conf['train_ratio'])
     normalize = False
-    regm = 'rf' #regression method
-    debug = True
+    regm = 'svm' #regression method
+    debug = False
 
     gamma_search = {}
     for gamma in gamma_list:

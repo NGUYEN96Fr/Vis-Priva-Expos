@@ -17,7 +17,7 @@ def ablation_study():
     conf = conf[os.path.basename(__file__)]
     only_plot = False
     gamma_path = 'out/abalation/gamma' ## abalation path
-    gamma_file = 'gamma_rf.json'
+    gamma_file = 'gamma_svm.json'
 
     if not only_plot:
         print('##########################################')
@@ -25,7 +25,7 @@ def ablation_study():
         print('###########################################')
         gamma_list = [0, 3, 5, 7]
         gamma_study(gamma_list, conf, root, gamma_file)
-        gamma_plot(os.path.join(gamma_path), gamma_file)
+        #gamma_plot(os.path.join(gamma_path), gamma_file)
 
     else:
         gamma_plot(os.path.join(gamma_path), gamma_file)

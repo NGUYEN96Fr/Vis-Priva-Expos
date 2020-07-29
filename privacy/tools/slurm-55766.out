@@ -28,3 +28,4 @@ Done!
 ********************************************
   job_search_IT
 Searching best parameters by regressor ...
+slurmstepd: error: *** JOB 55766 ON node01 CANCELLED AT 2020-07-28T17:24:22 ***
