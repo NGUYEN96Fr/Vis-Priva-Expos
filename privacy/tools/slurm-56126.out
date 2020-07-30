@@ -1,0 +1,294 @@
+##########################################
+######## Focusing Exposure Search ########
+###########################################
++++++++++++++++++++++++++++++
++++++ gamma =  0 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  80
+Number of test data:  19
+   bank_credit
+Number of training data:  80
+Number of test data:  19
+   job_search_waiter_waitress
+Number of training data:  80
+Number of test data:  19
+   accommodation_search
+Number of training data:  80
+Number of test data:  19
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'auto', 'min_samples_leaf': 4, 'min_samples_split': 2, 'n_estimators': 130}
+Evaluation on train sets: 
+Kendall score:  0.7178647885785525
+mse:  0.08305252004425427
+Evaluation on test sets: 
+Kendall score:  0.22973414586817034
+mse:  0.19449373222769248
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 3, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.774796338438294
+mse:  0.1163299921630451
+Evaluation on test sets: 
+Kendall score:  0.29202137309639387
+mse:  0.2207751097674747
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 3, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.6349016665843893
+mse:  0.10784138986252315
+Evaluation on test sets: 
+Kendall score:  0.01842711517991869
+mse:  0.2061736630361065
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'auto', 'min_samples_leaf': 4, 'min_samples_split': 2, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.7137003782810568
+mse:  0.11716044289175201
+Evaluation on test sets: 
+Kendall score:  0.39420010832527164
+mse:  0.2065995266856866
+Done!
++++++++++++++++++++++++++++++
++++++ gamma =  3 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  80
+Number of test data:  19
+   bank_credit
+Number of training data:  80
+Number of test data:  19
+   job_search_waiter_waitress
+Number of training data:  80
+Number of test data:  19
+   accommodation_search
+Number of training data:  80
+Number of test data:  19
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'auto', 'min_samples_leaf': 4, 'min_samples_split': 5, 'n_estimators': 130}
+Evaluation on train sets: 
+Kendall score:  0.7271062663165752
+mse:  0.08092841036295881
+Evaluation on test sets: 
+Kendall score:  0.35064685421983893
+mse:  0.1766368203582914
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'auto', 'min_samples_leaf': 4, 'min_samples_split': 3, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.691548339299831
+mse:  0.1276053656310947
+Evaluation on test sets: 
+Kendall score:  0.2190160298222954
+mse:  0.2273652912249132
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'auto', 'min_samples_leaf': 4, 'min_samples_split': 2, 'n_estimators': 130}
+Evaluation on train sets: 
+Kendall score:  0.7275880412682417
+mse:  0.08341878837434644
+Evaluation on test sets: 
+Kendall score:  -0.1658440366192682
+mse:  0.2493624966264352
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 4, 'max_features': 'auto', 'min_samples_leaf': 4, 'min_samples_split': 5, 'n_estimators': 130}
+Evaluation on train sets: 
+Kendall score:  0.677605186735808
+mse:  0.13959112568507676
+Evaluation on test sets: 
+Kendall score:  0.4912339811438
+mse:  0.1855701193947544
+Done!
++++++++++++++++++++++++++++++
++++++ gamma =  5 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  80
+Number of test data:  19
+   bank_credit
+Number of training data:  80
+Number of test data:  19
+   job_search_waiter_waitress
+Number of training data:  80
+Number of test data:  19
+   accommodation_search
+Number of training data:  80
+Number of test data:  19
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 2, 'n_estimators': 130}
+Evaluation on train sets: 
+Kendall score:  0.764072177268666
+mse:  0.07333128893656989
+Evaluation on test sets: 
+Kendall score:  0.19346033336266977
+mse:  0.2069241722770335
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 3, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 3, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.6043673638241177
+mse:  0.16249837899728722
+Evaluation on test sets: 
+Kendall score:  0.24335114424699486
+mse:  0.23397805225022034
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 3, 'max_features': 'auto', 'min_samples_leaf': 1, 'min_samples_split': 3, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.603785526511953
+mse:  0.10323564064911137
+Evaluation on test sets: 
+Kendall score:  0.30097621460533863
+mse:  0.1643190396670863
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 3, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.5831014125082474
+mse:  0.1693510705360705
+Evaluation on test sets: 
+Kendall score:  0.3578124060183235
+mse:  0.23665992832787322
+Done!
++++++++++++++++++++++++++++++
++++++ gamma =  7 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  80
+Number of test data:  19
+   bank_credit
+Number of training data:  80
+Number of test data:  19
+   job_search_waiter_waitress
+Number of training data:  80
+Number of test data:  19
+   accommodation_search
+Number of training data:  80
+Number of test data:  19
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 4, 'max_features': 'auto', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.698721727549791
+mse:  0.05965291324945495
+Evaluation on test sets: 
+Kendall score:  -0.13300397918683546
+mse:  0.28317971835665057
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'sqrt', 'min_samples_leaf': 4, 'min_samples_split': 5, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.663362008882871
+mse:  0.15968449296018522
+Evaluation on test sets: 
+Kendall score:  0.42586450243224105
+mse:  0.2253830459794054
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 5, 'max_features': 'auto', 'min_samples_leaf': 4, 'min_samples_split': 2, 'n_estimators': 130}
+Evaluation on train sets: 
+Kendall score:  0.6865412181939643
+mse:  0.0889909172811343
+Evaluation on test sets: 
+Kendall score:  0.19041352352582644
+mse:  0.1647852854642028
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'bootstrap': True, 'max_depth': 3, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 100}
+Evaluation on train sets: 
+Kendall score:  0.6106650133246192
+mse:  0.15982083221088905
+Evaluation on test sets: 
+Kendall score:  0.23652006499516298
+mse:  0.23458066215287135
+Done!
+Saving files ...
+**** Plotting gamma ....
+Done!

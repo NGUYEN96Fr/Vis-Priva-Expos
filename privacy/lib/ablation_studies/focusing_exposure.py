@@ -2,10 +2,11 @@ import os
 import json
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
 from ablation_studies.param_search import parameter_search
 from loader.data_loader import load_train_test, load_gt_user_expo, load_situs
 
-def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all):
+def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all, feature_transform):
     """Study impact of the gamma parameter
 
     :param conf: current configuration
@@ -17,6 +18,7 @@ def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type,
     :param score_type: score type (kendall or pearson)
     :param train_all: if use all training data
     :param debug: turn on debug mode
+    :param feature_transform: apply feature transform on photo features
 
     :return:
 
@@ -39,13 +41,20 @@ def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type,
 
     if train_all:
         gamma_search = {}
-        train_data = minibatches['100']
+
+        if debug:
+            train_data = minibatches['30']
+        else:
+            train_data = minibatches['100']
 
         for gamma in gamma_list:
+            print("+++++++++++++++++++++++++++++")
+            print("+++++ gamma = ", gamma,"+++++")
+            print("+++++++++++++++++++++++++++++")
             gamma_search[gamma] = parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
-                         normalize, score_type, debug)
+                         normalize, score_type, debug, feature_transform)
 
-        abalation_dir = os.path.join(root, outdir, 'abalation')
+        abalation_dir = os.path.join(root, 'privacy', outdir, 'abalation')
         if not os.path.exists(abalation_dir):
             os.makedirs(abalation_dir)
 
@@ -67,15 +76,13 @@ def gamma_plot(gamma_path, gamma_file):
         {...} = {situ1: {'reg_method': ,'corr_type': ,'best_params': ,'train_corr': ,'test_corr': ,'train_mse': ,'test_mse': }, ...}
 
     """
+    accronym_situs = {'job_search_IT': 'IT', 'bank_credit': 'BANK', 'job_search_waiter_waitress': 'WAIT', 'accommodation_search': 'ACCOM'}
     gamma_search = json.load(open(os.path.join(gamma_path, gamma_file)))
-    print('************************')
-    print('**** Plot gamma ********')
-    print('************************')
+    print('**** Plotting gamma ....')
 
-    fig, ax = plt.subplots(2, 2)
-    width = 0.3
-    nb_gammas = len(list(gamma_search.keys()))
-    x = np.arrange(4) #4 situation
+    fig, ax = plt.subplots(2, 2, figsize=(6,6))
+    width = 0.15
+    x = np.arange(4) #4 situation
     k = -1 # index to plot
 
 
@@ -87,18 +94,17 @@ def gamma_plot(gamma_path, gamma_file):
         situ_labels = []
         k += 1
         for situ, results in situs.items():
-            if situ not in situ_labels:
-                situ_labels.append(situ)
 
+            situ_labels.append(accronym_situs[situ])
             train_corr_erros.append(results['train_corr'])
             test_corr_erros.append(results['test_corr'])
             train_mse_errors.append(results['train_mse'])
             test_mse_errors.append(results['test_mse'])
 
-            ax[0][0].bar(x + (2 * k - 1) / 2 * width, train_corr_erros, width, label=r'$\gamma$'+'='+str(gamma))
-            ax[0][1].bar(x + (2 * k - 1) / 2 * width, train_mse_errors, width, label=r'$\gamma$'+'='+str(gamma))
-            ax[1][0].bar(x + (2 * k - 1) / 2 * width, test_corr_erros, width, label=r'$\gamma$'+'='+str(gamma))
-            ax[1][1].bar(x + (2 * k - 1) / 2 * width, test_mse_errors, width, label=r'$\gamma$'+'='+str(gamma))
+        ax[0][0].bar(x + (2 * k - 1) / 2 * width, train_corr_erros, width, label=r'$\gamma$'+'='+str(gamma))
+        ax[0][1].bar(x + (2 * k - 1) / 2 * width, train_mse_errors, width, label=r'$\gamma$'+'='+str(gamma))
+        ax[1][0].bar(x + (2 * k - 1) / 2 * width, test_corr_erros, width, label=r'$\gamma$'+'='+str(gamma))
+        ax[1][1].bar(x + (2 * k - 1) / 2 * width, test_mse_errors, width, label=r'$\gamma$'+'='+str(gamma))
 
     ax[0][0].set_ylabel('correlation')
     ax[1][0].set_ylabel('correlation')
@@ -119,12 +125,14 @@ def gamma_plot(gamma_path, gamma_file):
     ax[0][1].set_title('Train MSE')
     ax[1][1].set_title('Test MSE')
 
-    ax[0][0].legend()
-    ax[1][0].legend()
-    ax[0][1].legend()
-    ax[1][1].legend()
+    ax[0][0].legend(prop={'size': 6})
+    ax[1][0].legend(prop={'size': 6})
+    ax[0][1].legend(prop={'size': 6})
+    ax[1][1].legend(prop={'size': 6})
 
     fig.tight_layout()
 
     plt.show()
     plt.savefig(gamma_file.split('.')[0]+'.png')
+
+    print("Done!")

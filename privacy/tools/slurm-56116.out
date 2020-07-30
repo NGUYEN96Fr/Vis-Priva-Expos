@@ -1,0 +1,34 @@
+##########################################
+######## Focusing Exposure Search ########
+###########################################
++++++++++++++++++++++++++++++
++++++ gamma =  0 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  80
+Number of test data:  19
+   bank_credit
+Number of training data:  80
+Number of test data:  19
+   job_search_waiter_waitress
+Number of training data:  80
+Number of test data:  19
+   accommodation_search
+Number of training data:  80
+Number of test data:  19
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+slurmstepd: error: *** JOB 56116 ON node05 CANCELLED AT 2020-07-30T15:36:26 ***

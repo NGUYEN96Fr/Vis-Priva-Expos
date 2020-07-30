@@ -15,12 +15,13 @@ def ablation_study():
     conf.read(sys.argv[1])
     conf = conf[os.path.basename(__file__)]
 
-    gamma_path = 'out/abalation/gamma' ## abalation path
-    gamma_file = 'gamma_rf_pear.json'
+    gamma_path = 'privacy/out/abalation/gamma' ## abalation path
     normalize = False
-    regm = 'svm' #regression method
-    score_type = 'pear_corr' # or kendall_corr
-    debug = True
+    regm = 'rf' #regression method
+    score_type = 'kendall_corr' # or kendall_corr or pear_corr
+    gamma_file = 'gamma_rf_kendall.json'
+    feature_transform = 'origin'
+    debug = False
     train_all = True
     only_plot = False
 
@@ -29,11 +30,11 @@ def ablation_study():
         print('######## Focusing Exposure Search ########')
         print('###########################################')
         gamma_list = [0, 3, 5, 7]
-        gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all)
-        #gamma_plot(os.path.join(gamma_path), gamma_file)
+        gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all, feature_transform)
+        gamma_plot(os.path.join(root,gamma_path), gamma_file)
 
     else:
-        gamma_plot(os.path.join(gamma_path), gamma_file)
+        gamma_plot(os.path.join(root, gamma_path), gamma_file)
 
 if __name__ == '__main__':
     ablation_study()

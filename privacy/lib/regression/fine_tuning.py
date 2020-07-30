@@ -2,7 +2,7 @@ from sklearn.ensemble import RandomForestRegressor as RFR
 from sklearn.svm import SVR
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
-from regression.regression import pear_corr
+from regression.regression import pear_corr, kendall_corr
 
 def regress_fine_tuning(data, tuned_parameters, scores, regm):
     """Estimate best parameters for regression
@@ -43,16 +43,24 @@ def regress_fine_tuning(data, tuned_parameters, scores, regm):
 
     print("Evaluation on train sets: ")
     y_true_train, y_pred_train = y_train,  regr.predict(x_train)
-    print('Pearson score: ', pear_corr(y_true_train, y_pred_train))
-    best_result['train_corr'] = pear_corr(y_true_train, y_pred_train)
+    if best_result['corr_type'] == 'pear_corr':
+        print('Pearson score: ', pear_corr(y_true_train, y_pred_train))
+        best_result['train_corr'] = pear_corr(y_true_train, y_pred_train)
+    elif best_result['corr_type'] == 'kendall_corr':
+        print('Kendall score: ', kendall_corr(y_true_train, y_pred_train))
+        best_result['train_corr'] = kendall_corr(y_true_train, y_pred_train)
     print('mse: ',  mean_squared_error(y_true_train, y_pred_train))
     best_result['train_mse'] = mean_squared_error(y_true_train, y_pred_train)
 
     print("Evaluation on test sets: ")
     y_true_test, y_pred_test = y_test, regr.predict(x_test)
-    print('pearson score: ', pear_corr(y_true_test, y_pred_test))
-    best_result['test_corr'] = pear_corr(y_true_test, y_pred_test)
-    print('mse: ',mean_squared_error(y_true_test, y_pred_test))
+    if best_result['corr_type'] == 'pear_corr':
+        print('pearson score: ', pear_corr(y_true_test, y_pred_test))
+        best_result['test_corr'] = pear_corr(y_true_test, y_pred_test)
+    elif best_result['corr_type'] == 'kendall_corr':
+        print('Kendall score: ', kendall_corr(y_true_test, y_pred_test))
+        best_result['test_corr'] = kendall_corr(y_true_test, y_pred_test)
+    print('mse: ', mean_squared_error(y_true_test, y_pred_test))
     best_result['test_mse'] = mean_squared_error(y_true_test, y_pred_test)
 
     return best_result
