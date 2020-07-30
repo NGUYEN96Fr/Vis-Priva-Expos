@@ -1,33 +1,39 @@
 from sklearn.cluster import KMeans
 import numpy as np
 from numpy import linalg as LA
+from clustering.feature_transform import transform
 
-def aggregate_features(user):
-    """Aggregating features
+def aggregate_features(user, feature_transform='origin'):
+    """Transforming and Aggregating features
 
     :param: user : dict
         photos and it features
-            {photo1: (scaled_f_expo +, scaled_f_expo -, f_dens), ...}
+            {photo1: (f_expo +, f_expo -, f_dens), ...}
+
+    :param: feature_transform: string
+        feature transform method:
+            + abs
 
     Returns
     -------
         aggregated_features : list
-            [ [scaled_f_expo +, scaled_f_expo -, f_dens], ...]
+            [ [transformed feature1, transformed feature2, ...], ...]
 
     """
-    aggregated_features = []
+    aggregated_transformed_features = []
     for photo, features in user.items():
-        aggregated_features.append(features)
+        transformed_features = transform(features[0], features[1], features[2], feature_transform)
+        aggregated_transformed_features.append(transformed_features)
 
-    return aggregated_features
+    return aggregated_transformed_features
 
 
-def photo_expo_clustering(user_photo_features, N):
+def photo_expo_clustering(user_photo_features, N, feature_transform):
     """Clustering exposure of user's photos
 
     :param: user_photo_features
         clustering features extracted from user photos
-            {photo1: (scaled_f_expo +, scaled_f_expo -, f_dens), ...}
+            {photo1: (f_expo +, f_expo -, f_dens), ...}
 
     :param: N : int
         number of cluster
@@ -37,7 +43,7 @@ def photo_expo_clustering(user_photo_features, N):
             N clusters with its centroid, variance and its
                 [{'centroid': , 'components': ,'variance':  },...]
     """
-    aggregated_features = np.asarray(aggregate_features(user_photo_features))
+    aggregated_features = np.asarray(aggregate_features(user_photo_features, feature_transform))
     kmeans = KMeans(n_clusters=N, random_state=0).fit(aggregated_features)
 
     labels = kmeans.labels_
@@ -52,7 +58,7 @@ def photo_expo_clustering(user_photo_features, N):
     return Groups
 
 
-def photo_user_expo_clustering(clustering_feature_users, N = 4):
+def photo_user_expo_clustering(clustering_feature_users, N, feature_transform):
     """
 
     Parameters
@@ -64,6 +70,9 @@ def photo_user_expo_clustering(clustering_feature_users, N = 4):
     N : int
         number of clusters
 
+    feature_transform: string
+        apply feature transform on photo features
+
     Returns
     -------
         user_photo_grouping : dict
@@ -73,6 +82,6 @@ def photo_user_expo_clustering(clustering_feature_users, N = 4):
     """
     user_photo_grouping = {}
     for user, clustering_feature in clustering_feature_users.items():
-        user_photo_grouping[user] = photo_expo_clustering(clustering_feature, N)
+        user_photo_grouping[user] = photo_expo_clustering(clustering_feature, N, feature_transform)
 
     return user_photo_grouping

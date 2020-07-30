@@ -116,7 +116,7 @@ def train_test_combine(train_regression_features,test_regression_features, gt_ex
     y_test = []
 
     for user, features in train_regression_features.items():
-        x_train.append(x_train)
+        x_train.append(features)
         y_train.append(gt_expo_scores[user])
 
     for user, features in test_regression_features.items():

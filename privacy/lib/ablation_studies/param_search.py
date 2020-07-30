@@ -8,7 +8,7 @@ from regression.features import regression_features
 from regression.regression import train_test_situs, train_regressor, test_regressor, pear_corr, kendall_corr, normalizer
 from regression.fine_tuning import regress_fine_tuning
 
-def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm, normalize, score_type, debug = True):
+def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm, normalize, score_type, debug, feature_transform):
     """Searching best regression result for a current configuration
 
     :param root: string
@@ -31,6 +31,8 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
     :param: normalize: string
         if apply data normalization
     :param: debug mode
+    :param: feature_transform: string
+        apply feature transform function on photo features
 
     :return:
         best_result_situs : dict
@@ -68,10 +70,10 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
     train_user_cluster_situations = {}
     test_user_cluster_situations ={}
     for situ_name, clustering_feature_users in train_clustering_feature_situs.items():
-        train_user_cluster_situations[situ_name] = photo_user_expo_clustering(clustering_feature_users, N)
+        train_user_cluster_situations[situ_name] = photo_user_expo_clustering(clustering_feature_users, N, feature_transform)
 
     for situ_name, clustering_feature_users in test_clustering_feature_situs.items():
-        test_user_cluster_situations[situ_name] = photo_user_expo_clustering(clustering_feature_users, N)
+        test_user_cluster_situations[situ_name] = photo_user_expo_clustering(clustering_feature_users, N, feature_transform)
 
     print('Done!')
 
@@ -100,8 +102,6 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
 
         print('********************************************')
         print(' ', situ)
-        print('BREAK HER !!')
-        assert  1 == 2
         print('Searching best parameters by regressor ...')
         if not debug:
 
@@ -111,12 +111,12 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
                                       'C': [1, 5, 7, 10]}
 
             elif regm == 'rf':  # random forest
-                tunning_parameters = {'bootstrap': [True, False],
-                                      'max_depth': [3, 5, 7],
+                tunning_parameters = {'bootstrap': [True],
+                                      'max_depth': [3, 4, 5],
                                       'max_features': ['auto', 'sqrt'],
                                       'min_samples_leaf': [1, 2, 4],
                                       'min_samples_split': [2, 3, 5],
-                                      'n_estimators': [100, 130, 160]}
+                                      'n_estimators': [100, 130]}
         else:
             tunning_parameters = {'kernel': ['rbf', 'linear'],
                                   'gamma': [1e-3, 1e-4],
