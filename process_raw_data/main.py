@@ -13,7 +13,7 @@ def main():
     crowdsourcing_user_paths = 'raw_data/crowdsourcing_exposure_user_scores/'
 
     train_ratio = 0.8
-    ratios = [30,50,70,100]
+    ratios = [5,30,50,70,100]
 
     user_photos = retrieve_detected_objects(inference_file)
     train_test_info = train_test_split(user_photos, train_ratio, ratios)

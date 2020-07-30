@@ -1,4 +1,4 @@
-from photo import photo_exposure
+from exposure.photo import photo_exposure
 
 def user_expo(photos, detectors, infer_mode):
     """Estimate user exposure
@@ -8,7 +8,7 @@ def user_expo(photos, detectors, infer_mode):
             {photo1: {class1: [obj1, ...], ...}}, ...}
 
     :param detectors: dict
-         {detector: (threshold, object_score)} for not inference_mode
+         {detector: (threshold, object_score),...} for not inference_mode
         {detector1: object_score, ...} for inference_mode
 
     :param infer_mode: boolean
@@ -22,7 +22,7 @@ def user_expo(photos, detectors, infer_mode):
     carinality = 0
     for photo, detected_objects in photos.items():
 
-        photo_score, active_state = photo_exposure(detected_objects, detectors, infer_mode, t_max_O, t_max_D)
+        photo_score, active_state = photo_exposure(detected_objects, detectors, infer_mode)
         user_score += photo_score
 
         if active_state:
@@ -55,6 +55,6 @@ def user_expo_situ(users, detectors,  infer_mode = False):
     """
     community_expo = {}
     for user, photos in users.items():
-        community_expo[user] = user_expo(photos, detectors, infer_mode, t_max_O, t_max_D)
+        community_expo[user] = user_expo(photos, detectors, infer_mode)
 
     return community_expo

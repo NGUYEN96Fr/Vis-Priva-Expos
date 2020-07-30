@@ -4,6 +4,7 @@
 Number of valid users:  99
 Numer of test users:  19
 Train Info: 
+	ratio =  5  nb_users =  4
 	ratio =  30  nb_users =  24
 	ratio =  50  nb_users =  40
 	ratio =  70  nb_users =  56

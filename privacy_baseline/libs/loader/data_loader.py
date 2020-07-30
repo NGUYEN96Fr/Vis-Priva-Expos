@@ -60,8 +60,9 @@ def load_situs(root, path, denormalization = True):
 
 
     for situ in situs:
+        situ_key = situ.split('.')[0]
 
-        class_situs[situ] = {}
+        class_situs[situ_key] = {}
         with open(os.path.join(root, path, situ)) as fp:
 
             lines = fp.readlines()
@@ -73,10 +74,6 @@ def load_situs(root, path, denormalization = True):
                 else:
                     score = float(parts[1])
 
-                class_situs[situ][class_] = score
-
-    for situ, classes in class_situs.items():
-        class_list = list(classes.keys())
-        class_situs[situ]['classes'] = class_list
+                class_situs[situ_key][class_] = score
 
     return class_situs

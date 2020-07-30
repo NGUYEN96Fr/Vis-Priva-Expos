@@ -1,6 +1,7 @@
+import math
+import tqdm
 import numpy as np
-from scipy.stats import kendalltau, pearsonr
-
+from optimal_search.correlation import corr
 
 def search_thres(train_data, gt_user_expo, detector_score, corr_type):
     """
@@ -23,6 +24,8 @@ def search_thres(train_data, gt_user_expo, detector_score, corr_type):
     for threshold in threshold_list:
         detector = {detector_score[0]: (threshold, detector_score[1])}
         tau = corr(train_data, gt_user_expo, detector, corr_type)
+        if math.isnan(tau):
+            tau = -1
         tau_list.append(tau)
 
     tau_max = max(tau_list)
@@ -47,12 +50,6 @@ def search_optimal_thres(train_data, gt_user_expo, detectors, corr_type):
         all detectors in a given situation
             {detector1: score1, detector2: score2, ...}
 
-    :param detector: dict
-        the type of object need to searched for
-            {detector: (thres, object_score)}
-                + thres: a given considered threshold
-                + object_score: crowd-sourcing object score
-
     :param corr_type: string
         correlation type:
             + pear_corr
@@ -64,7 +61,7 @@ def search_optimal_thres(train_data, gt_user_expo, detectors, corr_type):
     """
     max_tau_detectors = {}
 
-    for detector, score in detectors.items():
+    for detector, score in tqdm.tqdm(detectors.items()):
         detector_score = [detector,score]
         tau_max, threshold_max = search_thres(train_data, gt_user_expo, detector_score, corr_type)
         max_tau_detectors[detector] = (tau_max, threshold_max, score)

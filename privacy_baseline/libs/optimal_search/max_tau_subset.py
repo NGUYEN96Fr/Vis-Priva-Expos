@@ -1,6 +1,7 @@
-
+import math
+import tqdm
 import numpy as np
-from correlation import corr
+from optimal_search.correlation import corr
 
 
 def select_subset(detectors, tau_fix):
@@ -46,11 +47,13 @@ def tau_subset(users, gt_user_expo, detectors, corr_type):
 
     """
     tau_estimate_list = []
-    tau_fixes = list(np.linespace(-1,1,201))
+    tau_fixes = list(np.linspace(-1,1,201))
     
-    for tau_fix in tau_fixes:
+    for tau_fix in tqdm.tqdm(tau_fixes):
         tau_detectors = select_subset(detectors, tau_fix) #select subset
         tau_est = corr(users, gt_user_expo, tau_detectors, corr_type)
+        if math.isnan(tau_est):
+            tau_est = -1
         tau_estimate_list.append(tau_est)
 
     tau_max = max(tau_estimate_list)

@@ -16,5 +16,7 @@ def active_subset(detectors, tau_D_max):
     for detector, tau_thres_score in detectors.items():
         if tau_thres_score[0] >= tau_D_max:
             active_detectors[detector] =  tau_thres_score[2]
+
+    print('Activated Detectors: ',active_detectors)
     
     return active_detectors
