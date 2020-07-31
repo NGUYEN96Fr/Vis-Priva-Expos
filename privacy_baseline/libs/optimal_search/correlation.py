@@ -2,10 +2,10 @@ import numpy as np
 from scipy.stats import kendalltau, pearsonr
 from exposure.user import user_expo_situ
 
-def corr(train_data, gt_user_expo, detectors, corr_type, infer_mode = False, print_ = False):
+def corr(data, gt_user_expo, detectors, corr_type, print_ = False):
     """Calculate correlation score for a threshold
 
-    :param train_data: dict
+    :param data: dict
         users and images in training data
             {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}
 
@@ -25,15 +25,11 @@ def corr(train_data, gt_user_expo, detectors, corr_type, infer_mode = False, pri
             + pear_corr
             + kendall_corr
 
-    :param infer_mode: boolean
-        if in the inference mode, if not in searching an optimal subset of classes
-
-
     :return:
         tau: float
             correlation
     """
-    user_scores = user_expo_situ(train_data, detectors, infer_mode)
+    user_scores = user_expo_situ(data, detectors)
     automatic_eval = []
     manual_eval = []
 

@@ -19,7 +19,7 @@ def ablation_study():
     normalize = False
     regm = 'rf' #regression method
     score_type = 'kendall_corr' # or kendall_corr or pear_corr
-    gamma_file = 'gamma_rf_kendall.json'
+    gamma_file = 'gamma_rf_kendall_50_test.json'
     feature_transform = 'origin'
     debug = False
     train_all = True

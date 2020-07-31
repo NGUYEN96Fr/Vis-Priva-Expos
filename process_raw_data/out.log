@@ -2,13 +2,13 @@
 #### INFO ####
 ##############
 Number of valid users:  99
-Numer of test users:  19
+Numer of test users:  49
 Train Info: 
-	ratio =  5  nb_users =  4
-	ratio =  30  nb_users =  24
-	ratio =  50  nb_users =  40
-	ratio =  70  nb_users =  56
-	ratio =  100  nb_users =  80
+	ratio =  5  nb_users =  2
+	ratio =  30  nb_users =  15
+	ratio =  50  nb_users =  25
+	ratio =  70  nb_users =  35
+	ratio =  100  nb_users =  50
 Situations: 
 	 job search IT  nb_users =  99
 	 bank credit  nb_users =  99

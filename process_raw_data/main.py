@@ -12,7 +12,7 @@ def main():
     inference_file = 'raw_data/object_detection_on_user_photos/gt_profile_inferences_rcnn.txt'
     crowdsourcing_user_paths = 'raw_data/crowdsourcing_exposure_user_scores/'
 
-    train_ratio = 0.8
+    train_ratio = 0.5
     ratios = [5,30,50,70,100]
 
     user_photos = retrieve_detected_objects(inference_file)

@@ -1,4 +1,4 @@
-def tranform(f_expo_pos, f_expo_neg, f_dens, method = 'abs'):
+def transform(f_expo_pos, f_expo_neg, f_dens, method = 'abs'):
     """
     Apply feature transform on photo features scaled by focal exposure
 

@@ -1,6 +1,6 @@
 from exposure.photo import photo_exposure
 
-def user_expo(photos, detectors, infer_mode):
+def user_expo(photos, detectors):
     """Estimate user exposure
 
     :param photos: dict
@@ -11,9 +11,6 @@ def user_expo(photos, detectors, infer_mode):
          {detector: (threshold, object_score),...} for not inference_mode
         {detector1: object_score, ...} for inference_mode
 
-    :param infer_mode: boolean
-        if in the inference mode, if not in searching an optimal subset of classes
-
     :return:
         user_score: float
     """
@@ -22,7 +19,7 @@ def user_expo(photos, detectors, infer_mode):
     carinality = 0
     for photo, detected_objects in photos.items():
 
-        photo_score, active_state = photo_exposure(detected_objects, detectors, infer_mode)
+        photo_score, active_state = photo_exposure(detected_objects, detectors)
         user_score += photo_score
 
         if active_state:
@@ -34,7 +31,7 @@ def user_expo(photos, detectors, infer_mode):
     return user_score
 
 
-def user_expo_situ(users, detectors,  infer_mode = False):
+def user_expo_situ(users, detectors):
     """
 
     :param users:
@@ -45,9 +42,6 @@ def user_expo_situ(users, detectors,  infer_mode = False):
         {detector1: (threshold, object_score), ...} for not inference_mode
         {detector1: object_score, ...} for inference_mode
 
-    :param infer_mode: boolean
-        if in the inference mode, if not in searching an optimal subset of classes
-
     :return:
         community_expo: dict
             {user1: score, ...}
@@ -55,6 +49,6 @@ def user_expo_situ(users, detectors,  infer_mode = False):
     """
     community_expo = {}
     for user, photos in users.items():
-        community_expo[user] = user_expo(photos, detectors, infer_mode)
+        community_expo[user] = user_expo(photos, detectors)
 
     return community_expo
