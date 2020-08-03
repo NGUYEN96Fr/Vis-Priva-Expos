@@ -17,14 +17,14 @@ def ablation_study():
 
     gamma_path = 'privacy/out/abalation/gamma' ## abalation path
     normalize = False
-    regm = 'rf' #regression method
+    regm = 'svm' #regression method
     score_type = 'kendall_corr' # or kendall_corr or pear_corr
     gamma_file = 'gamma_rf_kendall_50_test.json'
     feature_transform = 'origin'
-    debug = False
+    debug = True
     train_all = True
     only_plot = False
-    load_active_detectors = False
+    load_active_detectors = True
 
     if not only_plot:
         print('##########################################')
