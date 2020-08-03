@@ -34,21 +34,21 @@ def main():
     debug = False
     load = False
     plot_ = False
-    cross_val = False
+    cross_val = True
 
     ##Load crowdsourcing user privacy exposure scores in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
     ##Load train and test data
-    #minibatches, test_data = load_train_test(root, train_test_path)
-    train_data, test_data =load_train_test(root, train_test_path, load_txt = True)
+    minibatches, test_data = load_train_test(root, train_test_path)
+    #train_data, test_data =load_train_test(root, train_test_path, load_txt = True)
     ##Read object exposures in each situation
     object_expo_situs = load_situs(root, situation_file)
 
     if train_all:
-        # if debug:
-        #     train_data = minibatches['5']
-        # else:
-        #     train_data = minibatches['100']
+        if debug:
+            train_data = minibatches['5']
+        else:
+            train_data = minibatches['100']
 
         print('Estimating the best threshold for each object in each situation ...')
         optimal_thres_situs = {}
@@ -95,7 +95,7 @@ def main():
             #tau_D_max = tau_max_situs[situ]
             #activated_detectors = active_subset(optimal_thres_situs[situ], tau_D_max)
             activated_detectors = opt_detector_situs[situ]
-            corr_situ = corr(test_data, gt_user_expo, activated_detectors, corr_type, print_ = False)
+            corr_situ = corr(test_data, gt_user_expo, activated_detectors, corr_type, print_ = True)
             corr_situs[situ] = corr_situ
         print('Done!')
         print(corr_situs)

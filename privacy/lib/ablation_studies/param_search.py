@@ -47,10 +47,10 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
     test_user_photo_expo_situs = {}
     for situ_name, expo_clss in object_expo_situs.items():
         # activated detectors
-        detectors = active_detectors(expo_clss, situ_name, load_active_detectors)
+        detectors, opt_threshs = active_detectors(expo_clss, situ_name, load_active_detectors)
         # estimate user's photo exposure
-        train_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(train_data, f_top, detectors)
-        test_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(test_data, f_top, detectors)
+        train_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(train_data, f_top, detectors, opt_threshs, filter = True)
+        test_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(test_data, f_top, detectors, opt_threshs, filter = True)
     print('Done!')
 
     ##Calculate clustering photo features
@@ -112,12 +112,12 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
                                       'C': [1, 5, 7, 10]}
 
             elif regm == 'rf':  # random forest
-                tunning_parameters = {'bootstrap': [True],
+                tunning_parameters = {'bootstrap': [True, False],
                                       'max_depth': [3, 4, 5],
-                                      'max_features': ['auto', 'sqrt'],
+                                      'max_features': ['auto'],
                                       'min_samples_leaf': [1, 2, 4],
                                       'min_samples_split': [2, 3, 5],
-                                      'n_estimators': [100, 130]}
+                                      'n_estimators': [100, 150]}
         else:
             tunning_parameters = {'kernel': ['rbf', 'linear'],
                                   'gamma': [1e-3, 1e-4],

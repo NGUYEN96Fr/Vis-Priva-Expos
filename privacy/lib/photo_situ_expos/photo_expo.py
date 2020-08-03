@@ -1,4 +1,4 @@
-def photo_expo(photo, f_top, detectors, absolute = True):
+def photo_expo(photo, f_top, detectors, opt_threshs):
 
     """Estimate photo exposure
     
@@ -26,18 +26,31 @@ def photo_expo(photo, f_top, detectors, absolute = True):
 
     sum_objectness = 0
 
+    # for object_, scores in photo.items():
+    #     if object_ in detectors:
+    #
+    #         objectness = sum([score for score in scores if score >= f_top])
+    #         sum_objectness += objectness
+    #
+    #         if detectors[object_] >= 0:
+    #             expo_pos += objectness*detectors[object_]
+    #         else:
+    #             expo_neg += objectness*detectors[object_]
+    #
+    # expo_obj = (0 , 0, 0) # no interesting objects
+
     for object_, scores in photo.items():
         if object_ in detectors:
-            
-            objectness = sum([score for score in scores if score >= f_top])
+
+            objectness = sum([score for score in scores if score >= opt_threshs[object_]])
             sum_objectness += objectness
 
             if detectors[object_] >= 0:
-                expo_pos += objectness*detectors[object_]
+                expo_pos += objectness * detectors[object_]
             else:
-                expo_neg += objectness*detectors[object_]
+                expo_neg += objectness * detectors[object_]
 
-    expo_obj = (0 , 0, 0) # no interesting objects
+    expo_obj = (0, 0, 0)  # no interesting objects
 
     if sum_objectness != 0: # if have
         #photo_expo = photo_expo/sum_objectness

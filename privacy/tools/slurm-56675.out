@@ -16,17 +16,17 @@ Calculate regression features ...
 Done!
 Combine and convert to numpy format ...
    job_search_IT
-Number of training data:  80
-Number of test data:  19
+Number of training data:  63
+Number of test data:  28
    bank_credit
-Number of training data:  80
-Number of test data:  19
+Number of training data:  64
+Number of test data:  28
    job_search_waiter_waitress
-Number of training data:  80
-Number of test data:  19
+Number of training data:  67
+Number of test data:  30
    accommodation_search
-Number of training data:  80
-Number of test data:  19
+Number of training data:  69
+Number of test data:  30
 Done!
 ********************************************
   job_search_IT
@@ -34,44 +34,188 @@ Searching best parameters by regressor ...
 Best parameters:
 {'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
 Evaluation on train sets: 
-Kendall score:  0.34754557350492676
-mse:  0.14204224123681078
+Kendall score:  0.33896192368234906
+mse:  0.17882466116609755
 Evaluation on test sets: 
-Kendall score:  0.22973414586817034
-mse:  0.21390797494584843
+Kendall score:  0.14122602277911425
+mse:  0.16726606123988333
 ********************************************
   bank_credit
 Searching best parameters by regressor ...
 Best parameters:
-{'C': 7, 'gamma': 0.001, 'kernel': 'rbf'}
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
 Evaluation on train sets: 
-Kendall score:  0.2136917143239288
-mse:  0.2698600687590894
+Kendall score:  0.36885555678165877
+mse:  0.22129783901040379
 Evaluation on test sets: 
-Kendall score:  0.18251335818524614
-mse:  0.226987774074419
+Kendall score:  0.20229455286988385
+mse:  0.31593763274036313
 ********************************************
   job_search_waiter_waitress
 Searching best parameters by regressor ...
 Best parameters:
-{'C': 10, 'gamma': 0.001, 'kernel': 'sigmoid'}
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
 Evaluation on train sets: 
-Kendall score:  0.2913000347206791
-mse:  0.20453443937554278
+Kendall score:  0.537656245590919
+mse:  0.10510264288673937
 Evaluation on test sets: 
-Kendall score:  -0.01842711517991869
-mse:  0.2143339928358254
+Kendall score:  0.22956917738527646
+mse:  0.20925194958321378
 ********************************************
   accommodation_search
 Searching best parameters by regressor ...
 Best parameters:
+{'C': 10, 'gamma': 0.0001, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Kendall score:  0.23961441699959615
+mse:  0.3007874535180768
+Evaluation on test sets: 
+Kendall score:  0.06171612328872089
+mse:  0.27130272316120174
+Done!
++++++++++++++++++++++++++++++
++++++ gamma =  1 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  63
+Number of test data:  28
+   bank_credit
+Number of training data:  64
+Number of test data:  28
+   job_search_waiter_waitress
+Number of training data:  67
+Number of test data:  30
+   accommodation_search
+Number of training data:  69
+Number of test data:  30
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
 {'C': 10, 'gamma': 0.001, 'kernel': 'sigmoid'}
 Evaluation on train sets: 
-Kendall score:  0.3009026422453927
-mse:  0.2516466093057662
+Kendall score:  0.29327113146184436
+mse:  0.20772012045588542
 Evaluation on test sets: 
-Kendall score:  0.39420010832527164
-mse:  0.24464965861198118
+Kendall score:  0.0027691377015512603
+mse:  0.17959974855269972
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'sigmoid'}
+Evaluation on train sets: 
+Kendall score:  0.29815824173184086
+mse:  0.28479336731068544
+Evaluation on test sets: 
+Kendall score:  0.14762034939153687
+mse:  0.24431868407243007
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Kendall score:  0.5405009876310825
+mse:  0.12085421010273903
+Evaluation on test sets: 
+Kendall score:  0.28217878053606904
+mse:  0.23114816032568003
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Kendall score:  0.3702329573897996
+mse:  0.2291289091982768
+Evaluation on test sets: 
+Kendall score:  0.2563592813531483
+mse:  0.24776488353562362
+Done!
++++++++++++++++++++++++++++++
++++++ gamma =  2 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  63
+Number of test data:  28
+   bank_credit
+Number of training data:  64
+Number of test data:  28
+   job_search_waiter_waitress
+Number of training data:  67
+Number of test data:  30
+   accommodation_search
+Number of training data:  69
+Number of test data:  30
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 7, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Kendall score:  0.3145226627271954
+mse:  0.17339097555303087
+Evaluation on test sets: 
+Kendall score:  0.05815189173257647
+mse:  0.21453718952473452
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Kendall score:  0.31865021710859964
+mse:  0.25988369623343327
+Evaluation on test sets: 
+Kendall score:  0.15855519008720625
+mse:  0.2676302512712136
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 10, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Kendall score:  0.5499834610982944
+mse:  0.12357713104717344
+Evaluation on test sets: 
+Kendall score:  0.2869614717315956
+mse:  0.22626168834645913
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Kendall score:  0.42318641971015236
+mse:  0.20639125054842128
+Evaluation on test sets: 
+Kendall score:  0.15191661117223604
+mse:  0.2673212469953491
 Done!
 +++++++++++++++++++++++++++++
 +++++ gamma =  3 +++++
@@ -88,17 +232,17 @@ Calculate regression features ...
 Done!
 Combine and convert to numpy format ...
    job_search_IT
-Number of training data:  80
-Number of test data:  19
+Number of training data:  63
+Number of test data:  28
    bank_credit
-Number of training data:  80
-Number of test data:  19
+Number of training data:  64
+Number of test data:  28
    job_search_waiter_waitress
-Number of training data:  80
-Number of test data:  19
+Number of training data:  67
+Number of test data:  30
    accommodation_search
-Number of training data:  80
-Number of test data:  19
+Number of training data:  69
+Number of test data:  30
 Done!
 ********************************************
   job_search_IT
@@ -106,188 +250,44 @@ Searching best parameters by regressor ...
 Best parameters:
 {'C': 7, 'gamma': 0.001, 'kernel': 'rbf'}
 Evaluation on train sets: 
-Kendall score:  0.3647083178755405
-mse:  0.1418528796775989
+Kendall score:  0.336836770555814
+mse:  0.19508538830612335
 Evaluation on test sets: 
-Kendall score:  0.2418254167033372
-mse:  0.1864774234887159
+Kendall score:  0.14122602277911425
+mse:  0.1761192884021725
 ********************************************
   bank_credit
 Searching best parameters by regressor ...
 Best parameters:
-{'C': 5, 'gamma': 0.001, 'kernel': 'sigmoid'}
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
 Evaluation on train sets: 
-Kendall score:  0.20123728925596976
-mse:  0.753177970220627
+Kendall score:  0.40676571122866256
+mse:  0.2276224425731684
 Evaluation on test sets: 
-Kendall score:  -0.024335114424699485
-mse:  1.8079984094315324
+Kendall score:  0.26243617669606556
+mse:  0.2983666009125026
 ********************************************
   job_search_waiter_waitress
 Searching best parameters by regressor ...
 Best parameters:
-{'C': 5, 'gamma': 0.001, 'kernel': 'sigmoid'}
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
 Evaluation on train sets: 
-Kendall score:  0.22046116264087762
-mse:  0.23159828743317892
+Kendall score:  0.5357597508974765
+mse:  0.12991785628629213
 Evaluation on test sets: 
-Kendall score:  0.15355929316598907
-mse:  0.2056765173231426
+Kendall score:  0.26783070694948924
+mse:  0.21405022324149348
 ********************************************
   accommodation_search
 Searching best parameters by regressor ...
 Best parameters:
 {'C': 1, 'gamma': 0.001, 'kernel': 'sigmoid'}
 Evaluation on train sets: 
-Kendall score:  0.24052523093334008
-mse:  0.27118749124331204
+Kendall score:  0.272269052097147
+mse:  0.29316747666313153
 Evaluation on test sets: 
-Kendall score:  0.5882678539623284
-mse:  0.24223388487861489
-Done!
-+++++++++++++++++++++++++++++
-+++++ gamma =  5 +++++
-+++++++++++++++++++++++++++++
-Estimate exposure user photos ...
-Done!
-#### CLUSTERING ####
-Calculate clustering photo features ...
-Done!
-Calculate clusters of users ...
-Done!
-##### REGRESSION #####
-Calculate regression features ...
-Done!
-Combine and convert to numpy format ...
-   job_search_IT
-Number of training data:  80
-Number of test data:  19
-   bank_credit
-Number of training data:  80
-Number of test data:  19
-   job_search_waiter_waitress
-Number of training data:  80
-Number of test data:  19
-   accommodation_search
-Number of training data:  80
-Number of test data:  19
-Done!
-********************************************
-  job_search_IT
-Searching best parameters by regressor ...
-Best parameters:
-{'C': 7, 'gamma': 0.001, 'kernel': 'rbf'}
-Evaluation on train sets: 
-Kendall score:  0.3171807180799949
-mse:  0.1405629366468934
-Evaluation on test sets: 
-Kendall score:  0.07254762501100116
-mse:  0.2415749450398072
-********************************************
-  bank_credit
-Searching best parameters by regressor ...
-Best parameters:
-{'C': 10, 'gamma': 1e-05, 'kernel': 'sigmoid'}
-Evaluation on train sets: 
-Kendall score:  0.16452951010830102
-mse:  0.27082050698960963
-Evaluation on test sets: 
-Kendall score:  0.2190160298222954
-mse:  0.3810163710343109
-********************************************
-  job_search_waiter_waitress
-Searching best parameters by regressor ...
-Best parameters:
-{'C': 7, 'gamma': 0.001, 'kernel': 'linear'}
-Evaluation on train sets: 
-Kendall score:  0.4654180100196305
-mse:  0.11585142852108317
-Evaluation on test sets: 
-Kendall score:  0.1658440366192682
-mse:  0.2767401115015429
-********************************************
-  accommodation_search
-Searching best parameters by regressor ...
-Best parameters:
-{'C': 1, 'gamma': 0.0001, 'kernel': 'sigmoid'}
-Evaluation on train sets: 
-Kendall score:  0.21164907769714103
-mse:  0.2821643345905699
-Evaluation on test sets: 
-Kendall score:  0.36994164012063957
-mse:  0.23174122793472218
-Done!
-+++++++++++++++++++++++++++++
-+++++ gamma =  7 +++++
-+++++++++++++++++++++++++++++
-Estimate exposure user photos ...
-Done!
-#### CLUSTERING ####
-Calculate clustering photo features ...
-Done!
-Calculate clusters of users ...
-Done!
-##### REGRESSION #####
-Calculate regression features ...
-Done!
-Combine and convert to numpy format ...
-   job_search_IT
-Number of training data:  80
-Number of test data:  19
-   bank_credit
-Number of training data:  80
-Number of test data:  19
-   job_search_waiter_waitress
-Number of training data:  80
-Number of test data:  19
-   accommodation_search
-Number of training data:  80
-Number of test data:  19
-Done!
-********************************************
-  job_search_IT
-Searching best parameters by regressor ...
-Best parameters:
-{'C': 5, 'gamma': 0.0001, 'kernel': 'rbf'}
-Evaluation on train sets: 
-Kendall score:  0.35348652347936993
-mse:  0.1588570977698897
-Evaluation on test sets: 
-Kendall score:  -0.04836508334066744
-mse:  0.2456400133766552
-********************************************
-  bank_credit
-Searching best parameters by regressor ...
-Best parameters:
-{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
-Evaluation on train sets: 
-Kendall score:  0.37428824809497957
-mse:  0.20903022302254248
-Evaluation on test sets: 
-Kendall score:  0.024335114424699485
-mse:  1.422368826197739
-********************************************
-  job_search_waiter_waitress
-Searching best parameters by regressor ...
-Best parameters:
-{'C': 10, 'gamma': 0.001, 'kernel': 'rbf'}
-Evaluation on train sets: 
-Kendall score:  0.4846173304898571
-mse:  0.1108725886871483
-Evaluation on test sets: 
-Kendall score:  0.17812878007254734
-mse:  0.16227506605489492
-********************************************
-  accommodation_search
-Searching best parameters by regressor ...
-Best parameters:
-{'C': 1, 'gamma': 1e-05, 'kernel': 'rbf'}
-Evaluation on train sets: 
-Kendall score:  0.3002463660354791
-mse:  0.2901855650876296
-Evaluation on test sets: 
-Kendall score:  0.2971662355067432
-mse:  0.27708398945752555
+Kendall score:  0.11393745837917701
+mse:  0.2600905297895673
 Done!
 Saving files ...
 **** Plotting gamma ....

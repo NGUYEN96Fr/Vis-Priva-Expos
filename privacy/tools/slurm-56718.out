@@ -16,19 +16,18 @@ Calculate regression features ...
 Done!
 Combine and convert to numpy format ...
    job_search_IT
-Number of training data:  80
-Number of test data:  19
+Number of training data:  63
+Number of test data:  28
    bank_credit
-Number of training data:  80
-Number of test data:  19
+Number of training data:  64
+Number of test data:  28
    job_search_waiter_waitress
-Number of training data:  80
-Number of test data:  19
+Number of training data:  67
+Number of test data:  30
    accommodation_search
-Number of training data:  80
-Number of test data:  19
+Number of training data:  69
+Number of test data:  30
 Done!
 ********************************************
   job_search_IT
 Searching best parameters by regressor ...
-slurmstepd: error: *** JOB 56116 ON node05 CANCELLED AT 2020-07-30T15:36:26 ***

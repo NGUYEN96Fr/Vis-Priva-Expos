@@ -16,3 +16,6 @@ def transform(f_expo_pos, f_expo_neg, f_dens, method = 'abs'):
 
     if method == 'origin':
         return [f_expo_pos, f_expo_neg, f_dens]
+
+    if method == 'pos_neg':
+        return [f_expo_pos, f_expo_neg]

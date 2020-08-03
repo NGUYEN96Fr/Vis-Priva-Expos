@@ -1,0 +1,294 @@
+##########################################
+######## Focusing Exposure Search ########
+###########################################
++++++++++++++++++++++++++++++
++++++ gamma =  0 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  63
+Number of test data:  28
+   bank_credit
+Number of training data:  64
+Number of test data:  28
+   job_search_waiter_waitress
+Number of training data:  67
+Number of test data:  30
+   accommodation_search
+Number of training data:  69
+Number of test data:  30
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 10, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.43865829737667106
+mse:  0.18389641486035968
+Evaluation on test sets: 
+pearson score:  0.4366767186624074
+mse:  0.149303050808791
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 7, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.6904967228356186
+mse:  0.15557530651035684
+Evaluation on test sets: 
+pearson score:  0.30767096257396087
+mse:  0.4143740472881455
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 10, 'gamma': 0.001, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.5981381724706445
+mse:  0.18506615605403287
+Evaluation on test sets: 
+pearson score:  0.5143859310903763
+mse:  0.1944963789416442
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'sigmoid'}
+Evaluation on train sets: 
+Pearson score:  0.42346641093297166
+mse:  0.30359545571863983
+Evaluation on test sets: 
+pearson score:  0.3062206150081258
+mse:  0.26774955212450885
+Done!
++++++++++++++++++++++++++++++
++++++ gamma =  1 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  63
+Number of test data:  28
+   bank_credit
+Number of training data:  64
+Number of test data:  28
+   job_search_waiter_waitress
+Number of training data:  67
+Number of test data:  30
+   accommodation_search
+Number of training data:  69
+Number of test data:  30
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.468431560811011
+mse:  0.17658535488930316
+Evaluation on test sets: 
+pearson score:  0.2513689638378426
+mse:  0.170443921901517
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.5253156659319398
+mse:  0.2157115576788653
+Evaluation on test sets: 
+pearson score:  0.3319749426881534
+mse:  0.34177893903851025
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.6412592499455021
+mse:  0.1457531856633445
+Evaluation on test sets: 
+pearson score:  0.4310674761664677
+mse:  0.23238432255727837
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'sigmoid'}
+Evaluation on train sets: 
+Pearson score:  0.3824316412727805
+mse:  0.2993687949664498
+Evaluation on test sets: 
+pearson score:  0.28812008979691767
+mse:  0.2648368976440298
+Done!
++++++++++++++++++++++++++++++
++++++ gamma =  2 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  63
+Number of test data:  28
+   bank_credit
+Number of training data:  64
+Number of test data:  28
+   job_search_waiter_waitress
+Number of training data:  67
+Number of test data:  30
+   accommodation_search
+Number of training data:  69
+Number of test data:  30
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.49745034309234665
+mse:  0.17015224790435698
+Evaluation on test sets: 
+pearson score:  0.278783684163037
+mse:  0.1681564545851931
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.36151201544553524
+mse:  0.2694891997009664
+Evaluation on test sets: 
+pearson score:  0.34394123484883904
+mse:  0.5183169570891507
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 1, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.6301833685826544
+mse:  0.15046008504018651
+Evaluation on test sets: 
+pearson score:  0.41215366360181455
+mse:  0.23394619359211521
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 7, 'gamma': 0.0001, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.3641799126506361
+mse:  0.29093256698917963
+Evaluation on test sets: 
+pearson score:  0.2927187846790933
+mse:  0.2559367157317159
+Done!
++++++++++++++++++++++++++++++
++++++ gamma =  3 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  63
+Number of test data:  28
+   bank_credit
+Number of training data:  64
+Number of test data:  28
+   job_search_waiter_waitress
+Number of training data:  67
+Number of test data:  30
+   accommodation_search
+Number of training data:  69
+Number of test data:  30
+Done!
+********************************************
+  job_search_IT
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 10, 'gamma': 0.001, 'kernel': 'sigmoid'}
+Evaluation on train sets: 
+Pearson score:  0.3973152195131642
+mse:  0.20216875230197728
+Evaluation on test sets: 
+pearson score:  0.09132181851567338
+mse:  0.17909143088945798
+********************************************
+  bank_credit
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.0001, 'kernel': 'rbf'}
+Evaluation on train sets: 
+Pearson score:  0.23559668855526814
+mse:  0.2866270447990419
+Evaluation on test sets: 
+pearson score:  0.3204594054563514
+mse:  0.23619531363710294
+********************************************
+  job_search_waiter_waitress
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.001, 'kernel': 'linear'}
+Evaluation on train sets: 
+Pearson score:  0.6306735334980308
+mse:  0.15422745988017947
+Evaluation on test sets: 
+pearson score:  0.41311403794035706
+mse:  0.24861920672714855
+********************************************
+  accommodation_search
+Searching best parameters by regressor ...
+Best parameters:
+{'C': 5, 'gamma': 0.0001, 'kernel': 'sigmoid'}
+Evaluation on train sets: 
+Pearson score:  0.3488605431833167
+mse:  0.29537759012058107
+Evaluation on test sets: 
+pearson score:  0.2853874499920766
+mse:  0.2608209432735118
+Done!
+Saving files ...
+**** Plotting gamma ....
+Done!
