@@ -6,8 +6,7 @@ import _init_paths
 import json
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
-from optimal_search.max_tau_subset import tau_subset
-from optimal_search.optimal_subset import active_subset
+from optimal_search.max_tau_subset import tau_subset, tau_max_cross_val
 from optimal_search.optimal_thres_object import search_optimal_thres
 from optimal_search.correlation import corr
 from loader.data_loader import load_train_test, load_gt_user_expo, load_situs
@@ -26,7 +25,7 @@ def main():
     
     train_test_path = conf['train_test_path']
     gt_expo_path = conf['gt_expo_path']
-    siutation_file = conf['situation_path']
+    situation_file = conf['situation_path']
     outdir = conf['outdir']
     if not os.path.exists(os.path.join(root, 'privacy_baseline', outdir)):
         os.makedirs(os.path.join(root, 'privacy_baseline', outdir))
@@ -34,7 +33,8 @@ def main():
     corr_type = 'kendall_corr'
     debug = False
     load = False
-    plot_ = True
+    plot_ = False
+    cross_val = False
 
     ##Load crowdsourcing user privacy exposure scores in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
@@ -42,7 +42,7 @@ def main():
     #minibatches, test_data = load_train_test(root, train_test_path)
     train_data, test_data =load_train_test(root, train_test_path, load_txt = True)
     ##Read object exposures in each situation
-    object_expo_situs = load_situs(root, siutation_file)
+    object_expo_situs = load_situs(root, situation_file)
 
     if train_all:
         # if debug:
@@ -57,30 +57,36 @@ def main():
                 print(' ',situ)
                 gt_user_expo = gt_user_expo_situs[situ]
                 optimal_thres_situs[situ] = search_optimal_thres(train_data, gt_user_expo, detectors, corr_type)
-            with open(os.path.join(root, 'privacy_baseline', outdir, 'optimal_thres_situs.json'), 'w') as fp:
+            with open(os.path.join(root, 'privacy_baseline', outdir, 'optimal_thres_situs.txt'), 'w') as fp:
                 json.dump(optimal_thres_situs, fp)            
         else:
-            optimal_thres_situs = json.load(open(os.path.join(root,'privacy_baseline' ,outdir, 'optimal_thres_situs.json')))
+            optimal_thres_situs = json.load(open(os.path.join(root,'privacy_baseline' ,outdir, 'optimal_thres_situs.txt')))
         print('Done!')
-        print("***** ++++ VERIFYING ++++ ******")
-        print(optimal_thres_situs['job_search_waiter_waitress'])
+        # print("***** ++++ VERIFYING ++++ ******")
+        # print(optimal_thres_situs['job_search_waiter_waitress'])
 
-        assert 1 == 2
         print('Estimating a tau max for each situation ...')
         tau_max_situs = {}
-        corr_list_situs = {}
         opt_detector_situs = {}
+        opt_thresholds = {}
         for situ, gt_user_expo in gt_user_expo_situs.items():  
             print(' ',situ)
-            tau_D_max, opt_detectors, corr_list, threshold = tau_subset(train_data, gt_user_expo, optimal_thres_situs[situ], corr_type)
-            tau_max_situs[situ] = tau_D_max
-            opt_detector_situs[situ] = opt_detectors
-            corr_list_situs[situ] = corr_list
-            print('Corr threshold per situ: ', threshold)
-            print('Optimal detectors: ', len(list(opt_detectors.keys())))
+
+            if not cross_val:
+                tau_D_max, opt_detectors, _, opt_threshold = tau_subset(train_data, gt_user_expo, optimal_thres_situs[situ], corr_type)
+                tau_max_situs[situ] = tau_D_max
+                opt_detector_situs[situ] = opt_detectors
+                opt_thresholds[situ] = opt_threshold
+
+            else:
+                score_val_max, opt_threshold, opt_detectors = tau_max_cross_val(train_data, gt_user_expo, optimal_thres_situs[situ], corr_type, k_fold = 3)
+                tau_max_situs[situ] = score_val_max
+                opt_detector_situs[situ] = opt_detectors
+                opt_thresholds[situ] = opt_threshold
+
         print('Done!')
-        if plot_:
-            plot_corr_thres_impact(corr_list_situs)
+        # if plot_:
+        #     plot_corr_thres_impact(corr_list_situs)
         
         print('Calculating final correlation by situation ...')
         corr_situs = {}

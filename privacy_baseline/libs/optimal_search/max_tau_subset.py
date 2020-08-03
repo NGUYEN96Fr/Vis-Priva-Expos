@@ -18,39 +18,13 @@ def select_subset(detectors, tau_fix):
             {detector1: (threshold1, score1), ...}
 
     """
-    supp_info = {}
     detector_subset = {}
 
     for detector, tau_thres_score in detectors.items():
         if tau_thres_score[0] >= tau_fix:
             detector_subset[detector] = (tau_thres_score[1], tau_thres_score[2])
-            supp_info[detector] = (tau_thres_score[1], tau_thres_score[2])
     
-    return detector_subset, supp_info
-
-def cross_validation(users, gt_user_expo, detector_subset, corr_type, k_fold = 5):
-    """
-
-    :param users:
-    :param gt_user_expo:
-    :param detector_subset:
-    :param corr_type:
-    :param k_fold: number of folds
-    :return:
-    """
-    test_fold_size = int(len(list(users.keys()))/k_fold)
-
-    for index in range(k_fold):
-        start = index*test_fold_size
-        end = (index + 1)*test_fold_size
-        count = 0
-        train_fold = {}
-        test_fold = {}
-        for user, photos in users.items():
-            if count >= start and count < end:
-                test_fold[user] = photos
-            else:
-                train_fold[user] = photos
+    return detector_subset
 
 
 def tau_subset(users, gt_user_expo, detectors, corr_type):
@@ -73,21 +47,92 @@ def tau_subset(users, gt_user_expo, detectors, corr_type):
     :return:
 
     """
-    opt_detectors = []
-    tau_estimate_list = []
+    list_opt_detectors = []
+    list_tau_estimate = []
     tau_fixes = list(np.linspace(-1,1,201))
+    tau_fixes = [float("{:.2f}".format(tau)) for tau in tau_fixes]
     
     for tau_fix in tqdm.tqdm(tau_fixes):
-        detector_subset, sup_info = select_subset(detectors, tau_fix) #select subset
-        ## TODO, apply cross validation
+        detector_subset = select_subset(detectors, tau_fix)
+
         tau_est = corr(users, gt_user_expo, detector_subset, corr_type)
         if math.isnan(tau_est):
             tau_est = -1
-        tau_estimate_list.append(tau_est)
-        opt_detectors.append(sup_info)
+        list_tau_estimate.append(tau_est)
+        list_opt_detectors.append(detector_subset)
 
-    tau_max = max(tau_estimate_list)
-    supp_info = opt_detectors[np.argmax(tau_estimate_list)]
-    threshold = tau_fixes[np.argmax(tau_estimate_list)]
+    tau_max = max(list_tau_estimate)
+    opt_detectors = list_opt_detectors[np.argmax(list_tau_estimate)]
+    threshold = tau_fixes[np.argmax(list_tau_estimate)]
 
-    return tau_max , supp_info, tau_estimate_list, threshold
+    return tau_max, opt_detectors, list_tau_estimate, threshold
+
+
+def tau_max_cross_val(users, gt_user_expo, detectors, corr_type, k_fold = 5):
+    """Search tau max by cross validation
+
+    :param: users
+        users in a situation and its photos
+            {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}
+
+    :param gt_user_expo: dict
+        user expo in a given situation
+            {user1: avg_score, ...}
+
+    :param: detectors: dict
+        {detector1: (tau_max1, threshold1, score1), ...}
+
+    :param: detectors: dict
+        {detector1: (tau_max1, threshold1, score1), ...}
+
+    :param corr_type:
+
+    :param k_fold: number of folds
+
+    :return:
+
+    """
+    test_fold_size = int(len(list(users.keys()))/k_fold)
+
+    threshold_dict = {}
+
+    for index in range(k_fold):
+
+        start = index*test_fold_size
+        end = (index + 1)*test_fold_size
+        count = 0
+        train_fold = {}
+        val_fold = {}
+
+        for user, photos in users.items():
+
+            if count >= start and count < end:
+                val_fold[user] = photos
+            else:
+                train_fold[user] = photos
+
+            count += 1
+
+        tau_max, opt_detectors, _, threshold = tau_subset(train_fold, gt_user_expo, detectors, corr_type)
+
+        if str(threshold) not in threshold_dict:
+            threshold_dict[str(threshold)] = {'score_val': [], 'opt_detectors': opt_detectors}
+
+        score_val = corr(val_fold, gt_user_expo, opt_detectors, corr_type)
+
+        threshold_dict[str(threshold)]['score_val'].append(score_val)
+
+
+    for threshold, items in threshold_dict.items():
+        threshold_dict[threshold]['score_val'] = sum(items['score_val'])/len(items['score_val'])
+
+    score_val_max = -1
+
+    for threshold, items in threshold_dict.items():
+        if items['score_val'] >= score_val_max:
+            opt_threshold = float(threshold)
+            score_val_max = items['score_val']
+            opt_detectors = items['opt_detectors']
+
+
+    return score_val_max, opt_threshold, opt_detectors

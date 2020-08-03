@@ -16,17 +16,17 @@ def user_expo(photos, detectors):
     """
 
     user_score = 0
-    carinality = 0
+    cardinality = 0
     for photo, detected_objects in photos.items():
 
         photo_score, active_state = photo_exposure(detected_objects, detectors)
         user_score += photo_score
 
         if active_state:
-            carinality += 1
+            cardinality += 1
 
-    if carinality != 0:
-        user_score = user_score/carinality
+    if cardinality != 0:
+        user_score = user_score/cardinality
 
     return user_score
 
@@ -39,8 +39,7 @@ def user_expo_situ(users, detectors):
             {user1: {photo1: {class1: [obj1, ...], ...}}, ...}, ...}
 
     :param detectors: dict
-        {detector1: (threshold, object_score), ...} for not inference_mode
-        {detector1: object_score, ...} for inference_mode
+        {detector1: (threshold, object_score), ...}
 
     :return:
         community_expo: dict

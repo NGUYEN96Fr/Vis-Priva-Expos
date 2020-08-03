@@ -105,6 +105,7 @@ def load_situs(root, path, denormalization = True):
             for line in lines:
                 parts = line.split(' ')
                 class_ = parts[0]
+
                 if denormalization:
                     score = float(parts[1])*3
                 else:

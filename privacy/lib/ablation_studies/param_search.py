@@ -8,7 +8,8 @@ from regression.features import regression_features
 from regression.regression import train_test_situs, train_regressor, test_regressor, pear_corr, kendall_corr, normalizer
 from regression.fine_tuning import regress_fine_tuning
 
-def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm, normalize, score_type, debug, feature_transform):
+def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
+                     normalize, score_type, debug, feature_transform, load_active_detectors):
     """Searching best regression result for a current configuration
 
     :param root: string
@@ -46,7 +47,7 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
     test_user_photo_expo_situs = {}
     for situ_name, expo_clss in object_expo_situs.items():
         # activated detectors
-        detectors = active_detectors(expo_clss)
+        detectors = active_detectors(expo_clss, situ_name, load_active_detectors)
         # estimate user's photo exposure
         train_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(train_data, f_top, detectors)
         test_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(test_data, f_top, detectors)

@@ -24,14 +24,15 @@ def ablation_study():
     debug = False
     train_all = True
     only_plot = False
+    load_active_detectors = False
 
     if not only_plot:
         print('##########################################')
         print('######## Focusing Exposure Search ########')
         print('###########################################')
         gamma_list = [0, 3, 5, 7]
-        gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all, feature_transform)
-        gamma_plot(os.path.join(root,gamma_path), gamma_file)
+        gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all, feature_transform, load_active_detectors)
+        gamma_plot(os.path.join(root, gamma_path), gamma_file)
 
     else:
         gamma_plot(os.path.join(root, gamma_path), gamma_file)

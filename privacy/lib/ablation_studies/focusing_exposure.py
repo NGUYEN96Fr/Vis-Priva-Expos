@@ -6,7 +6,7 @@ from matplotlib.pyplot import figure
 from ablation_studies.param_search import parameter_search
 from loader.data_loader import load_train_test, load_gt_user_expo, load_situs
 
-def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all, feature_transform):
+def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all, feature_transform, load_active_detectors):
     """Study impact of the gamma parameter
 
     :param conf: current configuration
@@ -52,7 +52,7 @@ def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type,
             print("+++++ gamma = ", gamma,"+++++")
             print("+++++++++++++++++++++++++++++")
             gamma_search[gamma] = parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
-                         normalize, score_type, debug, feature_transform)
+                         normalize, score_type, debug, feature_transform, load_active_detectors)
 
         abalation_dir = os.path.join(root, 'privacy', outdir, 'abalation')
         if not os.path.exists(abalation_dir):
