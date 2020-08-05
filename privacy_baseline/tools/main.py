@@ -7,8 +7,8 @@ import json
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 from optimal_search.max_tau_subset import tau_subset, tau_max_cross_val
-from optimal_search.optimal_thres_object import search_optimal_thres
-from optimal_search.correlation import corr
+from optimal_search.optimal_thres_object import search_optimal_thres, export_tau_ranking
+from optimal_search.correlation import corr, pos_neg_corr
 from loader.data_loader import load_train_test, load_gt_user_expo, load_situs
 
 def main():
@@ -35,6 +35,7 @@ def main():
     load = False
     plot_ = False
     cross_val = True
+    save_file = '3_'
 
     ##Load crowdsourcing user privacy exposure scores in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
@@ -62,8 +63,8 @@ def main():
         else:
             optimal_thres_situs = json.load(open(os.path.join(root,'privacy_baseline' ,outdir, 'optimal_thres_situs.txt')))
         print('Done!')
-        # print("***** ++++ VERIFYING ++++ ******")
-        # print(optimal_thres_situs['job_search_waiter_waitress'])
+        print('Extracting and Ranking optimal thresh per situ...')
+        export_tau_ranking(optimal_thres_situs,save_file)
 
         print('Estimating a tau max for each situation ...')
         tau_max_situs = {}
@@ -83,7 +84,9 @@ def main():
                 tau_max_situs[situ] = score_val_max
                 opt_detector_situs[situ] = opt_detectors
                 opt_thresholds[situ] = opt_threshold
+            print(opt_detectors)
 
+        print(tau_max_situs)
         print('Done!')
         # if plot_:
         #     plot_corr_thres_impact(corr_list_situs)
@@ -95,7 +98,8 @@ def main():
             #tau_D_max = tau_max_situs[situ]
             #activated_detectors = active_subset(optimal_thres_situs[situ], tau_D_max)
             activated_detectors = opt_detector_situs[situ]
-            corr_situ = corr(test_data, gt_user_expo, activated_detectors, corr_type, print_ = True)
+            corr_situ = corr(test_data, gt_user_expo, activated_detectors, corr_type, print_ = True, test_mode= True)
+            #corr_situ = pos_neg_corr(train_data, gt_user_expo, activated_detectors, corr_type, print_=True, test_mode = False)
             corr_situs[situ] = corr_situ
         print('Done!')
         print(corr_situs)

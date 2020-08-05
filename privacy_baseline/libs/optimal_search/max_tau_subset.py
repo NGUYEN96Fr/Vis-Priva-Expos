@@ -1,7 +1,7 @@
 import math
 import tqdm
 import numpy as np
-from optimal_search.correlation import corr
+from optimal_search.correlation import corr, pos_neg_corr
 
 
 def select_subset(detectors, tau_fix):
@@ -21,8 +21,9 @@ def select_subset(detectors, tau_fix):
     detector_subset = {}
 
     for detector, tau_thres_score in detectors.items():
+        # if tau_thres_score[0] >= tau_fix or abs(tau_thres_score[2]) >= 1:
         if tau_thres_score[0] >= tau_fix:
-            detector_subset[detector] = (tau_thres_score[1], tau_thres_score[2])
+            detector_subset[detector] = [tau_thres_score[1], tau_thres_score[2]]
     
     return detector_subset
 
@@ -49,15 +50,17 @@ def tau_subset(users, gt_user_expo, detectors, corr_type):
     """
     list_opt_detectors = []
     list_tau_estimate = []
-    tau_fixes = list(np.linspace(-1,1,201))
+    tau_fixes = list(np.linspace(-1, 1, 201))
     tau_fixes = [float("{:.2f}".format(tau)) for tau in tau_fixes]
     
     for tau_fix in tqdm.tqdm(tau_fixes):
         detector_subset = select_subset(detectors, tau_fix)
 
-        tau_est = corr(users, gt_user_expo, detector_subset, corr_type)
+        # tau_est = corr(users, gt_user_expo, detector_subset, corr_type)
+        tau_est = pos_neg_corr(users, gt_user_expo, detector_subset, corr_type)
+
         if math.isnan(tau_est):
-            tau_est = -1
+            tau_est = 0
         list_tau_estimate.append(tau_est)
         list_opt_detectors.append(detector_subset)
 
@@ -122,7 +125,6 @@ def tau_max_cross_val(users, gt_user_expo, detectors, corr_type, k_fold = 5):
 
         threshold_dict[str(threshold)]['score_val'].append(score_val)
 
-
     for threshold, items in threshold_dict.items():
         threshold_dict[threshold]['score_val'] = sum(items['score_val'])/len(items['score_val'])
 
@@ -133,6 +135,5 @@ def tau_max_cross_val(users, gt_user_expo, detectors, corr_type, k_fold = 5):
             opt_threshold = float(threshold)
             score_val_max = items['score_val']
             opt_detectors = items['opt_detectors']
-
 
     return score_val_max, opt_threshold, opt_detectors
