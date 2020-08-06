@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.spatial.distance as distance
 from numpy import linalg as LA
 
 def unique_threshold(x_unique):
@@ -8,17 +9,19 @@ def unique_threshold(x_unique):
     :return:
     """
     count = 0
-    sum_diff_norm2 = 0
+    sum_distance = 0
+    print("-------++++++++++++++---------------")
     for i in range(x_unique.shape[0]):
         for j in range(i + 1,x_unique.shape[0]):
             count += 1
-            sum_diff_norm2 += LA.norm(x_unique[i,:]-x_unique[j,:])
+            print(distance.correlation(x_unique[i,:],x_unique[j,:]))
+            sum_distance += distance.correlation(x_unique[i,:],x_unique[j,:])
 
-    sum_diff_norm2 = sum_diff_norm2 / count
+    avg_distance = sum_distance / count
 
-    return  sum_diff_norm2
+    return  avg_distance
 
-def detect_same_y_test(x_test, y_test, sum_diff_situ):
+def detect_same_y_test(x_test, y_test, agv_distance_situ):
     """
 
     :param x_test:
@@ -28,10 +31,10 @@ def detect_same_y_test(x_test, y_test, sum_diff_situ):
     """
     for i in range(x_test.shape[0]):
         for j in range(i+1, x_test.shape[0]):
-            diff = LA.norm(x_test[i,:] - x_test[j,:])
-            if diff < sum_diff_situ:
+            dist = distance.correlation(x_test[i,:], x_test[j,:])
+            if dist > agv_distance_situ:
                 print('val1: ',y_test[i],'  val2: ',y_test[j])
-                print('diff = ',diff)
+                print('diff = ',dist)
 
 
 def train_test_observe(train_test_batch_situs):
@@ -50,7 +53,7 @@ def train_test_observe(train_test_batch_situs):
 
         y_unique_train = list(np.unique(y_train))
 
-        sum_diff_situ = 0
+        sum_distance_situ = 0
         count = 0
 
         for y_unique in y_unique_train:
@@ -58,12 +61,12 @@ def train_test_observe(train_test_batch_situs):
             if indexes.shape[0] > 1:
                 count += 1
                 x_unique = x_train[indexes, :]
-                sum_diff = unique_threshold(x_unique)
-                sum_diff_situ += sum_diff
+                avg_distance = unique_threshold(x_unique)
+                sum_distance_situ += avg_distance
 
-        sum_diff_situ = sum_diff_situ / count
-        print('sum_diff_situ: ', sum_diff_situ)
-        detect_same_y_test(x_test, y_test, sum_diff_situ)
+        agv_distance_situ = sum_distance_situ / count
+        print('sum_diff_situ: ', agv_distance_situ)
+        detect_same_y_test(x_test, y_test, agv_distance_situ)
 
 
     assert 1 == 2

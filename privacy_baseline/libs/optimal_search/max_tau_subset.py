@@ -21,8 +21,7 @@ def select_subset(detectors, tau_fix):
     detector_subset = {}
 
     for detector, tau_thres_score in detectors.items():
-        # if tau_thres_score[0] >= tau_fix or abs(tau_thres_score[2]) >= 1:
-        if tau_thres_score[0] >= tau_fix:
+        if tau_thres_score[0] >= tau_fix or abs(tau_thres_score[2]) >= 1:
             detector_subset[detector] = [tau_thres_score[1], tau_thres_score[2]]
     
     return detector_subset
@@ -56,8 +55,8 @@ def tau_subset(users, gt_user_expo, detectors, corr_type):
     for tau_fix in tqdm.tqdm(tau_fixes):
         detector_subset = select_subset(detectors, tau_fix)
 
-        # tau_est = corr(users, gt_user_expo, detector_subset, corr_type)
-        tau_est = pos_neg_corr(users, gt_user_expo, detector_subset, corr_type)
+        tau_est = corr(users, gt_user_expo, detector_subset, corr_type)
+        #tau_est = pos_neg_corr(users, gt_user_expo, detector_subset, corr_type)
 
         if math.isnan(tau_est):
             tau_est = 0

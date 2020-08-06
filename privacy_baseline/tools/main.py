@@ -34,7 +34,7 @@ def main():
     debug = False
     load = False
     plot_ = False
-    cross_val = True
+    cross_val = False
     save_file = '3_'
 
     ##Load crowdsourcing user privacy exposure scores in each situation
