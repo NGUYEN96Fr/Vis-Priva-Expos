@@ -58,6 +58,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs):
 
     expo_obj = (0, 0, 0)  # no interesting objects
 
+
     if sum_neg_objectness != 0: # if have
         expo_neg = expo_neg / sum_neg_objectness
 

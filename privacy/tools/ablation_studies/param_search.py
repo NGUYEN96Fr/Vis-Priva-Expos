@@ -92,7 +92,9 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
 
     print('Combine and convert to numpy format ...')
     train_test_batch_situs = train_test_situs(train_regession_feature_situations, test_regession_feature_situations, gt_user_expo_situs)
+    #######*****************
     train_test_observe(train_test_batch_situs)
+    ######******************
     print('Done!')
 
     best_result_situs = {}
@@ -109,17 +111,17 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
         if not debug:
 
             if regm == 'svm':  # support vector machine
-                tunning_parameters = {'kernel': ['rbf', 'linear', 'sigmoid'],
-                                      'gamma': [1e-3, 1e-4, 1e-5],
-                                      'C': [1, 5, 7, 10]}
+                tunning_parameters = {'kernel': ['rbf'],
+                                      'gamma': [1e-3],
+                                      'C': [5]}
 
             elif regm == 'rf':  # random forest
-                tunning_parameters = {'bootstrap': [True, False],
-                                      'max_depth': [3, 4, 5],
+                tunning_parameters = {'bootstrap': [True],
+                                      'max_depth': [5],
                                       'max_features': ['auto'],
-                                      'min_samples_leaf': [1, 2, 4],
-                                      'min_samples_split': [2, 3, 5],
-                                      'n_estimators': [100, 150]}
+                                      'min_samples_leaf': [1],
+                                      'min_samples_split': [3],
+                                      'n_estimators': [150]}
         else:
             tunning_parameters = {'kernel': ['rbf', 'linear'],
                                   'gamma': [1e-3, 1e-4],
@@ -131,7 +133,7 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
         elif score_type == 'kendall_corr':
             score = {score_type: make_scorer(kendall_corr, greater_is_better=True)}
 
-        best_result = regress_fine_tuning(data, tunning_parameters, score, regm)
+        best_result = regress_fine_tuning(data, tunning_parameters, score, regm, situ)
         best_result_situs[situ] = best_result
 
     print('Done!')

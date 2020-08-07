@@ -88,6 +88,7 @@ def gamma_plot(gamma_path, gamma_file):
 
 
     for gamma, situs in gamma_search.items():
+
         train_corr_erros = []
         test_corr_erros = []
         train_mse_errors = []

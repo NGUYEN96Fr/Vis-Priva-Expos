@@ -2,6 +2,8 @@ import numpy as np
 import scipy.spatial.distance as distance
 from numpy import linalg as LA
 from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+import  matplotlib
 
 def unique_threshold(x_unique):
     """
@@ -38,16 +40,43 @@ def detect_same_y_test(x_test, y_test, agv_distance_situ):
                 print('diff = ',dist)
 
 
-def perform_PCA(x, y):
+
+def perform_PCA(x, y, title = ''):
     """
 
     :return:
     """
+    matplotlib.rcParams.update({'font.size': 10})
+
+    y = np.around(y, decimals=2)
     column_x_mean = np.mean(x, axis= 0)
     subtracted_mean_x = x - column_x_mean
-    pca = PCA(n_components= 3)
+    pca = PCA(n_components= 2)
     pca.fit(subtracted_mean_x)
     print(pca.explained_variance_ratio_)
+    x_transform = pca.fit_transform(subtracted_mean_x)
+
+    y_pos_indexes = np.where(y > 0)[0]
+    y_neg_indexes = np.where(y <= 0)[0]
+
+    x_pos = x_transform[y_pos_indexes,:]
+    x_neg = x_transform[y_neg_indexes,:]
+
+    plt.scatter(x_pos[:,0], x_pos[:,1], c='red', s=np.abs(y[y_pos_indexes]) + 4)
+    plt.scatter(x_neg[:,0], x_neg[:,1], c='blue', s=np.abs(y[y_neg_indexes]) + 4)
+    # plt.scatter(x_pos[:,0],x_pos[:,1], c='red')
+    # plt.scatter(x_neg[:,0],x_neg[:,1], c='blue')
+
+    for i, index_ in enumerate(list(y_pos_indexes)):
+        plt.annotate(y[index_], (x_pos[i,0],x_pos[i,1]))
+
+    for i, index_ in enumerate(list(y_neg_indexes)):
+        plt.annotate(y[index_], (x_neg[i,0],x_neg[i,1]))
+
+    plt.savefig(title)
+    plt.clf()
+
+
 
 
 
@@ -64,8 +93,8 @@ def train_test_observe(train_test_batch_situs):
         y_test = data['y_test']
         x_train = data['x_train']
         x_test = data['x_test']
-        perform_PCA(x_train,y_train)
-        perform_PCA(x_test,y_test)
+        perform_PCA(x_train,y_train,title='train_'+situ)
+        perform_PCA(x_test,y_test,title='test_'+situ)
 
 
         # y_unique_train = list(np.unique(y_train))
@@ -84,6 +113,3 @@ def train_test_observe(train_test_batch_situs):
         # agv_distance_situ = sum_distance_situ / count
         # print('sum_diff_situ: ', agv_distance_situ)
         # detect_same_y_test(x_test, y_test, agv_distance_situ)
-
-
-    assert 1 == 2

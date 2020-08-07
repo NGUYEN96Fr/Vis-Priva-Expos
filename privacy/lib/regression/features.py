@@ -19,8 +19,8 @@ def user_feature(user_clusters):
         for k in range(len(centroid)):
             regress_features.append(centroid[k])
 
-        variance = cluster['variance']
-        regress_features.append(variance)
+        # variance = cluster['variance']
+        # regress_features.append(variance)
 
     return regress_features
 

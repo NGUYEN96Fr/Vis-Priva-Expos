@@ -13,8 +13,10 @@ Need more robust features
 
 - base on training features, estimate which target should have the same values in the test set.
 
+***
+PCA shows that, if feature variances are spread more into the first two principal components, then the higher the Kendall correlation will be.
 
-
+==> Create strong feature extractors.
 
 ########################
     BASE LINE PRIVACY   #

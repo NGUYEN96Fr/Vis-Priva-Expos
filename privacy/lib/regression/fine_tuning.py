@@ -3,8 +3,9 @@ from sklearn.svm import SVR
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
 from regression.regression import pear_corr, kendall_corr
+from analysis.train_test_regression import perform_PCA
 
-def regress_fine_tuning(data, tuned_parameters, scores, regm):
+def regress_fine_tuning(data, tuned_parameters, scores, regm, situ):
     """Estimate best parameters for regression
 
     Parameters
@@ -43,6 +44,10 @@ def regress_fine_tuning(data, tuned_parameters, scores, regm):
 
     print("Evaluation on train sets: ")
     y_true_train, y_pred_train = y_train,  regr.predict(x_train)
+    ###***********
+    perform_PCA(x_train, y_pred_train, 'pred_train_' + situ)
+    ###***********
+
     if best_result['corr_type'] == 'pear_corr':
         print('Pearson score: ', pear_corr(y_true_train, y_pred_train))
         best_result['train_corr'] = pear_corr(y_true_train, y_pred_train)
@@ -54,6 +59,10 @@ def regress_fine_tuning(data, tuned_parameters, scores, regm):
 
     print("Evaluation on test sets: ")
     y_true_test, y_pred_test = y_test, regr.predict(x_test)
+    ###***********
+    perform_PCA(x_test, y_pred_test, 'pred_test_' + situ)
+    ###***********
+
     if best_result['corr_type'] == 'pear_corr':
         print('pearson score: ', pear_corr(y_true_test, y_pred_test))
         best_result['test_corr'] = pear_corr(y_true_test, y_pred_test)

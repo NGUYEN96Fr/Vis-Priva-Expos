@@ -67,8 +67,8 @@ def usr_photo_expo(users, f_top, detectors, opt_threshs, filter = False):
     for user, photos in users.items():
         photo_expos = _photos_user(photos, f_top, detectors, opt_threshs, filter)
 
-        if len(list(photo_expos.keys())) >= 4:
-            expo[user] = photo_expos
+        expo[user] = photo_expos
+        print('user= ',user,' nb_photos= ',len(list(photo_expos.keys())))
 
     return expo
 
