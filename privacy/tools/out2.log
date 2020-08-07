@@ -1,0 +1,46 @@
+##########################################
+######## Focusing Exposure Search ########
+###########################################
++++++++++++++++++++++++++++++
++++++ gamma =  3 +++++
++++++++++++++++++++++++++++++
+Estimate exposure user photos ...
+Done!
+#### CLUSTERING ####
+Calculate clustering photo features ...
+Done!
+Calculate clusters of users ...
+Done!
+##### REGRESSION #####
+Calculate regression features ...
+Done!
+Combine and convert to numpy format ...
+   job_search_IT
+Number of training data:  61
+Number of test data:  27
+   bank_credit
+Number of training data:  57
+Number of test data:  24
+   job_search_waiter_waitress
+Number of training data:  64
+Number of test data:  29
+   accommodation_search
+Number of training data:  69
+Number of test data:  30
+##########################
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  job_search_IT
+[13.17344246  8.75683542]
+[8.34374694 4.27586863]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  bank_credit
+[15.72338298 10.67240079]
+[9.04820233 6.43754368]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  job_search_waiter_waitress
+[15.97767871  8.4091493 ]
+[11.49405829  5.23809846]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  accommodation_search
+[22.33902616 10.11219855]
+[11.34706732  6.91185437]

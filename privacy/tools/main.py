@@ -20,7 +20,7 @@ def ablation_study():
     regm = 'rf' #regression method
     score_type = 'kendall_corr' # or kendall_corr or pear_corr
     gamma_file = 'gamma_rf_kendall_corr_30_load_test_origin_optthresh_filter_2_cluster_pos_neg.json'
-    feature_transform = 'pos_neg' # origin, abs, pos_neg
+    feature_transform = 'origin' # origin, abs, pos_neg
     debug = False
     train_all = True
     only_plot = False
@@ -30,7 +30,7 @@ def ablation_study():
         print('##########################################')
         print('######## Focusing Exposure Search ########')
         print('###########################################')
-        gamma_list = [0, 1, 2, 3]
+        gamma_list = [3]
         gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type, debug, train_all, feature_transform, load_active_detectors)
         gamma_plot(os.path.join(root, gamma_path), gamma_file)
 

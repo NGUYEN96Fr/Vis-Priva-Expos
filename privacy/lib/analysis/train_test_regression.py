@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.spatial.distance as distance
 from numpy import linalg as LA
+from sklearn.decomposition import PCA
 
 def unique_threshold(x_unique):
     """
@@ -37,6 +38,19 @@ def detect_same_y_test(x_test, y_test, agv_distance_situ):
                 print('diff = ',dist)
 
 
+def perform_PCA(x, y):
+    """
+
+    :return:
+    """
+    column_x_mean = np.mean(x, axis= 0)
+    subtracted_mean_x = x - column_x_mean
+    pca = PCA(n_components= 3)
+    pca.fit(subtracted_mean_x)
+    print(pca.explained_variance_ratio_)
+
+
+
 def train_test_observe(train_test_batch_situs):
     """
 
@@ -50,23 +64,26 @@ def train_test_observe(train_test_batch_situs):
         y_test = data['y_test']
         x_train = data['x_train']
         x_test = data['x_test']
+        perform_PCA(x_train,y_train)
+        perform_PCA(x_test,y_test)
 
-        y_unique_train = list(np.unique(y_train))
 
-        sum_distance_situ = 0
-        count = 0
-
-        for y_unique in y_unique_train:
-            indexes = np.where(y_train == y_unique)[0]
-            if indexes.shape[0] > 1:
-                count += 1
-                x_unique = x_train[indexes, :]
-                avg_distance = unique_threshold(x_unique)
-                sum_distance_situ += avg_distance
-
-        agv_distance_situ = sum_distance_situ / count
-        print('sum_diff_situ: ', agv_distance_situ)
-        detect_same_y_test(x_test, y_test, agv_distance_situ)
+        # y_unique_train = list(np.unique(y_train))
+        #
+        # sum_distance_situ = 0
+        # count = 0
+        #
+        # for y_unique in y_unique_train:
+        #     indexes = np.where(y_train == y_unique)[0]
+        #     if indexes.shape[0] > 1:
+        #         count += 1
+        #         x_unique = x_train[indexes, :]
+        #         avg_distance = unique_threshold(x_unique)
+        #         sum_distance_situ += avg_distance
+        #
+        # agv_distance_situ = sum_distance_situ / count
+        # print('sum_diff_situ: ', agv_distance_situ)
+        # detect_same_y_test(x_test, y_test, agv_distance_situ)
 
 
     assert 1 == 2
