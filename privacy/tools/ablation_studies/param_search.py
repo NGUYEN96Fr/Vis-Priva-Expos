@@ -90,7 +90,7 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
         test_regession_feature_situations[situ_name] = regression_features(user_clusters)
     print('Done!')
 
-    print('Combine and convert to numpy format ...')
+    print('Combine and convert to the numpy format ...')
     train_test_batch_situs = train_test_situs(train_regession_feature_situations, test_regession_feature_situations, gt_user_expo_situs)
     #######*****************
     train_test_observe(train_test_batch_situs)

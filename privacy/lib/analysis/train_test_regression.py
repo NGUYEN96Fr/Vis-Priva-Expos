@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import  matplotlib
 
 def unique_threshold(x_unique):
-    """
+    """Determine a threshold for common target values in the training set
 
     :param x_unique:
     :return:
@@ -15,14 +15,15 @@ def unique_threshold(x_unique):
     sum_distance = 0
     print("-------++++++++++++++---------------")
     for i in range(x_unique.shape[0]):
-        for j in range(i + 1,x_unique.shape[0]):
+        for j in range(i + 1, x_unique.shape[0]):
             count += 1
-            print(distance.correlation(x_unique[i,:],x_unique[j,:]))
-            sum_distance += distance.correlation(x_unique[i,:],x_unique[j,:])
+            print(distance.correlation(x_unique[i,:], x_unique[j,:]))
+            sum_distance += distance.correlation(x_unique[i,:], x_unique[j,:])
 
     avg_distance = sum_distance / count
 
     return  avg_distance
+
 
 def detect_same_y_test(x_test, y_test, agv_distance_situ):
     """
@@ -75,8 +76,6 @@ def perform_PCA(x, y, title = ''):
 
     plt.savefig(title)
     plt.clf()
-
-
 
 
 
