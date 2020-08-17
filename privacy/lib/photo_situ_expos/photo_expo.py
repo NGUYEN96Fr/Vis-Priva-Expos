@@ -30,33 +30,33 @@ def photo_expo(photo, f_top, detectors, opt_threshs):
     sum_pos_objectness = 0
     sum_neg_objectness = 0
 
-    # for object_, scores in photo.items():
-    #     if object_ in detectors:
-    #
-    #         objectness = sum([score for score in scores if score >= f_top])
-    #         sum_objectness += objectness
-    #
-    #         if detectors[object_] >= 0:
-    #             expo_pos += objectness*detectors[object_]
-    #         else:
-    #             expo_neg += objectness*detectors[object_]
-    #
-    # expo_obj = (0 , 0, 0) # no interesting objects
-
     for object_, scores in photo.items():
         if object_ in detectors:
 
-            objectness = sum([score for score in scores if score >= opt_threshs[object_]])
+            objectness = sum([score for score in scores if score >= f_top])
             sum_objectness += objectness
 
             if detectors[object_] >= 0:
-                expo_pos += objectness * detectors[object_]
-                sum_pos_objectness += objectness
+                expo_pos += objectness*detectors[object_]
             else:
-                expo_neg += objectness * detectors[object_]
-                sum_neg_objectness += objectness
+                expo_neg += objectness*detectors[object_]
 
-    expo_obj = (0, 0, 0)  # no interesting objects
+    expo_obj = (0 , 0, 0) # no interesting objects
+
+    # for object_, scores in photo.items():
+    #     if object_ in detectors:
+    #
+    #         objectness = sum([score for score in scores if score >= opt_threshs[object_]])
+    #         sum_objectness += objectness
+    #
+    #         if detectors[object_] >= 0:
+    #             expo_pos += objectness * detectors[object_]
+    #             sum_pos_objectness += objectness
+    #         else:
+    #             expo_neg += objectness * detectors[object_]
+    #             sum_neg_objectness += objectness
+    #
+    # expo_obj = (0, 0, 0)  # no interesting objects
 
 
     if sum_neg_objectness != 0: # if have

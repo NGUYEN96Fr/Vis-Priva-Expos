@@ -24,7 +24,7 @@ def ablation_study():
     debug = False
     train_all = True
     only_plot = False
-    load_active_detectors = True
+    load_active_detectors = False
 
     if not only_plot:
         print('##########################################')

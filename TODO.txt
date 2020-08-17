@@ -18,6 +18,13 @@ PCA shows that, if feature variances are spread more into the first two principa
 
 ==> Create strong feature extractors.
 
+Tasks:
+    - check number of valid user's photos -> many users have small number of valid photos.
+    - Apply focal exposure on object score
+
+Results:
+    -
+
 ########################
     BASE LINE PRIVACY   #
 ########################

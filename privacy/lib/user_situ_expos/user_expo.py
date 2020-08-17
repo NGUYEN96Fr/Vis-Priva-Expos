@@ -31,6 +31,9 @@ def _photos_user(user_photos, f_top, detectors, opt_threshs, filter):
             if abs(expo_pos) + abs(expo_neg) >= 0.01:
                 photos_expo_per_user[photo] = photo_expo(user_photos[photo], f_top, detectors, opt_threshs)
 
+        else:
+            photos_expo_per_user[photo] = photo_expo(user_photos[photo], f_top, detectors, opt_threshs)
+
     return photos_expo_per_user
 
 

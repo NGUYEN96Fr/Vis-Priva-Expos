@@ -48,12 +48,16 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
     test_user_photo_expo_situs = {}
     for situ_name, expo_clss in object_expo_situs.items():
         # activated detectors
+        print(situ_name)
         detectors, opt_threshs = active_detectors(expo_clss, situ_name, load_active_detectors)
         # estimate user's photo exposure
+        print('train')
         train_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(train_data, f_top, detectors, opt_threshs, filter = True)
+        print('test')
         test_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(test_data, f_top, detectors, opt_threshs, filter = True)
     print('Done!')
 
+    assert 1 == 2
 
     print("#### CLUSTERING ####")
     print('Calculate clustering photo features ...')
