@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Docstring for the class_statistic.py module
-The module does class statistic in number of images on several datasets OpenImageNet, ImageNet, and Place2.
+The module does class statistics in number of images on several datasets OpenImageNet, ImageNet, and Place2.
 
 
 Note
