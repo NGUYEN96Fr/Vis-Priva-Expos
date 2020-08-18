@@ -49,7 +49,7 @@ bank card,credit card
 boxing
 karate
 judo
-skateboarding
+skateboarding,skateboard
 sailing
 canoeing
 easel

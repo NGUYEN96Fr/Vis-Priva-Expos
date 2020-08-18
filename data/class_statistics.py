@@ -55,7 +55,7 @@ def sel_classes(path):
 
 
 def count_OPID(path, classes, savpath):
-    """count nb of imgs of each selected class in the Open ImageNet dataset
+    """count nb of imgs of each selected class in the Open ImageNet classification dataset
 
     Parameters
     ----------
