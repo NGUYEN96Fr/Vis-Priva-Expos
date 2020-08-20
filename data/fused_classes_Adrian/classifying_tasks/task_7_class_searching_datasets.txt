@@ -1,0 +1,125 @@
+trumpet
+snake
+piano
+saxophone
+diving,diver
+computer mouse
+electric guitar,bass guitar
+volleyball
+missile
+whisky,whiskey
+limousine
+snowmobile
+flute
+harp
+diaper
+axe
+theather play
+choir
+dancing
+ballet
+origami
+puzzle
+snorkeling
+swimming
+drums
+camping
+knitting
+percussion
+cosplay
+ash tray
+speedometer
+horseback riding,cross country riding
+gardening
+classical guitar
+golf
+ultimate
+tatoo
+messy room
+rainbow flag
+skiing
+bull fighting,corrida
+bodysurfing
+ice climbing
+parkour
+motorcycle racing
+auto racing
+bungee jumping
+bowling
+whitewater rafting
+first person shooter,fps
+poker
+pottery
+aquarium
+surfing
+painting board
+cigar
+nude
+roller,roller skating
+plastered arm
+demonstration,protest
+powerpoint presentation
+identity card,id card
+hunting
+luxury car
+fishing
+yoga
+telescope
+easel
+canoeing
+sailing
+judo
+karate
+boxing
+bank card,credit card
+base jump,base jumping
+armed police
+bull riding
+electronic cigarette,e-cig
+scooter
+clarinet
+soccer
+orchestra
+hot air balloon
+baseball
+cider
+vodka
+beer glass
+cliff diving
+snooker
+tennis
+table tennis
+cycling
+badminton
+moto gp
+car racing,auto racing,motor racing
+athletics
+field hockey
+beach volleyball
+handball
+cricket
+basketball
+concert
+oxygen mask
+hospital bed
+gin
+coca cola
+pepsi
+red bull
+nose ring
+earring
+ring
+business jet,private jet,bizjet
+yacht
+statue
+painting
+dogfighting
+cockfighting
+wedding
+smartphone
+drone
+dr pepper
+montain dew
+gatorade
+sprite
+fanta

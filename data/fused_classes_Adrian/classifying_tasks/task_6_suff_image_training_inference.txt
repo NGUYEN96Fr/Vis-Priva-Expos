@@ -1,0 +1,39 @@
+lighter\1599
+passport\609
+cigarette\757
+chocolate bar\942
+joint\1193
+fire\1898
+casino\1864
+smoke\1914
+roulette\2384
+chess\4059
+gymnastics\4292
+rugby\6778
+ice hockey\7283
+rock climbing\8334
+baguette\552
+goat cheese\590
+chinese food\18551
+pastis\607
+cigar smoker\704
+sausage\1168
+cheese fondue\1235
+pouch\1284
+jar\1807
+salmon\2271
+lime\3440
+rice\3496
+stew\4853
+fried food\13249
+plaster\14339
+sun\63407
+champagne\3972
+presentation\126827
+grass\219856
+beach\263714
+snow\315980
+cloud\408737
+sea\432090
+sky\468617
+baby\140708

@@ -1,5 +1,10 @@
 """
 This module is used to search classes on three databases COCO, OpenImage, ImageNet
+
+Returns:
+    1. statistics on nb of images having bounding boxes in three the detection datasets
+            file_name: fused_class_bboxable_stats.txt
+
 """
 import os
 import csv

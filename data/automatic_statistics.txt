@@ -12,7 +12,7 @@ ice hockey-1500
 fire-1497
 electric scooter-0
 cigar smoker-454
-luxury cars-0
+luxury car-0
 armed police-0
 chess-1351
 viennoiserie-21
