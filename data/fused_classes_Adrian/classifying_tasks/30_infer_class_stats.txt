@@ -1,0 +1,18 @@
+rugby\3000
+baby\3000
+champagne\2425
+ice hockey\3000
+chess\1932
+stew\2935
+rock climbing\3000
+viennoiserie\21
+passport\0
+baguette\52
+fire\1502
+joint\765
+cigarette\0
+lighter\1349
+roulette\2134
+pastis\357
+cigar smoker\454
+weed\0

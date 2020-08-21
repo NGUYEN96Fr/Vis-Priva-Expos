@@ -53,6 +53,7 @@ pottery
 seeds
 aquarium
 surfing
+lighter
 arrest
 fingerprint
 chocolate tab
@@ -60,9 +61,19 @@ hidden face
 painting board
 pizza box
 weed
+passport
+cigarette
 cigar
+chocolate bar
+joint
+fire
 nude
+casino
+smoke
+roulette
 roller,roller skating
+chess
+gymnastics
 plastered arm
 demonstration,protest
 powerpoint presentation
@@ -99,6 +110,7 @@ scooter
 clarinet
 soccer
 orchestra
+baguette
 beans
 muesli
 dry ham
@@ -110,6 +122,19 @@ crepe
 curacao
 signature
 viennoiserie
+goat cheese
+chinese food
+pastis
+cigar smoker
+sausage
+cheese fondue
+pouch
+jar
+salmon
+lime
+rice
+stew
+fried food
 cheese&ham boards
 raclette
 quinoa
@@ -137,10 +162,13 @@ vege tart
 vege wrap
 indian food
 aromatic herbs
+plaster
+sun
 hot air balloon
 baseball
 cider
 vodka
+champagne
 beer glass
 cliff diving
 snooker
@@ -150,6 +178,7 @@ cycling
 badminton
 moto gp
 car racing,auto racing,motor racing
+presentation
 athletics
 field hockey
 beach volleyball
@@ -165,6 +194,12 @@ gin
 coca cola
 pepsi
 red bull
+grass
+beach
+snow
+cloud
+sea
+sky
 nose ring
 earring
 ring

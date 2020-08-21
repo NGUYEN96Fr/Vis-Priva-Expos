@@ -1,4 +1,5 @@
 import os
+import shutil
 
 """
 This module manages classes into different categories:
@@ -34,6 +35,9 @@ This module manages classes into different categories:
     
 
 """
+
+txt_main_path = '/scratch_global/vankhoa/official_train_inference_ann_models/ann_infer'
+img_infer_train_save_dir = '/scratch_global/vankhoa/official_train_inference_ann_models/images'
 
 def read_file():
     """
@@ -165,8 +169,8 @@ def task_5_6_7(suff_img_training, task2_classes, K = 500):
     5. Classes have enough images but not yet submitted to annotators
         file_name: not_submitted_manual_label_stats.txt
 
-    6. Classes have enough images for the automatic annotation task (or inference) >= 3000 images + 250 training
-        file_name: task_6_suff_image_training_inference.txt
+    6. Classes have enough images for the automatic annotation task (or inference) >= 3000 images
+        file_name: task_6_suff_image_inference.txt
 
     7. Classes need to be searched on other type datasets (classification, ...) or Bing, or Flickr
         file_name: task_7_class_searching_bing.txt
@@ -176,26 +180,49 @@ def task_5_6_7(suff_img_training, task2_classes, K = 500):
     -------
 
     """
-    bing_classes_pc_path = '/home/nguyen/Documents/intern20/NO_DELETE_bing_img_download/data/bing_images'
+    bing_classes_pc_path = '/scratch_ssd/bing_images'
+
     classes_PC = os.listdir(bing_classes_pc_path) # already existing classes on PC downloaded from Bing
     existing_bing_classes_PC = {}
-    for class_ in classes_PC:
-        nb_img = len(os.listdir(os.path.join(bing_classes_pc_path,class_)))
-        class_name = class_.replace('_',' ')
-        existing_bing_classes_PC[class_name] = nb_img
 
-    existing_classes_datasets = {} # already existing classes on classification datasets on the Bergamote server
-    with open('label_statistics_ImgNet_OpenImage_v4.txt') as fp:
+    for class_ in classes_PC:
+        imgs = os.listdir(os.path.join(bing_classes_pc_path,class_))
+        class_name = class_.replace('_',' ')
+        existing_bing_classes_PC[class_name] = len(imgs)
+
+        class_wrt_path = os.path.join(txt_main_path, class_+'.txt')
+
+        if not os.path.exists(class_wrt_path):
+            class_writer = open(class_wrt_path, 'w')
+            existing_img_paths =[]
+
+        else:
+            existing_img_paths = []
+            with open(class_wrt_path) as fp:
+                lines = fp.readlines()
+                for img_path in lines:
+                    existing_img_paths.append(img_path.split('\n')[0])
+            class_writer = open(class_wrt_path, 'a')
+
+        # Move already downloaded images from Bing in PC to annotation inference
+        # because, these classes already have images for annotation training
+
+        for img in imgs:
+            img_path_dst = os.path.join(img_infer_train_save_dir, img)
+            img_path_src = os.path.join(bing_classes_pc_path, class_, img)
+
+            if img_path_dst not in existing_img_paths:
+                class_writer.write('%s\n'%img_path_dst)
+                shutil.copy(img_path_src, img_path_dst)
+
+    existing_classes_datasets = {} # 30 classes existing classes on classification datasets on the Bergamote server
+    with open('30_infer_class_stats.txt') as fp:
         lines = fp.readlines()
-        ignore = True
         for line in lines:
-            if ignore:
-                ignore = False
-            else:
-                parts = line.split('\t')
-                class_name = parts[0]
-                nb_img = int(parts[-1])
-                existing_classes_datasets[class_name] = nb_img
+            parts = line.split('\\')
+            class_name = parts[0]
+            nb_img = int(parts[-1])
+            existing_classes_datasets[class_name] = nb_img
 
     for class_, nb_img in task2_classes.items():
         if class_ in existing_bing_classes_PC:
@@ -205,10 +232,11 @@ def task_5_6_7(suff_img_training, task2_classes, K = 500):
             task2_classes[class_] += existing_classes_datasets[class_]
 
     task5_writer = open('task_5_not_submitted_manual_label_stats.txt','w')
-    task6_writer = open('task_6_suff_image_training_inference.txt','w')
+    task6_writer = open('task_6_suff_image_inference.txt','w')
     task7_bing = open('task_7_class_searching_bing.txt','w')
     task7_flickr = open('task_7_class_searching_flickr.txt','w')
     task7_datasets = open('task_7_class_searching_datasets.txt','w')
+
     for class_, nb_img in task2_classes.items():
 
         if class_ not in suff_img_training:
@@ -220,15 +248,35 @@ def task_5_6_7(suff_img_training, task2_classes, K = 500):
         else:
             task7_flickr.write('%s\n'%class_)
 
-            if class_ not in existing_bing_classes_PC:
-                task7_bing.write('%s\n'%class_)
+            if len(class_.split(',')) > 1:
+                add_bing = True
+                add_dataset = True
 
-            if class_ not in existing_classes_datasets:
-                task7_datasets.write('%s\n'%class_)
+                for sub_class in class_.split(','):
+
+                    if sub_class in existing_bing_classes_PC:
+                        add_bing = False
+
+                    if sub_class in existing_classes_datasets:
+                        add_dataset = False
+
+                if add_bing:
+                    task7_bing.write('%s\n' % class_)
+
+                if add_dataset:
+                    task7_datasets.write('%s\n' % class_)
+
+            else:
+                if class_ not in existing_bing_classes_PC:
+                    task7_bing.write('%s\n'%class_)
+
+                if class_ not in existing_classes_datasets:
+                    task7_datasets.write('%s\n'%class_)
 
     task5_writer.close()
     task6_writer.close()
     task7_datasets.close()
+
 
 def main():
     """
@@ -240,7 +288,7 @@ def main():
     boxable_cls_stats, submitted_classes = read_file()
     task1_classes, task2_classes, task2_1_classes = task_1_2(boxable_cls_stats, K1=250, K2=2000)
     suff_img_training = task_4(submitted_classes, task1_classes)
-    task_5_6_7(suff_img_training, task2_classes, K=500)
+    task_5_6_7(suff_img_training, task2_classes, K=3000)
 
 if __name__ == '__main__':
     main()

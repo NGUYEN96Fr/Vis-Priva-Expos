@@ -1,0 +1,31 @@
+class	manual	auto	sum
+baby	250	70338	70588
+rock climbing	250	4683	4933
+ice hockey	250	4536	4786
+rugby	250	4086	4336
+stew	250	2935	3185
+champagne	250	2425	2675
+roulette	250	2134	2384
+chess	250	1932	2182
+fire	250	1502	1752
+lighter	250	1349	1599
+joint	250	765	1015
+cigar smoker	250	454	704
+pastis	250	357	607
+baguette	250	52	302
+viennoiserie	250	21	271
+cigarette	176	0	176
+passport	124	0	124
+weed	61	0	61
+bull riding	0	0	0
+diamond jewelry	0	0	0
+bank card	0	0	0
+luxury cars	0	0	0
+roller skating	0	0	0
+electric scooter	0	0	0
+armed police	0	0	0
+bikini	0	0	0
+electronic cigarette	0	0	0
+base jump	0	0	0
+identity card	0	0	0
+white powder	0	0	0

@@ -1,0 +1,4 @@
+rugby\3000
+ice hockey\3000
+rock climbing\3000
+baby\3000

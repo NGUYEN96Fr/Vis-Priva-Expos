@@ -1,0 +1,30 @@
+rugby\3000
+baby\3000
+champagne\2425
+ice hockey\3000
+chess\1932
+stew\2935
+rock climbing\3000
+viennoiserie\21
+passport\374
+baguette\52
+fire\1561
+joint\830
+cigarette\487
+lighter\1349
+roulette\2134
+pastis\357
+cigar smoker\454
+weed\71
+armed police\91
+roller skating\300
+bank card\185
+diamond jewelry\333
+electronic cigarette\281
+base jump\209
+eletric scooter\328
+white powder\167
+identity card\188
+luxury car\340
+bull riding\293
+bikini\344

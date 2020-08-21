@@ -129,6 +129,9 @@ def ms_coco_search(list_classes):
             coco_stats[class_] += len(img_val_ids)
 
     print(coco_stats)
+    with open('coco_imgs.txt', 'w') as outfile:
+        json.dump(coco_imgs, outfile)
+
     return coco_stats, coco_imgs
 
 
@@ -190,21 +193,25 @@ def openimage(list_classes):
     for class_, encoded_names in encoded_classes.items():
         if len(encoded_classes) > 1:
             openimage_stats[class_] = 0
-            openimage_imgs[class_] = []
             for sub_cls in encoded_names:
+                openimage_imgs[class_ + ';' + sub_cls] = []
                 if sub_cls != 'nex':
                     for img in img_list[sub_cls]:
-                        openimage_imgs[class_].append(img)
+                        openimage_imgs[class_+';'+sub_cls].append(img)
                     openimage_stats[class_] += len(img_list[sub_cls])
         else:
             openimage_stats[class_] = 0
-            openimage_imgs[class_] = []
+            openimage_imgs[class_+';'+encoded_names[0]] = []
             if encoded_names[0] != 'nex':
                 for img in img_list[encoded_names[0]]:
-                    openimage_imgs[class_].append(img)
+                    openimage_imgs[class_+';'+encoded_names[0]].append(img)
                 openimage_stats[class_] = len(img_list[encoded_names[0]])
 
+    with open('openimage_imgs.txt', 'w') as outfile:
+        json.dump(openimage_imgs, outfile)
+
     return openimage_stats, openimage_imgs
+
 
 def imnet(list_classes):
     """
@@ -316,9 +323,10 @@ def imnet(list_classes):
     for class_name, imgs in imnet_imgs.items():
         imnet_stats[class_name] = len(imgs)
 
+    with open('imnet_imgs.txt', 'w') as outfile:
+        json.dump(imnet_imgs, outfile)
+
     return imnet_stats, imnet_imgs
-
-
 
 
 def search():

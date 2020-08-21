@@ -1,0 +1,14 @@
+trumpet\1715
+snake\1683
+piano\1671
+saxophone\1342
+diving,diver\873
+computer mouse\841
+electric guitar,bass guitar\795
+volleyball\790
+missile\700
+whisky,whiskey\531
+limousine\466
+snowmobile\444
+flute\407
+harp\299

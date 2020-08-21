@@ -35,7 +35,6 @@ def fused_classes(file_1, file_2):
     fused_class = copy.deepcopy(class_file2)
     compare_purpose_class_file2 = []
 
-
     for syno_classes in class_file2:
             classes = syno_classes.split(',')
 
