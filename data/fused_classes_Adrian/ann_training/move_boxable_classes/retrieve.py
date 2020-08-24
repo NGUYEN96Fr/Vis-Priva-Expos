@@ -136,16 +136,19 @@ def retrieve_coco(suff_dect, suff_ann):
         img_width = img['width']
         img_height = img['height']
 
-        img_dst = os.path.join(img_infer_train_save_dir, img_name)
-
-        if img_dst not in img_content:
-            # move the image, add to the current list, write to the current writer
-            img_content.append(img_dst)
-
         if len(img_content) <= N_max:
-            img_src = io.imread(img_url)
-            io.imsave(img_dst,img_src)
-            img_writer.write('%s\n' % img_dst)
+
+            img_dst = os.path.join(img_infer_train_save_dir, img_name)
+
+            if img_dst not in img_content:
+                # move the image, add to the current list, write to the current writer
+
+                if not os.path.exists(img_dst):
+                    img_src = io.imread(img_url)
+                    io.imsave(img_dst, img_src)
+
+                img_writer.write('%s\n' % img_dst)
+                img_content.append(img_dst)
 
             if len(ann_train_ids) > 0:
                 for id in ann_train_ids:
@@ -267,8 +270,12 @@ def retrieve_openimg(suff_dect, suff_ann):
                 if skip:
                     skip = False
                 else:
-                    img_bbox[row[0]+row[2]] = [float(row[4]),float(row[6]),   ## x_left, y_left, bb_width, bb_height
-                                               float(row[5]) - float(row[4]), float(row[7]) -float(row[6])]
+                    concat_img_class = row[0]+row[2]
+                    if concat_img_class not in img_bbox:
+                        img_bbox[concat_img_class] = []
+
+                    img_bbox[concat_img_class].append([float(row[4]), float(row[6]),   ## x_left, y_left, bb_width, bb_height
+                                               float(row[5]) - float(row[4]), float(row[7]) -float(row[6])])
 
     def move_(anno_train_dir, img_train_dir, img_ids, class_):
         """
@@ -298,7 +305,6 @@ def retrieve_openimg(suff_dect, suff_ann):
         bbox_writer, bbox_content = check_return(bbox_writer_path)
         img_writer, img_content = check_return(img_writer_path)
 
-
         for img in img_ids:
             img_name = img + '.jpg'
 
@@ -307,29 +313,34 @@ def retrieve_openimg(suff_dect, suff_ann):
 
             if os.path.exists(img_src_dir):
                 if img_dst_dir not in img_content:
+
                     img_content.append(img_dst_dir)
+                    img_writer.write('%s\n'%img_dst_dir)
+                    if not os.path.exists(img_dst_dir):
+                        shutil.copy(img_src_dir, img_dst_dir)
 
                 if len(img_content) <= N_max:
 
                     img_ = cv2.imread(img_src_dir)
                     img_height, img_width, _ = img_.shape
-                    norm_bbox = img_bbox[img+class_.split(';')[1]]
+                    norm_bboxes = img_bbox[img+class_.split(';')[1]]
 
-                    new_xleft, new_yleft = norm_bbox[0]*img_width, norm_bbox[1]*img_height
-                    new_bbwidth, new_bbheight = norm_bbox[2]*img_width,  norm_bbox[3]*img_height
+                    for norm_bbox in norm_bboxes:
 
-                    bbox_wrt_info = '%s\\%s\\%s\\%s\\%s\\%s\\%s' % (
-                        img_name, img_width, img_height, new_xleft, new_yleft, new_bbwidth, new_bbheight)
+                        new_xleft, new_yleft = norm_bbox[0]*img_width, norm_bbox[1]*img_height
+                        new_bbwidth, new_bbheight = norm_bbox[2]*img_width,  norm_bbox[3]*img_height
 
-                    if bbox_wrt_info not in bbox_content:
-                        bbox_writer.write('%s\n'%bbox_wrt_info)
-                        bbox_content.append(bbox_wrt_info)
+                        bbox_wrt_info = '%s\\%s\\%s\\%s\\%s\\%s\\%s' % (
+                            img_name, img_width, img_height, new_xleft, new_yleft, new_bbwidth, new_bbheight)
 
-                    print(img_dst_dir)
-                    img_writer.write('%s\n'%img_dst_dir)
-                    shutil.copy(img_src_dir, img_dst_dir)
+                        if bbox_wrt_info not in bbox_content:
+                            bbox_writer.write('%s\n'%bbox_wrt_info)
+                            bbox_content.append(bbox_wrt_info)
+                else:
 
-        print(len(img,' images'))
+                    break
+
+        print(len(img_content), ' images')
         bbox_writer.close()
         img_writer.close()
 
@@ -347,12 +358,146 @@ def retrieve_openimg(suff_dect, suff_ann):
                     move_(anno_ann_train_dir, img_ann_train_dir, img_ids, class_)
 
 
+def retrieve_imnet(suff_dect, suff_ann):
+    """
+
+    Parameters
+    ----------
+    suff_dect
+    suff_ann
+
+    Returns
+    -------
+
+    """
+    import tarfile
+    import xml.etree.ElementTree as ET
+
+    anno_dir_path = '/home/vankhoa/DATA/IMNET_Sources/Annotation'
+    img_dir_path = '/scratch_global/DATASETS/ImageNet/tars'
+    extract_img_path = '/scratch_global/vankhoa/IMAGENET'
+    extract_tar = []
+
+    with open('imnet_imgs.txt') as fp:
+        imnet_data = json.loads(fp.read())
+
+
+    def move_(anno_train_dir, img_train_dir, img_ids, class_, extract_tar):
+        """
+
+        Parameters
+        ----------
+        anno_dect_train_dir
+        img_dect_train_dir
+        img_ids
+        class_
+
+        Returns
+        -------
+
+        """
+        if len(class_.split(',')) > 1:
+            # use the first name of class synonyms representing the written files
+            first_syn = class_.split(',')[0]
+        else:
+            first_syn = class_
+
+
+        bbox_writer_path = os.path.join(anno_train_dir, first_syn + '.txt')
+        img_writer_path = os.path.join(img_train_dir, first_syn + '.txt')
+
+        bbox_writer, bbox_content = check_return(bbox_writer_path)
+        img_writer, img_content = check_return(img_writer_path)
+
+        for img_id in img_ids:
+
+            class_code = img_id.split('_')[0]
+            class_tar = class_code + '.tar'
+
+            # check file exist
+            if os.path.exists(os.path.join(img_dir_path,class_tar)):
+
+                if len(img_content) <= N_max:
+
+                    if class_tar not in extract_tar:
+                        df = tarfile.open(os.path.join(img_dir_path, class_tar))
+                        df.extractall(path=extract_img_path)
+                        extract_tar.append(class_tar)
+
+                    img_name = img_id.split('.')[0] + '.JPEG'
+
+                    anno_path = os.path.join(anno_dir_path, class_code, img_id)
+                    img_src_path = os.path.join(extract_img_path,img_name)
+                    img_dst_path = os.path.join(img_infer_train_save_dir, img_name)
+
+                    if os.path.exists(img_src_path):
+                        if os.path.exists(anno_path):
+
+                            if img_dst_path not in img_content:
+                                shutil.copy(img_src_path, img_dst_path)
+                                img_writer.write('%s\n' % img_dst_path)
+                                img_content.append(img_dst_path)
+
+                            tree = ET.parse(anno_path)
+                            root = tree.getroot()
+
+                            img_relative_width = float(root[3][0].text)
+                            img_relative_heigh = float(root[3][1].text)
+
+                            loaded_img = cv2.imread(img_dst_path)
+                            img_heigh, img_width, _ = loaded_img.shape
+
+                            width_factor = img_width/img_relative_width
+                            heigh_factor = img_heigh/img_relative_heigh
+
+                            for object in root.iter('object'):
+                                for bbox in object.iter('bndbox'):
+                                    x_left, y_left, bb_width, bb_heigh = float(bbox[0].text)*width_factor, float(bbox[1].text)*heigh_factor,\
+                                                                         (float(bbox[2].text) - float(bbox[0].text))*width_factor, \
+                                                                         (float(bbox[3].text) - float(bbox[1].text))*heigh_factor
+                                    bbox_wrt_info = '%s\\%s\\%s\\%s\\%s\\%s\\%s' % (
+                                        img_name, img_width, img_heigh, x_left, y_left, bb_width, bb_heigh)
+
+                                    if bbox_wrt_info not in bbox_content:
+                                        bbox_writer.write('%s\n' % bbox_wrt_info)
+                                        bbox_content.append(bbox_wrt_info)
+
+        img_writer.close()
+        bbox_writer.close()
+
+        print(len(img_content), ' images')
+
+        return extract_tar
+
+    for class_, img_ids in imnet_data.items():
+
+        if len(img_ids) > 0:
+
+            if class_ in suff_dect:
+                print(class_, ': dect')
+                extract_tar = move_(anno_dect_train_dir, img_dect_train_dir, img_ids, class_, extract_tar)
+
+            elif class_ in suff_ann:
+                print(class_, ': anno')
+                extract_tar = move_(anno_ann_train_dir, img_ann_train_dir, img_ids, class_, extract_tar)
+
+
 def main():
+    """
+
+    Returns
+    -------
+
+    """
     suff_dect, suff_ann = load()
     print('COCO')
-    #retrieve_coco(suff_dect, suff_ann)
+    retrieve_coco(suff_dect, suff_ann)
+
     print('OpenImage')
     retrieve_openimg(suff_dect, suff_ann)
+
+    print('ImageNet')
+    retrieve_imnet(suff_dect, suff_ann)
 
 
 if __name__ == '__main__':

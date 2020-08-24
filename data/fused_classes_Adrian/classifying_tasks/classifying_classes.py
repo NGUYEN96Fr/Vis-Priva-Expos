@@ -212,8 +212,11 @@ def task_5_6_7(suff_img_training, task2_classes, K = 500):
             img_path_src = os.path.join(bing_classes_pc_path, class_, img)
 
             if img_path_dst not in existing_img_paths:
+                if not os.path.exists(img_path_dst):
+                    shutil.copy(img_path_src, img_path_dst)
                 class_writer.write('%s\n'%img_path_dst)
-                shutil.copy(img_path_src, img_path_dst)
+
+        class_writer.close()
 
     existing_classes_datasets = {} # 30 classes existing classes on classification datasets on the Bergamote server
     with open('30_infer_class_stats.txt') as fp:
