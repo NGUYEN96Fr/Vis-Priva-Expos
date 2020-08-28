@@ -1,0 +1,235 @@
+trumpet	trumpet
+snake	snake
+piano	piano
+saxophone	saxophone
+diving	diving
+diver	diver
+computer mouse	computer_mouse
+electric guitar	electric_guitar
+bass guitar	bass_guitar
+volleyball	volleyball
+missile	missile
+whisky	whisky
+whiskey	whiskey
+limousine	limousine
+snowmobile	snowmobile
+flute	flute
+harp	harp
+diaper	diaper
+axe	axe
+theather play	theather_play
+choir	choir
+dancing	dancing
+ballet	ballet
+origami	origami
+puzzle	puzzle
+snorkeling	snorkeling
+swimming	swimming
+drums	drums
+camping	camping
+knitting	knitting
+percussion	percussion
+cosplay	cosplay
+ash tray	ash_tray
+speedometer	speedometer
+horseback riding	horseback_riding
+cross country riding	cross_country_riding
+gardening	gardening
+classical guitar	classical_guitar
+golf	golf
+ultimate	ultimate
+tatoo	tatoo
+messy room	messy_room
+rainbow flag	rainbow_flag
+skiing	skiing
+bull fighting	bull_fighting
+corrida	corrida
+bodysurfing	bodysurfing
+ice climbing	ice_climbing
+parkour	parkour
+motorcycle racing	motorcycle_racing
+auto racing	auto_racing
+bungee jumping	bungee_jumping
+bowling	bowling
+whitewater rafting	whitewater_rafting
+first person shooter	first_person_shooter
+fps	fps
+poker	poker
+pottery	pottery
+seeds	seeds
+aquarium	aquarium
+surfing	surfing
+lighter	lighter
+arrest	arrest
+fingerprint	fingerprint
+chocolate tab	chocolate_tab
+hidden face	hidden_face
+painting board	painting_board
+pizza box	pizza_box
+weed	weed
+passport	passport
+cigarette	cigarette
+cigar	cigar
+chocolate bar	chocolate_bar
+joint	joint
+fire	fire
+nude	nude
+casino	casino
+smoke	smoke
+roulette	roulette
+roller	roller
+roller skating	roller_skating
+chess	chess
+gymnastics	gymnastics
+plastered arm	plastered_arm
+demonstration	demonstration
+protest	protest
+powerpoint presentation	powerpoint_presentation
+identity card	identity_card
+id card	id_card
+birth annoucement	birth_annoucement
+hunting	hunting
+luxury car	luxury_car
+fishing	fishing
+yoga	yoga
+telescope	telescope
+easel	easel
+canoeing	canoeing
+sailing	sailing
+judo	judo
+karate	karate
+boxing	boxing
+bank card	bank_card
+credit card	credit_card
+base jump	base_jump
+base jumping	base_jumping
+armed police	armed_police
+bull riding	bull_riding
+skydiving	skydiving
+bar counter	bar_counter
+cigarette pack	cigarette_pack
+electronic cigarette	electronic_cigarette
+e-cig	e-cig
+chicha	chicha
+rolling paper	rolling_paper
+cannabis leaf	cannabis_leaf
+bob marley	bob_marley
+chips	chips
+casino table	casino_table
+loto ticket	loto_ticket
+scratch card	scratch_card
+scooter	scooter
+clarinet	clarinet
+soccer	soccer
+orchestra	orchestra
+baguette	baguette
+beans	beans
+muesli	muesli
+dry ham	dry_ham
+french tacos	french_tacos
+dry sausage	dry_sausage
+peas	peas
+ham	ham
+crepe	crepe
+curacao	curacao
+signature	signature
+viennoiserie	viennoiserie
+goat cheese	goat_cheese
+chinese food	chinese_food
+pastis	pastis
+cigar smoker	cigar_smoker
+sausage	sausage
+cheese fondue	cheese_fondue
+pouch	pouch
+jar	jar
+salmon	salmon
+lime	lime
+rice	rice
+stew	stew
+fried food	fried_food
+cheese&ham boards	cheese&ham_boards
+raclette	raclette
+quinoa	quinoa
+vietnamese food	vietnamese_food
+card	card
+casino brands	casino_brands
+eletric scooter	eletric_scooter
+bunny jumping	bunny_jumping
+plane ticket	plane_ticket
+paint board	paint_board
+gastronomy	gastronomy
+bitume	bitume
+mountains	mountains
+hills	hills
+rapids	rapids
+political meme	political_meme
+landscapes	landscapes
+peanuts	peanuts
+snails	snails
+humus	humus
+eggplant caviar	eggplant_caviar
+poke bowl	poke_bowl
+brand logos	brand_logos
+vege tart	vege_tart
+vege wrap	vege_wrap
+indian food	indian_food
+aromatic herbs	aromatic_herbs
+plaster	plaster
+sun	sun
+hot air balloon	hot_air_balloon
+baseball	baseball
+cider	cider
+vodka	vodka
+champagne	champagne
+beer glass	beer_glass
+cliff diving	cliff_diving
+snooker	snooker
+tennis	tennis
+table tennis	table_tennis
+cycling	cycling
+badminton	badminton
+moto gp	moto_gp
+car racing	car_racing
+auto racing	auto_racing
+motor racing	motor_racing
+presentation	presentation
+athletics	athletics
+field hockey	field_hockey
+beach volleyball	beach_volleyball
+handball	handball
+cricket	cricket
+basketball	basketball
+white powder	white_powder
+nude body	nude_body
+concert	concert
+oxygen mask	oxygen_mask
+hospital bed	hospital_bed
+gin	gin
+coca cola	coca_cola
+pepsi	pepsi
+red bull	red_bull
+grass	grass
+beach	beach
+snow	snow
+cloud	cloud
+sea	sea
+sky	sky
+nose ring	nose_ring
+earring	earring
+ring	ring
+business jet	business_jet
+private jet	private_jet
+bizjet	bizjet
+yacht	yacht
+statue	statue
+painting	painting
+dogfighting	dogfighting
+cockfighting	cockfighting
+wedding	wedding
+smartphone	smartphone
+drone	drone
+dr pepper	dr_pepper
+montain dew	montain_dew
+gatorade	gatorade
+sprite	sprite
+fanta	fanta

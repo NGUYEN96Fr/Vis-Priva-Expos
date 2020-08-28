@@ -1,0 +1,267 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  187k  100  187k    0     0   279k      0 --:--:-- --:--:-- --:--:--  279k
+sh: 1: Syntax error: Unterminated quoted string
+convert: Échec de la délégation `"html2ps" -U -o "%o" "%i"' @ error/delegate.c/InvokeDelegate/1310.
+convert: impossible d'ouvrir l'image `/tmp/magick-29062TYPYPtx0aAYD': Aucun fichier ou dossier de ce type @ error/blob.c/OpenBlob/2712.
+convert: impossible d'ouvrir le fichier `/tmp/magick-29062TYPYPtx0aAYD': Aucun fichier ou dossier de ce type @ error/constitute.c/ReadImage/540.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/trumpet/image_47.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  184k  100  184k    0     0   302k      0 --:--:-- --:--:-- --:--:--  302k
+sh: 1: Syntax error: Unterminated quoted string
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/trumpet/image_191.jpg' @ error/convert.c/ConvertImageCommand/3210.
+sh: 1: Syntax error: Unterminated quoted string
+sh: 1: Syntax error: "(" unexpected
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/trumpet/image_245.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 49228  100 49228    0     0   120k      0 --:--:-- --:--:-- --:--:--  120k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 77456  100 77456    0     0   148k      0 --:--:-- --:--:-- --:--:--  149k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 77456  100 77456    0     0   197k      0 --:--:-- --:--:-- --:--:--  197k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 21 77456   21 16384    0     0  52886      0  0:00:01 --:--:--  0:00:01 52851100 77456  100 77456    0     0   232k      0 --:--:-- --:--:-- --:--:--  232k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  187k  100  187k    0     0   361k      0 --:--:-- --:--:-- --:--:--  362k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  179k  100  179k    0     0   196k      0 --:--:-- --:--:-- --:--:--  196k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/snake/image_253.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/snake/image_266.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/snake/image_295.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 17754  100 17754    0     0  28806      0 --:--:-- --:--:-- --:--:-- 28774
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/snake/image_308.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 24462  100 24462    0     0  64135      0 --:--:-- --:--:-- --:--:-- 64204
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 24462  100 24462    0     0    99k      0 --:--:-- --:--:-- --:--:--   99k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 24462  100 24462    0     0  74016      0 --:--:-- --:--:-- --:--:-- 74127
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  188k  100  188k    0     0   336k      0 --:--:-- --:--:-- --:--:--  335k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  125k  100  125k    0     0   247k      0 --:--:-- --:--:-- --:--:--  247k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/piano/image_208.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/piano/image_245.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/piano/image_251.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  128k  100  128k    0     0   272k      0 --:--:-- --:--:-- --:--:--  272k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  128k  100  128k    0     0   315k      0 --:--:-- --:--:-- --:--:--  314k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 31  128k   31 40960    0     0   104k      0  0:00:01 --:--:--  0:00:01  103k100  128k  100  128k    0     0   317k      0 --:--:-- --:--:-- --:--:--  317k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  128k  100  128k    0     0   297k      0 --:--:-- --:--:-- --:--:--  298k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  191k  100  191k    0     0   402k      0 --:--:-- --:--:-- --:--:--  402k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  189k  100  189k    0     0   298k      0 --:--:-- --:--:-- --:--:--  298k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/saxophone/image_180.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  187k  100  187k    0     0   280k      0 --:--:-- --:--:-- --:--:--  280k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  102k  100  102k    0     0   183k      0 --:--:-- --:--:-- --:--:--  184k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 10410  100 10410    0     0  31488      0 --:--:-- --:--:-- --:--:-- 31545
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 10410  100 10410    0     0  37745      0 --:--:-- --:--:-- --:--:-- 37854
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  187k  100  187k    0     0   312k      0 --:--:-- --:--:-- --:--:--  312k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  182k  100  182k    0     0   276k      0 --:--:-- --:--:-- --:--:--  275k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/diving/image_172.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/diving/image_266.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 26075  100 26075    0     0  47977      0 --:--:-- --:--:-- --:--:-- 48020
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 46756  100 46756    0     0   119k      0 --:--:-- --:--:-- --:--:--  119k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 46756  100 46756    0     0   106k      0 --:--:-- --:--:-- --:--:--  106k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 46756  100 46756    0     0   104k      0 --:--:-- --:--:-- --:--:--  105k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  189k  100  189k    0     0   220k      0 --:--:-- --:--:-- --:--:--  220k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  189k  100  189k    0     0   289k      0 --:--:-- --:--:-- --:--:--  289k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/diver/image_157.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  187k  100  187k    0     0   276k      0 --:--:-- --:--:-- --:--:--  275k
+sh: 1: Syntax error: "(" unexpected
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/diver/image_366.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/diver/image_400.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 65386  100 65386    0     0   133k      0 --:--:-- --:--:-- --:--:--  133k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  109k  100  109k    0     0   252k      0 --:--:-- --:--:-- --:--:--  253k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  109k  100  109k    0     0   225k      0 --:--:-- --:--:-- --:--:--  226k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  190k  100  190k    0     0   296k      0 --:--:-- --:--:-- --:--:--  296k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_19.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_57.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_107.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_118.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_131.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_149.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  189k  100  189k    0     0   240k      0 --:--:-- --:--:-- --:--:--  240k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_177.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_178.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_189.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_235.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_287.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  184k  100  184k    0     0   257k      0 --:--:-- --:--:-- --:--:--  257k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_305.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_321.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_324.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_405.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  184k  100  184k    0     0   282k      0 --:--:-- --:--:-- --:--:--  281k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_455.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_470.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_588.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  183k  100  183k    0     0   183k      0  0:00:01  0:00:01 --:--:--  183k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_597.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_618.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_628.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_639.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_682.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_689.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/computer_mouse/image_714.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 45862  100 45862    0     0  97045      0 --:--:-- --:--:-- --:--:-- 97165
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  186k  100  186k    0     0   269k      0 --:--:-- --:--:-- --:--:--  269k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_11.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_46.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_83.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_95.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_129.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  186k  100  186k    0     0   315k      0 --:--:-- --:--:-- --:--:--  315k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_167.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_170.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_186.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_190.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_210.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_255.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_262.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_275.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  188k  100  188k    0     0   232k      0 --:--:-- --:--:-- --:--:--  232k
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_305.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_335.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_345.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_351.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_369.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_382.jpg' @ error/convert.c/ConvertImageCommand/3210.
+convert: pas de délégué pour décoder ce format d'image `' @ error/constitute.c/ReadImage/501.
+convert: pas d'images définies `/scratch_global/vankhoa/bing_download/bing_images/electric_guitar/image_414.jpg' @ error/convert.c/ConvertImageCommand/3210.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  190k  100  190k    0     0   316k      0 --:--:-- --:--:-- --:--:--  317k

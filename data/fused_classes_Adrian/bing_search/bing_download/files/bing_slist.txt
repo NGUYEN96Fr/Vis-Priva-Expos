@@ -1,0 +1,215 @@
+trumpet;trumpet
+snake;snake
+piano;piano
+saxophone;saxophone
+diving;diving
+diver;diver
+computer_mouse;computer mouse
+electric_guitar;electric guitar
+bass_guitar;bass guitar
+volleyball;volleyball
+missile;missile
+whisky;whisky
+whiskey;whiskey
+limousine;limousine
+snowmobile;snowmobile
+flute;flute
+harp;harp
+diaper;diaper
+axe;axe
+theather_play;theather play
+choir;choir
+dancing;dancing
+ballet;ballet
+origami;origami
+puzzle;puzzle
+snorkeling;snorkeling
+swimming;swimming
+drums;drums
+camping;camping
+knitting;knitting
+percussion;percussion
+cosplay;cosplay
+ash_tray;ash tray
+speedometer;speedometer
+horseback_riding;horseback riding
+cross_country_riding;cross country riding
+gardening;gardening
+classical_guitar;classical guitar
+golf;golf
+ultimate;ultimate
+tatoo;tatoo
+messy_room;messy room
+rainbow_flag;rainbow flag
+skiing;skiing
+bull_fighting;bull fighting
+corrida;corrida
+bodysurfing;bodysurfing
+ice_climbing;ice climbing
+parkour;parkour
+motorcycle_racing;motorcycle racing
+auto_racing;auto racing
+bungee_jumping;bungee jumping
+bowling;bowling
+whitewater_rafting;whitewater rafting
+first_person_shooter;first person shooter
+fps;fps
+poker;poker
+pottery;pottery
+seeds;seeds
+aquarium;aquarium
+surfing;surfing
+lighter;lighter
+arrest;arrest
+fingerprint;fingerprint
+chocolate_tab;chocolate tab
+hidden_face;hidden face
+painting_board;painting board
+pizza_box;pizza box
+cigar;cigar
+chocolate_bar;chocolate bar
+nude;nude
+casino;casino
+smoke;smoke
+roulette;roulette
+chess;chess
+gymnastics;gymnastics
+plastered_arm;plastered arm
+demonstration;demonstration
+protest;protest
+powerpoint_presentation;powerpoint presentation
+birth_annoucement;birth annoucement
+hunting;hunting
+fishing;fishing
+yoga;yoga
+telescope;telescope
+easel;easel
+canoeing;canoeing
+sailing;sailing
+judo;judo
+karate;karate
+boxing;boxing
+skydiving;skydiving
+bar_counter;bar counter
+cigarette_pack;cigarette pack
+chicha;chicha
+rolling_paper;rolling paper
+cannabis_leaf;cannabis leaf
+bob_marley;bob marley
+chips;chips
+casino_table;casino table
+loto_ticket;loto ticket
+scratch_card;scratch card
+scooter;scooter
+clarinet;clarinet
+soccer;soccer
+orchestra;orchestra
+baguette;baguette
+beans;beans
+muesli;muesli
+dry_ham;dry ham
+french_tacos;french tacos
+dry_sausage;dry sausage
+peas;peas
+ham;ham
+crepe;crepe
+curacao;curacao
+signature;signature
+viennoiserie;viennoiserie
+goat_cheese;goat cheese
+chinese_food;chinese food
+pastis;pastis
+cigar_smoker;cigar smoker
+sausage;sausage
+cheese_fondue;cheese fondue
+pouch;pouch
+jar;jar
+salmon;salmon
+lime;lime
+rice;rice
+stew;stew
+fried_food;fried food
+cheese&ham_boards;cheese&ham boards
+raclette;raclette
+quinoa;quinoa
+vietnamese_food;vietnamese food
+card;card
+casino_brands;casino brands
+bunny_jumping;bunny jumping
+plane_ticket;plane ticket
+paint_board;paint board
+gastronomy;gastronomy
+bitume;bitume
+mountains;mountains
+hills;hills
+rapids;rapids
+political_meme;political meme
+landscapes;landscapes
+peanuts;peanuts
+snails;snails
+humus;humus
+eggplant_caviar;eggplant caviar
+poke_bowl;poke bowl
+brand_logos;brand logos
+vege_tart;vege tart
+vege_wrap;vege wrap
+indian_food;indian food
+aromatic_herbs;aromatic herbs
+plaster;plaster
+sun;sun
+hot_air_balloon;hot air balloon
+baseball;baseball
+cider;cider
+vodka;vodka
+champagne;champagne
+beer_glass;beer glass
+cliff_diving;cliff diving
+snooker;snooker
+tennis;tennis
+table_tennis;table tennis
+cycling;cycling
+badminton;badminton
+moto_gp;moto gp
+car_racing;car racing
+auto_racing;auto racing
+motor_racing;motor racing
+presentation;presentation
+athletics;athletics
+field_hockey;field hockey
+beach_volleyball;beach volleyball
+handball;handball
+cricket;cricket
+basketball;basketball
+nude_body;nude body
+concert;concert
+oxygen_mask;oxygen mask
+hospital_bed;hospital bed
+gin;gin
+coca_cola;coca cola
+pepsi;pepsi
+red_bull;red bull
+grass;grass
+beach;beach
+snow;snow
+cloud;cloud
+sea;sea
+sky;sky
+nose_ring;nose ring
+earring;earring
+ring;ring
+business_jet;business jet
+private_jet;private jet
+bizjet;bizjet
+yacht;yacht
+statue;statue
+painting;painting
+dogfighting;dogfighting
+cockfighting;cockfighting
+wedding;wedding
+smartphone;smartphone
+drone;drone
+dr_pepper;dr pepper
+montain_dew;montain dew
+gatorade;gatorade
+sprite;sprite
+fanta;fanta
