@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -N 1
-#SBATCH -n 4
+#SBATCH -n 1
 #SBATCH --partition gpup100
 #SBATCH -w node29
 #SBATCH --gres=gpu:1 env | grep CUDA_VISIBLE_DEVICES

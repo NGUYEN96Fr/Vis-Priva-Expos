@@ -1,4 +1,4 @@
-project_name: 30cls  # also the folder name of the dataset that under data_path folder
+project_name: custom_v0  # also the folder name of the dataset that under data_path folder
 train_set: train
 val_set: train
 num_gpus: 4
@@ -11,4 +11,6 @@ std: [0.229, 0.224, 0.225]
 anchors_scales: '[2 ** 0, 2 ** (1.0 / 3.0), 2 ** (2.0 / 3.0)]'
 anchors_ratios: '[(1.0, 1.0), (1.4, 0.7), (0.7, 1.4)]'
 
-obj_list: []
+obj_list: ['armed_police', 'bank_card', 'ice_hockey', 'fire', 'passport', 'luxury_cars', 'diamond_jewelry', 'roulette', 'electronic_cigarette',
+           'weed', 'baby', 'bikini', 'stew', 'rugby', 'chess', 'lighter', 'cigarette', 'bull_riding', 'baguette', 'white_powder', 'joint', 'pastis',
+           'cigar_smoker', 'rock_climbing', 'eletric_scooter', 'roller_skating', 'champagne', 'base_jump', 'viennoiserie', 'identity_card']

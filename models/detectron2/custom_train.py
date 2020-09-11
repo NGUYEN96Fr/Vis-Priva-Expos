@@ -1,13 +1,18 @@
 """
 This file support to fine-tune detection models of the detectron2 on customized datasets.
+
+Ref codes: https://github.com/facebookresearch/detectron2/blob/master/projects/TridentNet/train_net.py
+
 """
 import os
 import yaml
 from detectron2.config import get_cfg
 from detectron2 import model_zoo
-from detectron2.engine import DefaultTrainer
+from detectron2.engine import DefaultTrainer,  default_argument_parser, default_setup, launch
 from detectron2.data.datasets import register_coco_instances
 from detectron2.data import MetadataCatalog, DatasetCatalog
+from detectron2.checkpoint import DetectionCheckpointer
+from detectron2.evaluation import COCOEvaluator
 
 
 def load_custom_train_dataset(params):
@@ -49,7 +54,17 @@ def main():
     print(cfg)
     trainer = DefaultTrainer(cfg)
     trainer.resume_or_load(resume=False)
-    trainer.train()
+
+    return trainer.train()
 
 if __name__ == '__main__':
-    main()
+    args = default_argument_parser().parse_args()
+    print("Command Line Args:", args)
+    launch(
+        main,
+        args.num_gpus,
+        num_machines=args.num_machines,
+        machine_rank=args.machine_rank,
+        dist_url=args.dist_url,
+        args=(args,),
+    )

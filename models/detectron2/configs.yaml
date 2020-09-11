@@ -2,9 +2,9 @@
 
 dataset:
   train:
-    name: custom_30cls
-    img_path: /home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/train
-    ann_path: /home/users/vnguyen/intern20/ANNO/coco_formatted_dataset_imt.json
+    name: custom_v0_Retinanet
+    img_path: /home/users/vnguyen/intern20/DATA/CUSTOM/V0/train
+    ann_path: /home/users/vnguyen/intern20/DATA/CUSTOM/V0/annotations/instances_train.json
 
   test:
     name:
@@ -15,16 +15,16 @@ data_loader:
   num_workers: 4
 
 output_dir:
-  path: /home/users/vnguyen/intern20/OUTPUTS/detec2
+  path: /home/users/vnguyen/intern20/OUTPUTS/retinanet
 
 model:
   name: retinanet_R_50_FPN_1x
   weight: /home/users/vnguyen/intern20/Pretrained-Weight/dtec2/model_final_f10217.pkl
   roi_heads:
     batch_size_per_image: 128
-    num_classes: 28
+    num_classes: 30
 
 solver:
-  ims_per_batch: 4
-  base_lr: 0.00025
-  max_iter: 300
+  ims_per_batch: 8 # 4 GPUs, 2 images per a GPU
+  base_lr: 0.001
+  max_iter: 100000
