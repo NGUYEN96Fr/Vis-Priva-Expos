@@ -2,7 +2,7 @@
 ######conver2coco.py#######
 
 source: 'custom'
-saved_data_name: 'coco_formatted_dataset.json'
+saved_data_name: 'custom_dataset_V0.json'
 
 ## data information
 description: 'custom data-set'
@@ -15,4 +15,4 @@ img_path: '/home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/250'
 save_path: ''
 
 ##annotation paths
-ann_file: './nicu1857.txt'
+ann_file: './nicu_V0.txt'
