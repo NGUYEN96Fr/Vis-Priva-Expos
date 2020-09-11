@@ -6,6 +6,13 @@ import cv2
 import json
 import tqdm
 
+class Params:
+    def __init__(self, project_file):
+        self.params = yaml.safe_load(open(project_file).read())
+
+    def __getattr__(self, item):
+        return self.params.get(item, None)
+
 def _generate_info(params):
     """
     Generate info for the custom data-set
@@ -27,7 +34,7 @@ def _generate_licences():
     return [{'url': None, 'id': 1, 'name': None}]
 
 
-def _generate_categories_anns_images(ann_file, img_path, save_path):
+def _generate_categories_anns_images(ann_file):
     """
     Generate dictionaries containing category, image and annotation infos
 
@@ -58,8 +65,6 @@ def _generate_categories_anns_images(ann_file, img_path, save_path):
 
 
     print('Generating coco category, image and ann info ...')
-    if not os.path.exists(save_path):
-        os.mkdir(save_path)
 
     ##Reading the annotation file.
     with open(ann_file) as fp:
@@ -94,7 +99,7 @@ def _generate_categories_anns_images(ann_file, img_path, save_path):
                     image_id +=1
 
                 ## ANNOTATION
-                x1,y1,x2,y2 = [int(coord) if int(coord) > 0 else 0 for coord in parts[3].split(' ')]
+                x1,y1,x2,y2 = [float(coord) if float(coord) > 0 else 0 for coord in parts[3].split(' ')]
                 w_bbox = x2 - x1
                 h_bbox = y2 - y1
 
@@ -105,9 +110,6 @@ def _generate_categories_anns_images(ann_file, img_path, save_path):
                     cats_bbox_sizes[category].append((w_bbox,h_bbox))
                     ann_id += 1
 
-    # Move images to a directory #TODO
-    print('Moving images ...')
-
     # Statistics on sizes of category's bounding boxes #TODO
 
     return cat_coco_list, img_coco_list, ann_coco_list
@@ -117,8 +119,7 @@ def convert2coco(params):
 
     info = _generate_info(params)
     licenses = _generate_licences()
-    category_list, img_list, anno_list = _generate_categories_anns_images(params.ann_file, \
-                                                                                   params.img_path, params.save_path)
+    category_list, img_list, anno_list = _generate_categories_anns_images(params.ann_file)
 
     coco_formatted_dataset = {'info': info, 'licenses': licenses, 'images': img_list, 'annotations': anno_list,
                               'categories': category_list}
@@ -129,5 +130,5 @@ def convert2coco(params):
     print('Finish !')
 
 if __name__ == '__main__':
-    params = Params('./config.yml')
+    params = Params('./config.yaml')
     convert2coco(params)

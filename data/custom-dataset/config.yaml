@@ -2,17 +2,13 @@
 ######conver2coco.py#######
 
 source: 'custom'
-saved_data_name: 'custom_dataset_V0.json'
+saved_data_name: '/home/users/vnguyen/intern20/ANNO/custom_calib_v0.json'
 
 ## data information
-description: 'custom data-set'
+description: 'custom calib v0'
 url: ''
 version: 1.0
 contributor: 'nguyen.cea'
 
-##image paths
-img_path: '/home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/250'
-save_path: ''
-
 ##annotation paths
-ann_file: './nicu_V0.txt'
+ann_file: './calib_v0.txt'
