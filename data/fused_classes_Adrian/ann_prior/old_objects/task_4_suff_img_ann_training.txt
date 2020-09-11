@@ -1,0 +1,44 @@
+white powder\251
+champagne\247
+diamond jewelry\251
+rock climbing\238
+baby\240
+weed\251
+bull riding\251
+cigarette\251
+roller skating\251
+passport\251
+ice hockey\249
+fire\251
+electric scooter\251
+cigar smoker\250
+luxury car\251
+armed police\251
+chess\248
+viennoiserie\211
+bikini\251
+electronic cigarette\251
+stew\250
+pastis\250
+rugby\250
+joint\251
+base jump\251
+identity card\251
+roulette\249
+baguette\207
+lighter\250
+bank card\251
+trumpet\1715
+snake\1683
+piano\1671
+saxophone\1342
+diving,diver\873
+computer mouse\841
+electric guitar,bass guitar\795
+volleyball\790
+missile\700
+whisky,whiskey\531
+limousine\466
+snowmobile\444
+flute\407
+harp\299

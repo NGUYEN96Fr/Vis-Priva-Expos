@@ -1,0 +1,13 @@
+tree\1064701
+fish\25181
+beer\10015
+handbag\9876
+backpack,backpacking\7670
+camera\6874
+skateboarding,skateboard\5831
+cocktail\5012
+chicken\3351
+violin\2961
+necklace\2957
+cello\2127
+watch\2006

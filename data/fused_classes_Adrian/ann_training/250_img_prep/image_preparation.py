@@ -3,6 +3,25 @@ import shutil
 import  json
 
 
+def existed_objects():
+    """
+
+    Returns
+    -------
+
+    """
+    path =  '/scratch_global/vankhoa/purpets_img_anns'
+    ext_objects = os.listdir(path)
+
+    for object_ in ext_objects:
+        path_ = os.path.join(path,object_)
+        nb_object = len(os.listdir(path_))
+        if nb_object <= 300:
+            print(object_,' : ', nb_object)
+
+    return  ext_objects
+
+
 def get_obj_list():
     """
     get list of new objects from .txt file
@@ -14,6 +33,9 @@ def get_obj_list():
     txt_file = 'task_5_not_submitted_manual_label_stats.txt'
     obj_list = []
     syns = [] # synonym lists
+    ext_objects = existed_objects()
+    print(len(ext_objects))
+
     with open(txt_file) as fp:
         lines = fp.readlines()
         for line in lines:
@@ -24,7 +46,8 @@ def get_obj_list():
                 for class_name in class_names:
                     if add_first:
                         not_spaced_name = class_name.replace(' ','_').split('\n')[0]
-                        obj_list.append(not_spaced_name)
+                        if not_spaced_name not in ext_objects:
+                            obj_list.append(not_spaced_name)
                         add_first = False
                     else:
                         not_spaced_name = class_name.replace(' ', '_').split('\n')[0]
@@ -32,7 +55,8 @@ def get_obj_list():
 
             else:
                 not_spaced_name = class_names[0].replace(' ','_').split('\n')[0]
-                obj_list.append(not_spaced_name)
+                if not_spaced_name not in ext_objects:
+                    obj_list.append(not_spaced_name)
 
     return obj_list, syns
 
@@ -44,9 +68,9 @@ def retrieve_images(obj_list,syns):
     -------
 
     """
-    limit = 300 # images
+    limit = 400 # images
     cate_img_dict = {}
-    save_dir = '/scratch_ssd/purpets_img_anns'
+    save_dir = '/scratch_global/vankhoa/purpets_img_anns'
     taken_lists = [] # aldready considered objects
 
     def copy_images_1(path, cate, cate_img_dict):
@@ -75,7 +99,7 @@ def retrieve_images(obj_list,syns):
                 img_src = os.path.join(cate_path, image)
                 img_dst = os.path.join(save_path, image)
                 cate_img_dict[cate].append(img_src)
-                shutil.copy(img_src, img_dst)
+                shutil.move(img_src, img_dst)
             else:
                 break
 
