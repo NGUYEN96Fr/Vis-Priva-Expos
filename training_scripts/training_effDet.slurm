@@ -14,6 +14,6 @@ cd /home/users/vnguyen/intern20/Vis-Priva-Expos/models/EfficientDet.pytorch/
 
 conda activate efDetpytorch
 
-python train.py -c 0 -p custom30cls --batch_size 8 --lr 1e-5 --num_epochs 10 \
- --load_weights /home/users/vnguyen/intern20/Pretrained-Weight/effDetTorch/efficientdet-d0.pth --data_path /home/users/vnguyen/intern20/DATA/250_imgs_per_class_cluster_IMT/ \
+python train.py -c 5 -p custom30cls --batch_size 8 --lr 1e-5 --num_epochs 500 \
+ --load_weights /home/users/vnguyen/intern20/Pretrained-Weight/effDetTorch/efficientdet-d0.pth --data_path /home/users/vnguyen/intern20/DATA/CUSTOM/V0/train \
  --saved_path /home/users/vnguyen/intern20/OUTPUTS/effDet
