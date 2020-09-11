@@ -34,7 +34,7 @@ def _generate_licences():
     return [{'url': None, 'id': 1, 'name': None}]
 
 
-def _generate_categories_anns_images(ann_file):
+def _generate_categories_anns_images(ann_file, class_save_file):
     """
     Generate dictionaries containing category, image and annotation infos
 
@@ -110,7 +110,14 @@ def _generate_categories_anns_images(ann_file):
                     cats_bbox_sizes[category].append((w_bbox,h_bbox))
                     ann_id += 1
 
-    # Statistics on sizes of category's bounding boxes #TODO
+
+    # Generate class files
+    writer = open(class_save_file, 'w')
+    writer.write('%s \n'%cat_id_mapping)
+    for cate in cat_id_mapping:
+        writer.write('%s, '%cate)
+    writer.close()
+
 
     return cat_coco_list, img_coco_list, ann_coco_list
 
@@ -119,7 +126,8 @@ def convert2coco(params):
 
     info = _generate_info(params)
     licenses = _generate_licences()
-    category_list, img_list, anno_list = _generate_categories_anns_images(params.ann_file)
+    category_list, img_list, anno_list = _generate_categories_anns_images(params.ann_file,\
+                                                                          params.class_save_file)
 
     coco_formatted_dataset = {'info': info, 'licenses': licenses, 'images': img_list, 'annotations': anno_list,
                               'categories': category_list}
