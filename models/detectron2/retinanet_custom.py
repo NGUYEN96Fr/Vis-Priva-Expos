@@ -2,27 +2,26 @@
 This file support to fine-tune detection models of the detectron2 on customized datasets.
 
 Ref codes: https://github.com/facebookresearch/detectron2/blob/master/projects/TridentNet/train_net.py
+            https://github.com/facebookresearch/detectron2/blob/master/detectron2/engine/defaults.py
 
 USE:
     training:
     ---------
-
-    python custom_retinanet.py --config_file configs/retinanet.yaml --num_gpus 4
+    python retinanet_custom.py --config_file configs/retinanet.yaml --num_gpus 4
 
     test:
     -----
-
-    python custom_retinanet.py --config_file configs/retinanet.yaml --eval-only
+    python retinanet_custom.py --config_file configs/retinanet.yaml --eval-only
 
 """
 import os
-import yaml
-from detectron2.config import get_cfg
-from detectron2 import model_zoo
-from detectron2.engine import DefaultTrainer,  default_argument_parser, default_setup, launch
-from detectron2.data.datasets import register_coco_instances
-from detectron2.data import MetadataCatalog, DatasetCatalog
+
+import  detectron2
 from detectron2.checkpoint import DetectionCheckpointer
+from detectron2.config import get_cfg
+from detectron2.data import MetadataCatalog, DatasetCatalog
+from detectron2.data.datasets import register_coco_instances
+from detectron2.engine import DefaultTrainer, default_argument_parser, default_setup, launch
 from detectron2.evaluation import COCOEvaluator
 
 
@@ -40,7 +39,7 @@ def load_custom_train_dataset():
     train_img_path = '/home/users/vnguyen/intern20/DATA/CUSTOM/V0/train'
     train_ann_path = '/home/users/vnguyen/intern20/DATA/CUSTOM/V0/annotations/instances_train.json'
 
-    register_coco_instances(train_name, {},  train_ann_path,
+    register_coco_instances(train_name, {}, train_ann_path,
                             train_img_path)
     metadata = MetadataCatalog.get(train_name)
     dataset_dicts = DatasetCatalog.get(train_name)
@@ -61,7 +60,6 @@ def setup(args):
 
 
 def main(args):
-
     load_custom_train_dataset()
     cfg = setup(args)
 

@@ -1,9 +1,11 @@
-_BASE_: "../COCO-Detection/retinanet_R_50_FPN_3x.yaml"
+_BASE_: 'Base-RetinaNet.yaml'
 
 MODEL:
   ROI_HEADS:
     NUM_CLASSES: 30
-  WEIGHTS: '/home/users/vnguyen/intern20/Pretrained-Weight/dtec2/model_final_f10217.pkl'
+  WEIGHTS: '/home/users/vnguyen/intern20/PRETRAINED/dtec2/Retinanet50-1x/R-50.pkl'
+  RESNETS:
+    DEPTH: 50
 
 DATASETS:
   TRAIN: ("train_v0_Retinanet",)
@@ -11,8 +13,13 @@ DATASETS:
 DATALOADER:
   NUM_WORKERS: 4
 
+SOLVER:
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.01  # Note that RetinaNet uses a different default learning rate
+  STEPS: (40000, 50000)
+  MAX_ITER: 60000
+
 OUTPUT_DIR: '/home/users/vnguyen/intern20/OUTPUTS/retinanet/custom_v0'
 
 INPUT:
-  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
-
+  MIN_SIZE_TRAIN: (640, 672, 704)

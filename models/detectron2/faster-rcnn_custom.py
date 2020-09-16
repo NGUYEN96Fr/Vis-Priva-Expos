@@ -8,16 +8,17 @@ USE:
     training:
     ---------
 
-    python retinanet_custom.py --config_file configs/retinanet.yaml --num_gpus 4
+    python faster-rcnn_custom.py --config_file configs/faster-rcnn.yaml --num_gpus 4
 
     test:
     -----
 
-    python retinanet_custom.py --config_file configs/retinanet.yaml --eval-only
+    python faster-rcnn_custom.py --config_file configs/faster-rcnn.yaml --eval-only
 
 """
 import os
 
+import torch
 from detectron2.checkpoint import DetectionCheckpointer
 from detectron2.config import get_cfg
 from detectron2.data import MetadataCatalog, DatasetCatalog
@@ -36,7 +37,7 @@ class Trainer(DefaultTrainer):
 
 def load_custom_train_dataset():
     """"""
-    train_name = 'train_v0_Retinanet'
+    train_name = 'train_v0_Faster-RCNN'
     train_img_path = '/home/users/vnguyen/intern20/DATA/CUSTOM/V0/train'
     train_ann_path = '/home/users/vnguyen/intern20/DATA/CUSTOM/V0/annotations/instances_train.json'
 
