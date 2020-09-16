@@ -1,0 +1,18 @@
+_BASE_: "../COCO-Detection/retinanet_R_50_FPN_3x.yaml"
+
+MODEL:
+  ROI_HEADS:
+    NUM_CLASSES: 30
+  WEIGHTS: '/home/users/vnguyen/intern20/Pretrained-Weight/dtec2/model_final_f10217.pkl'
+
+DATASETS:
+  TRAIN: ("train_v0_Retinanet",)
+
+DATALOADER:
+  NUM_WORKERS: 4
+
+OUTPUT_DIR: '/home/users/vnguyen/intern20/OUTPUTS/retinanet/custom_v0'
+
+INPUT:
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
+
