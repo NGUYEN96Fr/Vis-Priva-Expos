@@ -1,2 +1,6 @@
 /data/
 .idea/
+/models/EfficientDet.pytorch/logs/custom_v0/tensorboard/20200914-095850/Classfication_loss/train/events.out.tfevents.1600070362.node25
+/models/EfficientDet.pytorch/logs/custom_v0/tensorboard/20200914-095850/Loss/train/events.out.tfevents.1600070362.node25
+/models/EfficientDet.pytorch/logs/custom_v0/tensorboard/20200914-095850/Regression_loss/train/events.out.tfevents.1600070362.node25
+
