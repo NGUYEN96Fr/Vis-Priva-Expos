@@ -9,12 +9,10 @@ from regression.regression import train_test_situs, train_regressor, test_regres
 from regression.fine_tuning import regress_fine_tuning
 from  analysis.train_test_regression import train_test_observe
 
-def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
+def parameter_search(gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
                      normalize, score_type, debug, feature_transform, load_active_detectors):
     """Searching best regression result for a current configuration
 
-    :param root: string
-        root working directory
     :param gt_user_expo_situs: dict
         ground-truth user exposure per situation
     :param train_data: dict
@@ -57,7 +55,6 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
         test_user_photo_expo_situs[situ_name.split('.')[0]] = usr_photo_expo(test_data, f_top, detectors, opt_threshs, filter = True)
     print('Done!')
 
-    assert 1 == 2
 
     print("#### CLUSTERING ####")
     print('Calculate clustering photo features ...')
@@ -120,12 +117,12 @@ def parameter_search(root, gt_user_expo_situs, train_data, test_data, object_exp
                                       'C': [5]}
 
             elif regm == 'rf':  # random forest
-                tunning_parameters = {'bootstrap': [True],
-                                      'max_depth': [5],
+                tunning_parameters = {'bootstrap': [True, False],
+                                      'max_depth': [5,7,9],
                                       'max_features': ['auto'],
-                                      'min_samples_leaf': [1],
-                                      'min_samples_split': [3],
-                                      'n_estimators': [150]}
+                                      'min_samples_leaf': [1,3,5],
+                                      'min_samples_split': [2, 4, 6],
+                                      'n_estimators': [150,200]}
         else:
             tunning_parameters = {'kernel': ['rbf', 'linear'],
                                   'gamma': [1e-3, 1e-4],

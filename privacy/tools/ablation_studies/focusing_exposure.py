@@ -52,7 +52,7 @@ def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type,
             print("+++++++++++++++++++++++++++++")
             print("+++++ gamma = ", gamma,"+++++")
             print("+++++++++++++++++++++++++++++")
-            gamma_search[gamma] = parameter_search(root, gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
+            gamma_search[gamma] = parameter_search(gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
                          normalize, score_type, debug, feature_transform, load_active_detectors)
 
         abalation_dir = os.path.join(root, 'privacy', outdir, 'abalation')

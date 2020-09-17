@@ -34,14 +34,13 @@ def main():
     debug = False
     load = False
     plot_ = False
-    cross_val = False
-    save_file = '3_'
+    cross_val = False # cross validation
+    save_file = '3_' # save file prefix
 
     ##Load crowdsourcing user privacy exposure scores in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
     ##Load train and test data
     minibatches, test_data = load_train_test(root, train_test_path)
-    #train_data, test_data =load_train_test(root, train_test_path, load_txt = True)
     ##Read object exposures in each situation
     object_expo_situs = load_situs(root, situation_file)
 
@@ -63,8 +62,10 @@ def main():
         else:
             optimal_thres_situs = json.load(open(os.path.join(root,'privacy_baseline' ,outdir, 'optimal_thres_situs.txt')))
         print('Done!')
+
         print('Extracting and Ranking optimal thresh per situ...')
         export_tau_ranking(optimal_thres_situs,save_file)
+        print('Done !')
 
         print('Estimating a tau max for each situation ...')
         tau_max_situs = {}
