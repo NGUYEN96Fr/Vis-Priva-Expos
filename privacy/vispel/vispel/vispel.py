@@ -1,7 +1,7 @@
 import os
 from data.loader import data_loader
 from modeling.builder import regressor_builder, clusteror_builder
-from trainer.situ_trainer import situ_trainer
+from vispel.trainer import situ_trainer
 
 
 class VISPEL:
@@ -17,6 +17,8 @@ class VISPEL:
         self.gt_user_expos,  self.vis_concepts = data_loader(self.root, self.cfg)
         self.clusterors = {}
         self.regressors = {}
+        self.detectors = {}
+        self.opt_threds = {}
 
 
     def train_vispel(self):
@@ -40,11 +42,17 @@ class VISPEL:
             clusteror = clusteror_builder(self.cfg)
             regressor = regressor_builder(self.cfg)
             # Train ...
-            trained_clusteror, trained_regressor = situ_trainer(situ_name, self.train_set,\
+            detectors, opt_threds, trained_clusteror, trained_regressor = situ_trainer(situ_name, self.train_set,\
                                                         gt_situ_expos, self.vis_concepts, clusteror, regressor, self.cfg)
             self.clusterors[situ_name] = trained_clusteror
             self.regressors[situ_name] = trained_regressor
+            self.detectors[situ_name] = detectors
+            self.opt_threds[situ_name] = opt_threds
 
     def eval_vispel(self):
-        pass
-
+        for situ_name, gt_situ_expos in self.gt_user_expos.items():
+            if self.cfg.OUTPUT.VERBOSE:
+                print(situ_name)
+            # Evaluate ...
+            situ_evaluator(self.clusterors[situ_name], self.regressors[situ_name], \
+                           self.test_set, gt_situ_expos)

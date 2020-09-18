@@ -9,7 +9,7 @@ import os
 import argparse
 import pickle
 from vispel.config import get_cfg
-from trainer.vispel_trainer import VISPEL
+from vispel.vispel import VISPEL
 
 def default_argument_parser():
     """
@@ -26,7 +26,11 @@ def default_argument_parser():
 
 def save_model(model, filename, out_dir):
     root = os.getcwd()
-    out_file_path = os.path.join(root, out_dir, filename)
+    out_dir_path = os.path.join(root, out_dir)
+    if not os.path.exists(out_dir_path):
+        os.makedirs(out_dir_path)
+
+    out_file_path = os.path.join(out_dir_path, filename)
     with open(out_file_path, 'wb') as output:  # Overwrites any existing file.
         pickle.dump(model, output, pickle.HIGHEST_PROTOCOL)
 
@@ -59,7 +63,7 @@ def main():
     if cfg.OUTPUT.VERBOSE:
         print("Save model !!!")
 
-    save_model(model, cfg.OUTPUT.DIR, args.model_name)
+    save_model(model, args.model_name, cfg.OUTPUT.DIR)
 
 if __name__ == '__main__':
     main()

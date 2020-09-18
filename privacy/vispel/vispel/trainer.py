@@ -36,4 +36,5 @@ def situ_trainer(situ_name, train_set, gt_situ_expos, vis_concepts, clusteror, r
     # Fit to the regressor
     trained_regressor = train_regressor(regressor, reg_train_features, gt_train_expos, cfg)
 
-    return trained_clusteror, trained_regressor
+    return detectors, opt_threds, \
+           trained_clusteror, trained_regressor
