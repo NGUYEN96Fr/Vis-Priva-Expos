@@ -5,13 +5,13 @@ from detectors.active import active_detectors
 from clustering.features import clustering_photo_feature
 from clustering.clustering import photo_user_expo_clustering
 from regression.features import regression_features
-from regression.regression import train_test_situs, train_regressor, test_regressor, pear_corr, kendall_corr, normalizer
+from regression.regression import train_test_situs, train_regressor, test_regressor, normalizer
 from regression.fine_tuning import regress_fine_tuning
 from  analysis.train_test_regression import train_test_observe
 
 def parameter_search(gt_user_expo_situs, train_data, test_data, object_expo_situs, f_top, gamma, K, N, regm,
                      normalize, score_type, debug, feature_transform, load_active_detectors):
-    """Searching best regression result for a current configuration
+    """Searching best regressor result for a current configuration
 
     :param gt_user_expo_situs: dict
         ground-truth user exposure per situation
@@ -27,7 +27,7 @@ def parameter_search(gt_user_expo_situs, train_data, test_data, object_expo_situ
     :param N: int
         number of clusters
     :param regm: string
-        regression method
+        regressor method
     :param: normalize: string
         if apply data normalization
     :param: debug mode
@@ -57,7 +57,7 @@ def parameter_search(gt_user_expo_situs, train_data, test_data, object_expo_situ
 
 
     print("#### CLUSTERING ####")
-    print('Calculate clustering photo features ...')
+    print('Calculate clusteror photo features ...')
     train_clustering_feature_situs = {}
     test_clustering_feature_situs = {}
     for situ_name, users in train_user_photo_expo_situs.items():
@@ -81,7 +81,7 @@ def parameter_search(gt_user_expo_situs, train_data, test_data, object_expo_situ
 
 
     print("##### REGRESSION #####")
-    print('Calculate regression features ...')
+    print('Calculate regressor features ...')
     train_regession_feature_situations = {}
     test_regession_feature_situations = {}
     for situ_name, user_clusters in train_user_cluster_situations.items():

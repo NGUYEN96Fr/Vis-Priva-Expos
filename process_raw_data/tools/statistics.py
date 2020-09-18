@@ -4,7 +4,7 @@ import json
 
 def user_scores():
     """
-    Statistics on the crowd-sourcing user scores
+    Statistics on the crowd-sourcing user corr
 
     :return:
 

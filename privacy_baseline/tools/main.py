@@ -37,7 +37,7 @@ def main():
     cross_val = False # cross validation
     save_file = '3_' # save file prefix
 
-    ##Load crowdsourcing user privacy exposure scores in each situation
+    ##Load crowdsourcing user privacy exposure corr in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
     ##Load train and test data
     minibatches, test_data = load_train_test(root, train_test_path)

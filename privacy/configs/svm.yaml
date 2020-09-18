@@ -1,0 +1,13 @@
+_BASE_: "BASE-VISPEL.yaml"
+
+OUTPUT:
+  DIR: 'SVM_1'
+
+VERSION: 1
+
+REGRESSOR:
+  TYPE: 'SVM'
+  SVM:
+    KERNEL: ['rbf']
+    GAMMA: ['auto']
+    C: [2]

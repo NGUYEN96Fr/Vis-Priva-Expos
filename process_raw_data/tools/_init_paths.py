@@ -3,7 +3,7 @@ Usage:
 import this module before import any modules under lib/
 e.g
     import _init_paths
-    from core.config import cfg
+    from core.config import configs
 """
 
 import os.path as osp

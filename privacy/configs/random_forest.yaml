@@ -1,0 +1,14 @@
+_BASE_: "BASE-VISPEL.yaml"
+
+OUTPUT:
+  DIR: ''
+
+REGRESSOR:
+  TYPE: 'RF'
+  RF:
+    BOOTSTRAP: [True]
+    MAX_DEPTH: [7]
+    MAX_FEATURES: ['auto']
+    MIN_SAMPLES_LEAF: [1]
+    MIN_SAMPLES_SPLIT: [2]
+    N_ESTIMATORS: [150]

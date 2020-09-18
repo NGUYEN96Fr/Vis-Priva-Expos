@@ -14,8 +14,8 @@ def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type,
     :param gamma_list: list of gamma values
     :param root: current working directory
     :param gamma_file: gamma saved file name
-    :param normalize: if normalize regression features
-    :param regm: regression method
+    :param normalize: if normalize regressor features
+    :param regm: regressor method
     :param score_type: score type (kendall or pearson)
     :param train_all: if use all training data
     :param debug: turn on debug mode
@@ -33,7 +33,7 @@ def gamma_study(gamma_list, conf, root, gamma_file, normalize, regm, score_type,
     K = float(conf['K'])
     N = int(conf['N'])
 
-    ##Load crowdsourcing user privacy exposure scores in each situation
+    ##Load crowdsourcing user privacy exposure corr in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
     ##Load train and test data
     minibatches, test_data = load_train_test(root, train_test_path)

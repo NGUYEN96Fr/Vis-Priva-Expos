@@ -76,7 +76,7 @@ def load_gt_user_profiles(path, valid_users, normalize):
     Returns
     -------
         user_score_situs: dict
-            gt averaged privacy user scores per situation
+            gt averaged privacy user corr per situation
                 {situ1: {user1: avg_score, ...}, ...}
 
         valid_users: list

@@ -1,11 +1,12 @@
 import os
 import json
 
-def load_train_test(root, path):
-    """Load pre-processed data
+def train_test(root, path):
+    """Load user profile train, test
 
     :param root: string
         current working absolute path
+
     :param path: string
         relative path to saved train vs test data
 
@@ -26,7 +27,7 @@ def load_train_test(root, path):
     return train_data, test_data
 
 
-def load_gt_user_expo(root, path):
+def gt_user_expos(root, path):
     """Load crowd-sourcing user exposure
 
     :param root:
@@ -42,7 +43,7 @@ def load_gt_user_expo(root, path):
     return gt_usr_expo
 
 
-def load_situs(root, path, denormalization = True):
+def vis_concepts(root, path, denormalization = True):
     """Load object situation under a dictionary form
 
     :param root: string
@@ -52,7 +53,7 @@ def load_situs(root, path, denormalization = True):
 
     :return:
         class_situs : dict
-            situation and its crowd-sourcing class exposure scores
+            situation and its crowd-sourcing class exposure corr
                 {situ1: {class1: score, ...}, ...}
     """
     class_situs = {}

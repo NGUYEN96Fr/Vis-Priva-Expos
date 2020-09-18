@@ -88,7 +88,7 @@ def load_situs(root, path, denormalization = True):
 
     :return:
         class_situs : dict
-            situation and its crowd-sourcing class exposure scores
+            situation and its crowd-sourcing class exposure corr
                 {situ1: {class1: score, ...}, ...}
     """
     class_situs = {}
