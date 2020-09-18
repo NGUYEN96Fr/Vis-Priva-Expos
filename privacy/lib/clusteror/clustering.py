@@ -1,7 +1,6 @@
 import os
 import numpy as np
 from joblib import dump
-from situ.acronym import load_acronym
 
 def agg_features(com_features):
     """Aggregate exposure features of all images
@@ -27,7 +26,7 @@ def agg_features(com_features):
     return features
 
 
-def train_clusteror(situ_name, model, com_features, cfg):
+def train_clusteror(model, com_features, cfg):
     """
     Train clusteror on all images of the community, which will be used
     further to cluster each user's image.
@@ -44,15 +43,8 @@ def train_clusteror(situ_name, model, com_features, cfg):
 
     """
     aggfeatures = agg_features(com_features)
-    ACRONYMS = load_acronym()
 
     if cfg.CLUSTEROR.TYPE == 'K_MEANS':
         model.fit(aggfeatures)
-
-    save_path = os.path.join(cfg.OUTPUT.DIR, 'clusteror_'+ACRONYMS[situ_name]+'.joblib')
-    if cfg.OUTPUT.VERBOSE:
-        print('Save clusteror model !!! ')
-
-    dump(model, save_path)
 
     return model

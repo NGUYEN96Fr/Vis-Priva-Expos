@@ -1,9 +1,9 @@
 MODEL:
-  DEBUG: True
+  DEBUG: False
 FINE_TUNING:
   STATUS: False
 DETECTOR:
-  LOAD: False
+  LOAD: True
 SOLVER:
   GAMMA: 0.2
   K: 3

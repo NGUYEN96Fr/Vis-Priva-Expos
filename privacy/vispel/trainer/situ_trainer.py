@@ -30,8 +30,10 @@ def situ_trainer(situ_name, train_set, gt_situ_expos, vis_concepts, clusteror, r
                                        detectors, opt_threds, cfg.DETECTOR.LOAD, cfg.SOLVER.FILTERING)
     # Build exposure features for users
     # by clustering their photo exposures
-    trained_clusteror = train_clusteror(situ_name, clusteror, commu_expo_features, cfg)
+    trained_clusteror = train_clusteror(clusteror, commu_expo_features, cfg)
     # Build regression features for users
     reg_train_features, gt_train_expos = build_features(trained_clusteror, commu_expo_features, gt_situ_expos, cfg)
     # Fit to the regressor
-    train_regressor(situ_name, regressor, reg_train_features, gt_train_expos, cfg)
+    trained_regressor = train_regressor(regressor, reg_train_features, gt_train_expos, cfg)
+
+    return trained_clusteror, trained_regressor

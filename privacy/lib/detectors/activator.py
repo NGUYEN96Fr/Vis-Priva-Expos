@@ -1,6 +1,5 @@
 import os
 import json
-
 def activator(vis_concepts, situ_name, path_pre_vis_concepts, load_detectors):
     """Discover active detectors per situation
 
@@ -34,7 +33,8 @@ def activator(vis_concepts, situ_name, path_pre_vis_concepts, load_detectors):
                 active_detectors[class_] = score
 
     else:
-        sel_vis_concepts = json.load(open(path_pre_vis_concepts))
+        root = os.getcwd().split('/privacy')[0]
+        sel_vis_concepts = json.load(open(os.path.join(root, path_pre_vis_concepts)))
         detector_in_situ = sel_vis_concepts[situ_name]
 
         for object_, tau_thresh_score in detector_in_situ.items():

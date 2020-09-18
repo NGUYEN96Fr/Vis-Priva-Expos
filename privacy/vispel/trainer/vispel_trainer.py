@@ -4,7 +4,6 @@ from modeling.builder import regressor_builder, clusteror_builder
 from trainer.situ_trainer import situ_trainer
 
 
-
 class VISPEL:
     """
     Construct a end-to-end training pip-line for the VISPEL predictor
@@ -16,6 +15,8 @@ class VISPEL:
         self.root = os.getcwd().split('/privacy/tools')[0]
         self.mini_batches, self.test_set, \
         self.gt_user_expos,  self.vis_concepts = data_loader(self.root, self.cfg)
+        self.clusterors = {}
+        self.regressors = {}
 
 
     def train_vispel(self):
@@ -39,5 +40,11 @@ class VISPEL:
             clusteror = clusteror_builder(self.cfg)
             regressor = regressor_builder(self.cfg)
             # Train ...
-            situ_trainer(situ_name, self.train_set,\
-                                gt_situ_expos, self.vis_concepts, clusteror, regressor, self.cfg)
+            trained_clusteror, trained_regressor = situ_trainer(situ_name, self.train_set,\
+                                                        gt_situ_expos, self.vis_concepts, clusteror, regressor, self.cfg)
+            self.clusterors[situ_name] = trained_clusteror
+            self.regressors[situ_name] = trained_regressor
+
+    def eval_vispel(self):
+        pass
+

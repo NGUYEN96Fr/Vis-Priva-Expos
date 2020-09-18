@@ -1,7 +1,7 @@
 _BASE_: "BASE-VISPEL.yaml"
 
 OUTPUT:
-  DIR: 'SVM_1'
+  DIR: 'out'
 
 VERSION: 1
 
