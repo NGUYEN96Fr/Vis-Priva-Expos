@@ -1,0 +1,2 @@
+Config '../configs/cnn.yaml' has no VERSION. Assuming it to be compatible with latest v1.
+slurmstepd: error: *** JOB 63652 ON node21 CANCELLED AT 2020-09-23T13:49:03 ***

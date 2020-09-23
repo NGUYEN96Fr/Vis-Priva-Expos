@@ -4,7 +4,9 @@
 #SBATCH --partition gpu-test
 #SBATCH -w node21
 
-#SBATCH --output=/home/users/vnguyen/privacy.out
-#SBATCH --error=/home/users/vnguyen/privacy.errs
+#SBATCH --output=/home/users/vnguyen/intern20/Vis-Priva-Expos/privacy/tools/privacy.out
+#SBATCH --error=/home/users/vnguyen/intern20/Vis-Priva-Expos/privacy/tools/privacy.errs
 
-python main.py configs.ini
+## python train_model.py --config_file ../configs/rf.yaml --model_name RF1.pkl
+## python model_info.py --model_name out/RF1.pkl
+python train_cnn.py --config_file ../configs/cnn.yaml --model_name vispel_net.pth

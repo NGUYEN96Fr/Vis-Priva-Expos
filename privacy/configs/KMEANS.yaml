@@ -1,0 +1,6 @@
+_BASE_: "BASE-VISPEL.yaml"
+
+CLUSTEROR:
+  TYPE: 'K_MEANS'
+  K_MEANS:
+    CLUSTERS: 4

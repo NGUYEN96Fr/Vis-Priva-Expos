@@ -3,6 +3,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import make_scorer
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestRegressor as RFR
+from sklearn.mixture import BayesianGaussianMixture as GM
 
 from corr.corr_type import pear_corr, kendall_corr
 
@@ -19,12 +20,18 @@ def clusteror_builder(cfg):
                        max_iter = cfg.CLUSTEROR.K_MEANS.MAX_ITER,
                        algorithm = cfg.CLUSTEROR.K_MEANS.ALGORITHM, random_state=0)
 
+    elif cfg.CLUSTEROR.TYPE == 'GM':
+        model = GM(n_components=cfg.CLUSTEROR.GM.COMPONENTS, \
+                    covariance_type=cfg.CLUSTEROR.GM.COV_TYPE,
+                    max_iter=cfg.CLUSTEROR.GM.MAX_ITER,
+                    random_state=0)
+
     return model
 
 
 def regressor_builder(cfg):
     """
-    Build SVM or RF model with pre-defined parameters.
+    Build SVM or RF modeling with pre-defined parameters.
 
     :param cfg:
     :return:

@@ -17,5 +17,4 @@ def focal_exposure(expo, gamma, K = 10):
     -------
         rescaled photo exposure
     """
-
-    return (1/(1-1/K*abs(expo))**gamma)*expo
+    return (1/(1-(1/K)*abs(expo))**gamma)*expo

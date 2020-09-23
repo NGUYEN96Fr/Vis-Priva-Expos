@@ -1,0 +1,8 @@
+_BASE_: "BASE-VISPEL.yaml"
+
+CLUSTEROR:
+  TYPE: 'GM'
+  GM:
+    COMPONENTS: 6
+    MAX_ITER: 300
+    COV_TYPE: 'full'

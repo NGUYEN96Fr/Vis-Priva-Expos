@@ -25,7 +25,7 @@ _C.OUTPUT.VERBOSE = False
 # FINE TUNING
 # ---------------------------------------------------------------------------- #
 _C.FINE_TUNING = VISPEL()
-# Fine-tune model parameters
+# Fine-tune modeling parameters
 _C.FINE_TUNING.STATUS = False
 # Cross validation
 _C.FINE_TUNING.CV = 10
@@ -59,17 +59,18 @@ _C.DATASETS.PRE_VIS_CONCEPTS = ''
 # ---------------------------------------------------------------------------- #
 _C.SOLVER = VISPEL()
 # Focusing factor in the Focal Exposure (FE) function.
-_C.SOLVER.GAMMA = 0.2
+_C.SOLVER.GAMMA = 2
 # Scaling constant in the Focal Exposure (FE) function.
-_C.SOLVER.K = 3
+_C.SOLVER.K = 4
 # Top confidence detected objects of a detector
 # in a considered image.
 _C.SOLVER.F_TOP = 0.3
 # Select a feature type for a photo. The types include: ORG, ABS, POS_NEG
 # - (ORG): Original features are the scaled positive, negative exposures
 # of the photo by the FE function and the dense object score [f_expo_pos, f_expo_neg, f_dens].
-# - (ABS): Sum of absolute exposure corr, and the dense object score [f_expo_pos + f_expo_neg, f_dens].
+# - (ABS): Sum of absolute exposure corr, and the dense object score [f_expo_pos + abs(f_expo_neg), f_dens].
 # - (POS_NEG): Only the scaled positive and negative exposure corr  [f_expo_pos, f_expo_neg].
+# - (SUM): Only the scaled positive and negative exposure corr  [f_expo_pos + f_expo_neg, f_dens].
 _C.SOLVER.FEATURE_TYPE = 'ORG'
 # Currently supported correlation types: KENDALL, PEARSON
 # Evaluate the correlation score between the crowd-sourcing user exposure corr
@@ -77,7 +78,7 @@ _C.SOLVER.FEATURE_TYPE = 'ORG'
 _C.SOLVER.CORR_TYPE = 'KENDALL'
 # Filtering neutral images whose absolute exposure sum is smaller than 0.01. The
 # accepted images should satisfy the following condition:
-#               abs(negative_exposure) + positive_exposure > 0.01
+#               abs(negative_scaled_exposure) + positive_scaled_exposure > 0.01
 _C.SOLVER.FILTERING = False
 
 # ---------------------------------------------------------------------------- #
@@ -86,6 +87,7 @@ _C.SOLVER.FILTERING = False
 _C.CLUSTEROR = VISPEL()
 # Currently supported clustering algorithm(s):
 # - k-means (K-MEANS)
+# - gaussian mixture modeling (GM)
 _C.CLUSTEROR.TYPE = 'K_MEANS'
 
 # ---------------------------------------------------------------------------- #
@@ -97,6 +99,14 @@ _C.CLUSTEROR.K_MEANS.CLUSTERS = 4
 _C.CLUSTEROR.K_MEANS.N_INIT = 10
 _C.CLUSTEROR.K_MEANS.MAX_ITER = 500
 _C.CLUSTEROR.K_MEANS.ALGORITHM = 'auto'
+
+# ---------------------------------------------------------------------------- #
+# GAUSSIAN MIXTURE MODELS
+# ---------------------------------------------------------------------------- #
+_C.CLUSTEROR.GM = VISPEL()
+_C.CLUSTEROR.GM.COMPONENTS = 4
+_C.CLUSTEROR.GM.MAX_ITER = 100
+_C.CLUSTEROR.GM.COV_TYPE = 'full'
 
 # ---------------------------------------------------------------------------- #
 # REGRESSOR
@@ -111,10 +121,10 @@ _C.REGRESSOR.TYPE = 'RF'
 # by averaging exposures on selected exposure features in each cluster will
 # be taken to replace the centroids.
 # Regression features, currently supported types:
-# - FR1: CENTROIDS + VARIANCE
-# - FR2: MEANS + VARIANCE
-# - FR3:
-_C.REGRESSOR.FEATURES = 'FR1'
+# - FR1: CENTROIDS + VARIANCE ( K-MEANS, GM)
+# - FR2: MEANS + VARIANCE ( K-MEANS, GM)
+# - FR3: MEANS ( K-MEANS, GM)
+_C.REGRESSOR.FEATURES = 'FR2'
 
 # ---------------------------------------------------------------------------- #
 # SUPPORT VECTOR MACHINE

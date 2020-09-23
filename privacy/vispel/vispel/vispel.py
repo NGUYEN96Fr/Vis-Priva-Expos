@@ -1,10 +1,13 @@
 import os
 from data.loader import data_loader
-from modeling.builder import regressor_builder, clusteror_builder
 from vispel.trainer import situ_trainer
+from exposure.exposure import community_expo
+from regressor.features import build_features
+from regressor.regression import test_regressor
+from modeling.builder import regressor_builder, clusteror_builder
 
 
-class VISPEL:
+class VISPEL(object):
     """
     Construct a end-to-end training pip-line for the VISPEL predictor
 
@@ -19,6 +22,7 @@ class VISPEL:
         self.regressors = {}
         self.detectors = {}
         self.opt_threds = {}
+        self.test_results = {}
 
 
     def train_vispel(self):
@@ -49,10 +53,18 @@ class VISPEL:
             self.detectors[situ_name] = detectors
             self.opt_threds[situ_name] = opt_threds
 
-    def eval_vispel(self):
+    def test_vispel(self):
+        print("#-------------------------------------------------#")
+        print("# Evaluate visual privacy exposure predictor       ")
+        print("#-------------------------------------------------#")
         for situ_name, gt_situ_expos in self.gt_user_expos.items():
-            if self.cfg.OUTPUT.VERBOSE:
-                print(situ_name)
-            # Evaluate ...
-            situ_evaluator(self.clusterors[situ_name], self.regressors[situ_name], \
-                           self.test_set, gt_situ_expos)
+            print("***********************************************")
+            print(situ_name)
+            commu_expo_features = community_expo(self.test_set, self.cfg.SOLVER.F_TOP, \
+                                                 self.detectors[situ_name], self.opt_threds[situ_name], \
+                                                 self.cfg.DETECTOR.LOAD, self.cfg, self.cfg.SOLVER.FILTERING)
+
+            reg_features, gt_expos = build_features(self.clusterors[situ_name],\
+                                                    commu_expo_features, gt_situ_expos, self.cfg)
+            corr = test_regressor(self.regressors[situ_name], reg_features, gt_expos, self.cfg)
+            self.test_results[situ_name] = corr

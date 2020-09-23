@@ -19,15 +19,16 @@ def situ_trainer(situ_name, train_set, gt_situ_expos, vis_concepts, clusteror, r
     :param cfg
     :param verbose:
     :return:
-         trained cluster model for the situation
-         trained regression model for the situation
+         trained cluster modeling for the situation
+         trained regression modeling for the situation
     """
     # Construct active detectors
     detectors, opt_threds = activator(vis_concepts, situ_name,\
                                       cfg.DATASETS.PRE_VIS_CONCEPTS, cfg.DETECTOR.LOAD)
+
     # Photo exposures of users
     commu_expo_features = community_expo(train_set, cfg.SOLVER.F_TOP,\
-                                       detectors, opt_threds, cfg.DETECTOR.LOAD, cfg.SOLVER.FILTERING)
+                                       detectors, opt_threds, cfg.DETECTOR.LOAD, cfg, cfg.SOLVER.FILTERING)
     # Build exposure features for users
     # by clustering their photo exposures
     trained_clusteror = train_clusteror(clusteror, commu_expo_features, cfg)

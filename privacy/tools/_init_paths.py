@@ -25,3 +25,6 @@ add_path(lib_path)
 
 lib_path = osp.join(this_dir, 'vispel')
 add_path(lib_path)
+
+lib_path = osp.join(this_dir, 'vispel_cnn')
+add_path(lib_path)

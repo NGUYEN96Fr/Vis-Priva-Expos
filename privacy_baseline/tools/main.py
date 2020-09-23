@@ -30,12 +30,12 @@ def main():
     if not os.path.exists(os.path.join(root, 'privacy_baseline', outdir)):
         os.makedirs(os.path.join(root, 'privacy_baseline', outdir))
     
-    corr_type = 'kendall_corr'
+    corr_type = 'pear_corr'
     debug = False
     load = False
     plot_ = False
-    cross_val = False # cross validation
-    save_file = '3_' # save file prefix
+    cross_val = True # cross validation
+    save_file = '1_' # save file prefix
 
     ##Load crowdsourcing user privacy exposure corr in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
@@ -155,7 +155,7 @@ def plot_corr_thres_impact(corr_list_situs):
         k_fig += 1
 
     plt.show()
-    plt.savefig('Kendall_tau_train_set.png')
+    plt.savefig('Pearson_tau_train_set.png')
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,32 @@
+from exposure.focal_exposure import focal_exposure as FE
+
+def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
+    """
+    Apply feature transform on photo features scaled by focal exposure
+
+    :param f_expo_pos:
+    :param f_expo_neg:
+    :param f_dens:
+    :param transform: transforming method
+    :return:
+        transformed features
+
+    """
+
+    if transform == 'ABS':
+        f_abs = abs(f_expo_pos) + abs(f_expo_neg)
+        return [f_abs, f_dens]
+
+    if transform == 'ORG':
+        return [f_expo_pos, f_expo_neg, f_dens]
+
+    if transform == 'SUM':
+        return [f_expo_pos + f_expo_neg, f_dens]
+
+    if transform == 'POS_NEG':
+        return [f_expo_pos, f_expo_neg]
+
+
 def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors):
     """Estimate photo exposure
 
@@ -36,7 +65,6 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors):
 
     for object_, scores in photo.items():
         if object_ in detectors:
-
             if not load_detectors:
                 objectness = sum([score for score in scores if score >= f_top])
             else:
@@ -62,7 +90,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors):
     return expo_obj
 
 
-def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, filter):
+def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg, filter):
     """Estimate user exposure
 
     Parameters
@@ -88,24 +116,31 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, filter
     -------
         expo : dict
             user exposure
-                {photo1: ( expo +, expo -, photo_objectness),...}
+                {photo1: [transformed features],...}
 
     """
     expo = {}
 
     for photo in user_photos:
         pos_expo, neg_expo, objectness =  photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors)
+        # Apply Focal Exposure
+        f_expo_pos = FE(pos_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+        f_expo_neg = FE(neg_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+        f_dens = objectness
+
         if filter:
-            if abs(pos_expo) + abs(neg_expo) >= 0.01:
-                expo[photo] = photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors)
+            if abs(f_expo_pos) + abs(f_expo_neg) >= 0.3:
+                # Apply feature transform
+                expo[photo] = feature_transform(f_expo_pos, f_expo_neg, f_dens, cfg.SOLVER.FEATURE_TYPE)
 
         else:
-            expo[photo] = photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors)
+            # Apply feature transform
+            expo[photo] = feature_transform(f_expo_pos, f_expo_neg, f_dens, cfg.SOLVER.FEATURE_TYPE)
 
     return expo
 
 
-def community_expo(users, f_top, detectors, opt_threshs, load_detectors, filter = False):
+def community_expo(users, f_top, detectors, opt_threshs, load_detectors, cfg, filter = False):
     """Estimate photo exposure for all users in a given situation
 
     Parameters
@@ -135,12 +170,12 @@ def community_expo(users, f_top, detectors, opt_threshs, load_detectors, filter 
     -------
         expo : dict
             community exposure
-            {user1: {photo1: (expo +, expo-, sum_objectness), ...}, ...}
+            {user1: {photo1: [transform features], ...}, ...}
 
     """
     expo = {}
 
     for user, photos in users.items():
-        expo[user] = user_expo(photos, f_top, detectors, opt_threshs, load_detectors, filter)
+        expo[user] = user_expo(photos, f_top, detectors, opt_threshs, load_detectors, cfg, filter)
 
     return expo

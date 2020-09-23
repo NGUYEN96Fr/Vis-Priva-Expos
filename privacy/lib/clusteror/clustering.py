@@ -1,6 +1,5 @@
 import os
 import numpy as np
-from joblib import dump
 
 def agg_features(com_features):
     """Aggregate exposure features of all images
@@ -34,7 +33,7 @@ def train_clusteror(model, com_features, cfg):
     Parameters
     ----------
     model: object
-        clusteror model
+        clusteror modeling
 
     com_features : dict
         community exposure features
@@ -47,4 +46,6 @@ def train_clusteror(model, com_features, cfg):
     if cfg.CLUSTEROR.TYPE == 'K_MEANS':
         model.fit(aggfeatures)
 
+    elif cfg.CLUSTEROR.TYPE == 'GM':
+        model.fit(aggfeatures)
     return model

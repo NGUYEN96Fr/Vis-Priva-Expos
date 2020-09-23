@@ -1,0 +1,4 @@
+_BASE_: "KMEANS.yaml"
+
+OUTPUT:
+  DIR: 'out'

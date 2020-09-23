@@ -12,7 +12,7 @@ def main():
     
     # configs
     ##########################################################################
-    normalize = False
+    normalize = True
     inference_file = '../raw_data/inferences/v1/proc_gt_users_images_rcnn.txt'
     user_expo_paths = '../raw_data/user_exposures/v1'
     data_out_file = '../out/train_test_split_rcnn_v1.json'
