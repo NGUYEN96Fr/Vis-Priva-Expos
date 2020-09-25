@@ -5,8 +5,14 @@ def data_loader(root, cfg):
 
     :return:
     """
-    batches, test_set = train_test(root, cfg.DATASETS.TRAIN_TEST_SPLIT)
+    X_batches, X_test_set = train_test(root, cfg.DATASETS.TRAIN_TEST_SPLIT)
     expos = gt_user_expos(root, cfg.DATASETS.GT_USER_EXPOS)
     concepts = vis_concepts(root, cfg.DATASETS.VIS_CONCEPTS)
+    X_community = {}
 
-    return batches, test_set, expos, concepts
+    for user, objects in X_batches['100'].items():
+        X_community[user] = objects
+    for user, objects in X_test_set.items():
+        X_community[user] = objects
+
+    return X_batches, X_test_set, X_community, expos, concepts

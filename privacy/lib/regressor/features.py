@@ -21,9 +21,6 @@ def user_features(clusteror, user_expo_features, cfg):
     if cfg.CLUSTEROR.TYPE == 'K_MEANS':
         photo_labels = clusteror.predict(agg_features)
         centroids = clusteror.cluster_centers_
-        print('****')
-        print(centroids)
-        print('-------')
 
         for k in range(cfg.CLUSTEROR.K_MEANS.CLUSTERS):
             photo_indexes = np.where(photo_labels == k)[0]

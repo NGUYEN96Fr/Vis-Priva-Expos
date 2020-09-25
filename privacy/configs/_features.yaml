@@ -5,7 +5,7 @@ OUTPUT:
 
 REGRESSOR:
   TYPE: 'RF'
-  FEATURES: 'FR2'
+  FEATURES: 'FR1'
   RF:
     BOOTSTRAP: [True]
     MAX_DEPTH: [7]

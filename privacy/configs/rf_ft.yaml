@@ -7,9 +7,9 @@ REGRESSOR:
   TYPE: 'RF'
   FEATURES: 'FR2'
   RF:
-    BOOTSTRAP: [True]
-    MAX_DEPTH: [7]
+    BOOTSTRAP: [True, False]
+    MAX_DEPTH: [5, 7, 9]
     MAX_FEATURES: ['auto']
-    MIN_SAMPLES_LEAF: [3]
-    MIN_SAMPLES_SPLIT: [4]
-    N_ESTIMATORS: [100]
+    MIN_SAMPLES_LEAF: [3, 5, 7]
+    MIN_SAMPLES_SPLIT: [3, 5, 7]
+    N_ESTIMATORS: [100, 150, 200]

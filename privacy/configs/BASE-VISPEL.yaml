@@ -1,15 +1,16 @@
 MODEL:
   DEBUG: False
 FINE_TUNING:
-  STATUS: False
+  STATUS: True
+  CV: 5
 DETECTOR:
-  LOAD: False
+  LOAD: True
 SOLVER:
-  GAMMA: 3
-  K: 4
-  F_TOP: 0.2
+  GAMMA: 0
+  K: 10
+  F_TOP: 0.4
   CORR_TYPE: 'PEARSON'
-  FILTERING: False
+  FILTERING: True
 OUTPUT:
   VERBOSE: True
 DATASETS:

@@ -1,2 +1,17 @@
-Config '../configs/cnn.yaml' has no VERSION. Assuming it to be compatible with latest v1.
-slurmstepd: error: *** JOB 63652 ON node21 CANCELLED AT 2020-09-23T13:49:03 ***
+Config '../configs/rf_ft.yaml' has no VERSION. Assuming it to be compatible with latest v1.
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:302: RuntimeWarning: invalid value encountered in true_divide
+  corr /= X_norms
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py:1932: RuntimeWarning: invalid value encountered in less_equal
+  cond2 = cond0 & (x <= _a)
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:302: RuntimeWarning: invalid value encountered in true_divide
+  corr /= X_norms
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py:1932: RuntimeWarning: invalid value encountered in less_equal
+  cond2 = cond0 & (x <= _a)
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:302: RuntimeWarning: invalid value encountered in true_divide
+  corr /= X_norms
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py:1932: RuntimeWarning: invalid value encountered in less_equal
+  cond2 = cond0 & (x <= _a)
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/sklearn/feature_selection/_univariate_selection.py:302: RuntimeWarning: invalid value encountered in true_divide
+  corr /= X_norms
+/home/users/vnguyen/.conda/envs/detectron2/lib/python3.8/site-packages/scipy/stats/_distn_infrastructure.py:1932: RuntimeWarning: invalid value encountered in less_equal
+  cond2 = cond0 & (x <= _a)

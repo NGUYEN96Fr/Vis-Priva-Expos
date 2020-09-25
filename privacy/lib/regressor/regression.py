@@ -2,7 +2,7 @@ import os
 import numpy as np
 import scipy.stats as stats
 from corr.corr_type import pear_corr, kendall_corr
-
+from plotter.plotter import pca_plot
 
 def train_regressor(model, x_train, y_train, cfg):
     """Train regressor by each situation
@@ -42,7 +42,7 @@ def train_regressor(model, x_train, y_train, cfg):
 
     return model
 
-def test_regressor(model, x_test, y_test, cfg):
+def test_regressor(model, situ_name, x_test, y_test, pca_var, cfg):
     """Train regressor by each situation
 
     :param: x_test: numpy array
@@ -61,8 +61,8 @@ def test_regressor(model, x_test, y_test, cfg):
     if cfg.REGRESSOR.TYPE == 'SVM':
         y_pred = model.predict(x_test)
 
-    # for k in range(y_test.shape[0]):
-    #     print('gt= ',y_test[k],'pred= ',y_pred[k])
+    pca_plot(situ_name, x_test, y_test, y_pred, pca_var)
+
     if cfg.SOLVER.CORR_TYPE == 'KENDALL':
         corr = kendall_corr(y_pred, y_test)
         print('correlation: ', kendall_corr(y_pred, y_test))

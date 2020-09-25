@@ -1,4 +1,5 @@
 from exposure.focal_exposure import focal_exposure as FE
+from exposure.focal_exposure import focal_concept as FC
 
 def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
     """
@@ -27,7 +28,7 @@ def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
         return [f_expo_pos, f_expo_neg]
 
 
-def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors):
+def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
     """Estimate photo exposure
 
     Parameters
@@ -64,19 +65,23 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors):
     sum_neg_objectness = 0
 
     for object_, scores in photo.items():
+        objectness = 0
         if object_ in detectors:
+
             if not load_detectors:
-                objectness = sum([score for score in scores if score >= f_top])
+                objectness += sum([score for score in scores if score >= f_top])
             else:
-                objectness = sum([score for score in scores if score >= opt_threshs[object_]])
+                objectness += sum([score for score in scores if score >= opt_threshs[object_]])
 
             sum_objectness += objectness
 
             if detectors[object_] >= 0:
-                expo_pos += objectness * detectors[object_]
+                expo_pos += objectness * FC(detectors[object_], objectness,cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+                # expo_pos += objectness * detectors[object_]
                 sum_pos_objectness += objectness
             else:
-                expo_neg += objectness * detectors[object_]
+                expo_neg += objectness * FC(detectors[object_], objectness, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+                # expo_neg += objectness * detectors[object_]
                 sum_neg_objectness += objectness
 
     if sum_neg_objectness != 0:  # if have
@@ -122,14 +127,16 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg, f
     expo = {}
 
     for photo in user_photos:
-        pos_expo, neg_expo, objectness =  photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors)
+        pos_expo, neg_expo, objectness =  photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors, cfg)
         # Apply Focal Exposure
-        f_expo_pos = FE(pos_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
-        f_expo_neg = FE(neg_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+        # f_expo_pos = FE(pos_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+        # f_expo_neg = FE(neg_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+        f_expo_pos = pos_expo
+        f_expo_neg = neg_expo
         f_dens = objectness
 
         if filter:
-            if abs(f_expo_pos) + abs(f_expo_neg) >= 0.3:
+            if abs(f_expo_pos) + abs(f_expo_neg) >= 0.1:
                 # Apply feature transform
                 expo[photo] = feature_transform(f_expo_pos, f_expo_neg, f_dens, cfg.SOLVER.FEATURE_TYPE)
 
