@@ -1,3 +1,11 @@
+"""
+The module process raw data, and create available data for
+training visual learning exposure models.
+
+Usage:
+    python main.py
+"""
+
 import _init_paths
 import os
 import json
@@ -10,17 +18,21 @@ def main():
     
     """
     
-    # configs
+    # CONFIGURATION
     ##########################################################################
+    ########
+    # INPUTS
+    ########
     normalize = True
-    inference_file = '../raw_data/inferences/v1/proc_gt_users_images_rcnn.txt'
-    user_expo_paths = '../raw_data/user_exposures/v1'
-    data_out_file = '../out/train_test_split_rcnn_v1.json'
-    expo_out_file = '../out/gt_usr_exposure_v1.json'
-
     train_ratio = 0.8
     mini_batch_ratios = [5,30,50,70,100]
-
+    inference_file = '../raw_data/inferences/v1/proc_gt_users_images_rcnn.txt'
+    user_expo_paths = '../raw_data/user_exposures/v1'
+    #########
+    # OUTPUTS
+    #########
+    data_out_file = '../out/train_test_split_rcnn_v1.json'
+    expo_out_file = '../out/gt_usr_exposure_v1.json'
     ###########################################################################
 
     user_photos = retrieve_detected_objects(inference_file)

@@ -4,15 +4,19 @@ FINE_TUNING:
   STATUS: True
   CV: 5
 DETECTOR:
-  LOAD: True
+  LOAD: False
 SOLVER:
   GAMMA: 0
   K: 10
   F_TOP: 0.4
+  FEATURE_TYPE: 'ORG'
   CORR_TYPE: 'PEARSON'
   FILTERING: True
 OUTPUT:
   VERBOSE: True
+PCA:
+  STATE: False
+  N_COMPONENTS: 2
 DATASETS:
   TRAIN_TEST_SPLIT: "process_raw_data/out/train_test_split_rcnn_v1.json"
   GT_USER_EXPOS: "process_raw_data/out/gt_usr_exposure_v1.json"

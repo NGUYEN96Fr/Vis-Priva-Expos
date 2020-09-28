@@ -12,6 +12,7 @@ import pickle
 from vispel.config import get_cfg
 from vispel.vispel import VISPEL
 
+
 def default_argument_parser():
     """
     Create a parser with some common arguments.
@@ -24,6 +25,7 @@ def default_argument_parser():
     parser.add_argument("--model_name", required= True, help= "saved modeling name")
 
     return parser
+
 
 def save_model(model, filename, out_dir):
     root = os.getcwd()
@@ -58,8 +60,11 @@ def main():
     args = default_argument_parser().parse_args()
     cfg = set_up(args)
     model = VISPEL(cfg)
-    # if cfg.OUTPUT.VERBOSE:
-    #     print(model.cfg)
+    if cfg.OUTPUT.VERBOSE:
+        print('#-----------------------------------#')
+        print('# MODEL CONFIGURATION')
+        print("#-----------------------------------#")
+        print(model.cfg)
 
     model.train_vispel()
     if cfg.OUTPUT.VERBOSE:

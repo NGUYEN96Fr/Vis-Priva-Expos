@@ -1,8 +1,5 @@
 import numpy as np
 from sklearn.decomposition import PCA
-from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import mutual_info_regression
-from sklearn.feature_selection import f_regression
 from exposure.exposure import community_expo
 from detectors.activator import activator
 from clusteror.clustering import train_clusteror
@@ -16,45 +13,51 @@ def situ_trainer(situ_name, X_train_set, X_community, gt_situ_expos, vis_concept
 
     :param situ_name:
     :param X_train_set:
+        user ids in the train set
     :param X_community:
+        all user ids in the community
     :param gt_situ_expos:
-        train user exposure
+        all user exposures
         in a given situation
     :param clusteror:
     :param regressor:
-    :param cfg
+    :param cfg:
     :param verbose:
-    :return:
-         trained cluster modeling for the situation
-         trained regression modeling for the situation
+
+
     """
     # Construct active detectors
     detectors, opt_threds = activator(vis_concepts, situ_name,\
                                       cfg.DATASETS.PRE_VIS_CONCEPTS, cfg.DETECTOR.LOAD)
 
-    # Photo exposures of users
+    # Calculate photo exposures
+    # for all user ids in the community
     commu_expo_features = community_expo(X_community, cfg.SOLVER.F_TOP,\
                                        detectors, opt_threds, cfg.DETECTOR.LOAD, cfg, cfg.SOLVER.FILTERING)
 
+    # Calculate photo exposuers
+    # for user ids in the train set
     train_expo_features = community_expo(X_train_set, cfg.SOLVER.F_TOP,\
                                        detectors, opt_threds, cfg.DETECTOR.LOAD, cfg, cfg.SOLVER.FILTERING)
 
-    # Build exposure features for users
+    # Build exposure features for  all user ids
     # by clustering their photo exposures
-    trained_clusteror = train_clusteror(clusteror, commu_expo_features, cfg)
+    trained_clusteror = train_clusteror(situ_name, clusteror, commu_expo_features, cfg)
 
-    # Build regression features for users
-    reg_com_features, _ = build_features(trained_clusteror, commu_expo_features, gt_situ_expos, cfg)
+    # Build regression features for user ids in the trained set
     reg_train_features, gt_train_expos = build_features(trained_clusteror, train_expo_features, gt_situ_expos, cfg)
 
-    # Feature selector
-    pca = PCA(n_components=2)
-    pca.fit(reg_com_features)
-    print(pca.explained_variance_ratio_)
-    X_train_rd = pca.transform(reg_train_features)
-    # feature_selector = SelectKBest(score_func=f_regression, k=8)
-    # feature_selector.fit(reg_train_features, gt_train_expos)
-    # X_train_fs = feature_selector.transform(reg_train_features)
+    # Feature selector (feature reduction)
+    if cfg.PCA.STATE:
+        reg_commu_features, gt_commu_expos = build_features(
+                            trained_clusteror, commu_expo_features, gt_situ_expos, cfg)
+        pca = PCA(n_components=cfg.PCA.N_COMPONENTS)
+        pca.fit(reg_commu_features)
+        X_train_rd = pca.transform(reg_train_features)
+
+    else:
+        pca = None
+        X_train_rd = reg_train_features
 
     # Fit to the regressor
     trained_regressor = train_regressor(regressor, X_train_rd, gt_train_expos, cfg)

@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from plotter.plotter import clustering_plt
 
 def agg_features(com_features):
     """Aggregate exposure features of all images
@@ -25,7 +26,7 @@ def agg_features(com_features):
     return features
 
 
-def train_clusteror(model, com_features, cfg):
+def train_clusteror(situ_name, model, com_features, cfg):
     """
     Train clusteror on all images of the community, which will be used
     further to cluster each user's image.
@@ -42,6 +43,7 @@ def train_clusteror(model, com_features, cfg):
 
     """
     aggfeatures = agg_features(com_features)
+    clustering_plt(situ_name, aggfeatures)
 
     if cfg.CLUSTEROR.TYPE == 'K_MEANS':
         model.fit(aggfeatures)

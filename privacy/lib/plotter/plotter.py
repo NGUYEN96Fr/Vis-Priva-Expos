@@ -99,4 +99,33 @@ def pca_plot(situ_name, x_pca, y_gt, y_pred, pca_var, N = 10):
     fig.savefig(situ_name+'.jpg')
 
 
+def clustering_plt(situ_name, features):
+    """
+    Plot clustering features
 
+    Parameters
+    ----------
+    features
+
+    Returns
+    -------
+
+    """
+    # SET UP
+    SMALL_SIZE = 8
+    MEDIUM_SIZE = 10
+    BIGGER_SIZE = 12
+
+    plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
+    plt.rc('axes', titlesize=SMALL_SIZE)  # fontsize of the axes title
+    plt.rc('axes', labelsize=MEDIUM_SIZE)  # fontsize of the x and y labels
+    plt.rc('xtick', labelsize=SMALL_SIZE)  # fontsize of the tick labels
+    plt.rc('ytick', labelsize=SMALL_SIZE)  # fontsize of the tick labels
+    plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
+    plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+    # VISUALIZATION
+    fig = plt.figure(figsize=(7,7))
+    print(features.shape[0])
+    plt.scatter(features[:,0], features[:,1], s=2)
+    fig.savefig(situ_name+'_cf.jpg')

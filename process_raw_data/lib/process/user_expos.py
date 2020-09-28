@@ -14,12 +14,13 @@ def normalizing(ini_expo_paths, save_path):
 
     """
     annotators = [x for x in os.listdir(ini_expo_paths) if '.txt' in x]
-    expo_by_situs = {}
-    mean_std_by_situs = {}
-
 
     for annotator in annotators:
+
+        expo_by_situs = {}
+        mean_std_by_situs = {}
         ann_path = os.path.join(ini_expo_paths,annotator)
+
         with open(ann_path) as fp:
             lines = fp.readlines()
             for line in lines:
@@ -30,13 +31,11 @@ def normalizing(ini_expo_paths, save_path):
                     expo_by_situs[situ] = []
                 expo_by_situs[situ].append(score)
 
-    for situ, scores in expo_by_situs.items():
-        mean_std_by_situs[situ] = {}
-        mean_std_by_situs[situ]['mean'] = np.mean(np.asarray(scores))
-        mean_std_by_situs[situ]['std'] = np.std(np.asarray(scores))
+        for situ, scores in expo_by_situs.items():
+            mean_std_by_situs[situ] = {}
+            mean_std_by_situs[situ]['mean'] = np.mean(np.asarray(scores))
+            mean_std_by_situs[situ]['std'] = np.std(np.asarray(scores))
 
-    for annotator in annotators:
-        ann_path = os.path.join(ini_expo_paths, annotator)
         ann_save = os.path.join(save_path, annotator)
         writer = open(ann_save,'w')
 

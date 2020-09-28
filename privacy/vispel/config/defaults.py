@@ -32,6 +32,17 @@ _C.FINE_TUNING.CV = 10
 # Number of used jobs
 _C.FINE_TUNING.N_JOBS = -1
 
+# ---------------------------------------------------------------------------- #
+# FEATURE REDUCTION - PCA
+# ---------------------------------------------------------------------------- #
+_C.PCA = VISPEL()
+# if apply the feature reduction.
+_C.PCA.STATE = False
+# Number of components to keep after
+# performing feature reduction.
+# If None, use all components.
+_C.PCA.N_COMPONENTS = 2
+
 # -----------------------------------------------------------------------------
 # DETECTOR
 # -----------------------------------------------------------------------------
@@ -39,6 +50,14 @@ _C.DETECTOR = VISPEL()
 # Load pre-defined detectors which was determined in
 # the privacy baseline algorithm.
 _C.DETECTOR.LOAD = False
+
+# -----------------------------------------------------------------------------
+# SELECT good ground-truth users
+# -----------------------------------------------------------------------------
+# _C.DETECTOR = VISPEL()
+# Load pre-defined detectors which was determined in
+# the privacy baseline algorithm.
+# _C.DETECTOR.LOAD = False
 
 # -----------------------------------------------------------------------------
 # DATASETS

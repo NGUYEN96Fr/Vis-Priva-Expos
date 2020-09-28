@@ -29,16 +29,12 @@ def train_regressor(model, x_train, y_train, cfg):
         print(model.best_params_)
 
 
-    if cfg.OUTPUT.VERBOSE:
-        y_pred = model.predict(x_train)
+    y_pred = model.predict(x_train)
 
-        # for k in range(y_train.shape[0]):
-        #     print('gt= ',y_train[k],' pred= ',y_pred[k])
-
-        if cfg.SOLVER.CORR_TYPE == 'KENDALL':
-            print('correlation: ', kendall_corr(y_pred, y_train))
-        elif cfg.SOLVER.CORR_TYPE == 'PEARSON':
-            print('correlation: ', pear_corr(y_pred, y_train))
+    if cfg.SOLVER.CORR_TYPE == 'KENDALL':
+        print('correlation: ', kendall_corr(y_pred, y_train))
+    elif cfg.SOLVER.CORR_TYPE == 'PEARSON':
+        print('correlation: ', pear_corr(y_pred, y_train))
 
     return model
 
@@ -61,7 +57,8 @@ def test_regressor(model, situ_name, x_test, y_test, pca_var, cfg):
     if cfg.REGRESSOR.TYPE == 'SVM':
         y_pred = model.predict(x_test)
 
-    pca_plot(situ_name, x_test, y_test, y_pred, pca_var)
+    if cfg.PCA.STATE:
+        pca_plot(situ_name, x_test, y_test, y_pred, pca_var)
 
     if cfg.SOLVER.CORR_TYPE == 'KENDALL':
         corr = kendall_corr(y_pred, y_test)

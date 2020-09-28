@@ -1,5 +1,5 @@
 """
-This module load the trained modeling and reproduce its results
+This module load the trained model and reproduce its results
 
 Use:
     python model_info.py --model_name out/RF1.pkl

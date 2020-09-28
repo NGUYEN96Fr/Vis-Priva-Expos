@@ -35,16 +35,16 @@ class VISPEL(object):
         else:
             self.X_train_set = self.X_mini_batches['100']
 
-        if self.cfg.OUTPUT.VERBOSE:
-            print('Training clusteror, and regressor by situation ...')
-            print('Eval mode: ',self.cfg.SOLVER.CORR_TYPE)
+
+        print('Training clusteror, and regressor by situation ...')
+        print('Eval mode: ',self.cfg.SOLVER.CORR_TYPE)
 
         for situ_name, gt_situ_expos in self.gt_user_expos.items():
-            if self.cfg.OUTPUT.VERBOSE:
-                print(situ_name)
+            print(situ_name)
             # Initiate training models
             clusteror = clusteror_builder(self.cfg)
             regressor = regressor_builder(self.cfg)
+
             # Train ...
             detectors, opt_threds, trained_clusteror, trained_regressor, feature_selector = situ_trainer(situ_name, self.X_train_set, self.X_community,\
                                                         gt_situ_expos, self.vis_concepts, clusteror, regressor, self.cfg)
@@ -59,17 +59,24 @@ class VISPEL(object):
         print("# Evaluate visual privacy exposure predictor       ")
         print("#-------------------------------------------------#")
         for situ_name, gt_situ_expos in self.gt_user_expos.items():
-            print("***********************************************")
+            print("****************************")
             print(situ_name)
             test_expo_features = community_expo(self.X_test_set, self.cfg.SOLVER.F_TOP, \
                                                  self.detectors[situ_name], self.opt_threds[situ_name], \
                                                  self.cfg.DETECTOR.LOAD, self.cfg, self.cfg.SOLVER.FILTERING)
 
-            reg_features, gt_expos = build_features(self.clusterors[situ_name],\
+            reg_test_features, gt_test_expos = build_features(self.clusterors[situ_name],\
                                                     test_expo_features, gt_situ_expos, self.cfg)
-            # Perform feature transform
-            X_test_fs = self.feature_selectors[situ_name].transform(reg_features)
-            pca_var = sum(self.feature_selectors[situ_name].explained_variance_ratio_)
 
-            corr = test_regressor(self.regressors[situ_name], situ_name, X_test_fs, gt_expos, pca_var, self.cfg)
-            self.test_results[situ_name] = corr
+            # Perform feature transform
+            if self.cfg.PCA.STATE:
+                X_test_rd = self.feature_selectors[situ_name].transform(reg_test_features)
+                pca_variance = sum(self.feature_selectors[situ_name].explained_variance_ratio_)
+            else:
+                X_test_rd = reg_test_features
+                pca_variance = None
+
+            corr_score = test_regressor(self.regressors[situ_name],
+                                        situ_name, X_test_rd, gt_test_expos, pca_variance, self.cfg)
+
+            self.test_results[situ_name] = corr_score

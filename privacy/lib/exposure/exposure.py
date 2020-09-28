@@ -84,11 +84,11 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
                 # expo_neg += objectness * detectors[object_]
                 sum_neg_objectness += objectness
 
-    if sum_neg_objectness != 0:  # if have
-        expo_neg = expo_neg / sum_neg_objectness
-
-    if sum_pos_objectness != 0:
-        expo_pos = expo_pos / sum_pos_objectness
+    # if sum_neg_objectness != 0:  # if have
+    #     expo_neg = expo_neg / sum_neg_objectness
+    #
+    # if sum_pos_objectness != 0:
+    #     expo_pos = expo_pos / sum_pos_objectness
 
     expo_obj = (expo_pos, expo_neg, sum_objectness)
 
