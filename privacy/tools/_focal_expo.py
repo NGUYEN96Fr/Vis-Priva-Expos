@@ -50,7 +50,7 @@ def main():
 
     gamma_expos = {}
 
-    gammas = [0, 1, 2, 3, 4]
+    gammas = [0, 1, 2, 3, 4, 5]
 
     for gamma in gammas:
         cfg.SOLVER.GAMMA = gamma

@@ -25,6 +25,7 @@ def user_scores():
 
     writer.close()
 
+
 def main():
     user_scores()
 

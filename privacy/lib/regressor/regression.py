@@ -57,8 +57,8 @@ def test_regressor(model, situ_name, x_test, y_test, pca_var, cfg):
     if cfg.REGRESSOR.TYPE == 'SVM':
         y_pred = model.predict(x_test)
 
-    if cfg.PCA.STATE:
-        pca_plot(situ_name, x_test, y_test, y_pred, pca_var)
+    # if cfg.PCA.STATE:
+    #     pca_plot(situ_name, x_test, y_test, y_pred, pca_var)
 
     if cfg.SOLVER.CORR_TYPE == 'KENDALL':
         corr = kendall_corr(y_pred, y_test)

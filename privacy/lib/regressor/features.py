@@ -152,6 +152,7 @@ def build_features(clusteror, com_features, gt_situ_expos, cfg):
 
     return X_features, y_targets
 
+
 def build_cnn_features(clusteror, user_expo_features, cfg):
     """
     CNN features for an user in a given situation

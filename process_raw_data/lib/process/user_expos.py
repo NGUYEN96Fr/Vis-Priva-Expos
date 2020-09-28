@@ -14,6 +14,7 @@ def normalizing(ini_expo_paths, save_path):
 
     """
     annotators = [x for x in os.listdir(ini_expo_paths) if '.txt' in x]
+    cls_encoding = load_class_decoding()
 
     for annotator in annotators:
 
@@ -38,6 +39,10 @@ def normalizing(ini_expo_paths, save_path):
 
         ann_save = os.path.join(save_path, annotator)
         writer = open(ann_save,'w')
+        print('##################################')
+        print(annotator.split('.')[0])
+        for situ, mean_variance in mean_std_by_situs.items():
+            print(cls_encoding[int(situ)],' mean=',mean_variance['mean'],' std=',mean_variance['std'])
 
         with open(ann_path) as fp:
             lines = fp.readlines()

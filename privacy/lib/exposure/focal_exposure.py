@@ -41,5 +41,5 @@ def focal_concept(expo, obj, gamma, K=10):
     -------
         rescaled photo exposure
     """
-    scaled_expo =  (1*(1 - (1 / K) * abs(expo)) ** gamma) * expo
+    scaled_expo =  (1/(1 - (1 / K) * abs(expo)) ** gamma) * expo
     return scaled_expo

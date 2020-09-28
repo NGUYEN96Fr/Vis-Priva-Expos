@@ -90,7 +90,7 @@ _C.SOLVER.F_TOP = 0.3
 # - (ABS): Sum of absolute exposure corr, and the dense object score [f_expo_pos + abs(f_expo_neg), f_dens].
 # - (POS_NEG): Only the scaled positive and negative exposure corr  [f_expo_pos, f_expo_neg].
 # - (SUM): Only the scaled positive and negative exposure corr  [f_expo_pos + f_expo_neg, f_dens].
-_C.SOLVER.FEATURE_TYPE = 'ORG'
+_C.SOLVER.FEATURE_TYPE = 'SUM'
 # Currently supported correlation types: KENDALL, PEARSON
 # Evaluate the correlation score between the crowd-sourcing user exposure corr
 # and the learned user exposure corr.

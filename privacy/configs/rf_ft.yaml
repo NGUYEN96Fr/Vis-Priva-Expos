@@ -1,4 +1,4 @@
-_BASE_: "GM.yaml"
+_BASE_: "KMEANS.yaml"
 
 OUTPUT:
   DIR: 'out'

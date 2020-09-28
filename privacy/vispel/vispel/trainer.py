@@ -5,6 +5,7 @@ from detectors.activator import activator
 from clusteror.clustering import train_clusteror
 from regressor.features import build_features
 from regressor.regression import train_regressor
+from clusteror.vis_clus import vis_clus
 
 
 def situ_trainer(situ_name, X_train_set, X_community, gt_situ_expos, vis_concepts, clusteror, regressor, cfg):
@@ -29,6 +30,8 @@ def situ_trainer(situ_name, X_train_set, X_community, gt_situ_expos, vis_concept
     # Construct active detectors
     detectors, opt_threds = activator(vis_concepts, situ_name,\
                                       cfg.DATASETS.PRE_VIS_CONCEPTS, cfg.DETECTOR.LOAD)
+
+    #vis_clus(situ_name, X_community, detectors)
 
     # Calculate photo exposures
     # for all user ids in the community

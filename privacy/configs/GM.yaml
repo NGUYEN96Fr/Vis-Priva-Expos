@@ -3,6 +3,6 @@ _BASE_: "BASE-VISPEL.yaml"
 CLUSTEROR:
   TYPE: 'GM'
   GM:
-    COMPONENTS: 6
+    COMPONENTS: 4
     MAX_ITER: 300
     COV_TYPE: 'full'

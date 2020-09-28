@@ -1,6 +1,5 @@
-import os
 import numpy as np
-from plotter.plotter import clustering_plt
+import matplotlib.pyplot as plt
 
 def agg_features(com_features):
     """Aggregate exposure features of all images
@@ -43,11 +42,23 @@ def train_clusteror(situ_name, model, com_features, cfg):
 
     """
     aggfeatures = agg_features(com_features)
-    clustering_plt(situ_name, aggfeatures)
 
     if cfg.CLUSTEROR.TYPE == 'K_MEANS':
         model.fit(aggfeatures)
 
     elif cfg.CLUSTEROR.TYPE == 'GM':
         model.fit(aggfeatures)
+
+    # centers = model.cluster_centers_
+    # labels = model.labels_
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111)
+    # scatter = ax.scatter(aggfeatures[:,0], aggfeatures[:,1], c=labels, s=2)
+    # for i, j in centers:
+    #     ax.scatter(i, j, s=50, c='red', marker='+')
+    # ax.set_xlabel('sum_expo')
+    # ax.set_ylabel('sum_obj')
+    #
+    # fig.savefig('vis_obj_'+situ_name+'.jpg')
+
     return model
