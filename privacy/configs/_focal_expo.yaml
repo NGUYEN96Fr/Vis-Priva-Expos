@@ -4,7 +4,7 @@ OUTPUT:
   DIR: 'out'
 
 SOLVER:
-  FEATURE_TYPE: 'SUM'
+  FEATURE_TYPE: 'VOTE'
 
 OUTPUT:
   VERBOSE: False

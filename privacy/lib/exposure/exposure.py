@@ -1,5 +1,4 @@
 from exposure.focal_exposure import focal_exposure as FE
-from exposure.focal_exposure import focal_concept as FC
 
 def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
     """
@@ -14,18 +13,15 @@ def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
 
     """
 
-    if transform == 'ABS':
-        f_abs = abs(f_expo_pos) + abs(f_expo_neg)
-        return [f_abs, f_dens]
+    if transform == 'VOTE':
 
-    if transform == 'ORG':
-        return [f_expo_pos, f_expo_neg, f_dens]
+        if f_expo_pos > abs(f_expo_neg):
+            f_expo = f_expo_pos
 
-    if transform == 'SUM':
-        return [f_expo_pos + f_expo_neg, f_dens]
+        else:
+            f_expo = f_expo_neg
 
-    if transform == 'POS_NEG':
-        return [f_expo_pos, f_expo_neg]
+        return [f_dens, f_expo]
 
 
 def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
@@ -60,34 +56,36 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
     expo_pos = 0  # positive exposure
     expo_neg = 0  # negative exposure
 
-    sum_objectness = 0
-    sum_pos_objectness = 0
-    sum_neg_objectness = 0
+    objectness = []
 
     for object_, scores in photo.items():
-        objectness = 0
+
+        obj_score = 0
+
         if object_ in detectors:
 
             if not load_detectors:
-                objectness += sum([score for score in scores if score >= f_top])
+                valid_obj = [score for score in scores if score >= f_top]
+                if sum(valid_obj) > 0:
+                    obj_score += sum(valid_obj)/len(valid_obj)
             else:
-                objectness += sum([score for score in scores if score >= opt_threshs[object_]])
+                valid_obj += [score for score in scores if score >= opt_threshs[object_]]
+                if sum(valid_obj) > 0:
+                    obj_score += sum(valid_obj) / len(valid_obj)
 
-            sum_objectness += objectness
+            objectness.append(obj_score)
 
             if detectors[object_] >= 0:
-                expo_pos += objectness * FC(detectors[object_], objectness,cfg.SOLVER.GAMMA, cfg.SOLVER.K)
-                expo_pos += FC(detectors[object_], objectness, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
-                sum_pos_objectness += objectness
+                expo_pos += obj_score * detectors[object_]
             else:
-                expo_neg += objectness * FC(detectors[object_], objectness, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
-                sum_neg_objectness += objectness
+                expo_neg += obj_score * detectors[object_]
 
-    if sum_objectness != 0:
-        expo_neg = expo_neg*sum_neg_objectness/sum_objectness
-        expo_pos = expo_pos*sum_pos_objectness/sum_objectness
+    if sum(objectness) > 0:
+        avg_objectness = sum(objectness)/len(objectness)
+    else:
+        avg_objectness = 0
 
-    expo_obj = (expo_pos, expo_neg, sum_objectness)
+    expo_obj = (expo_pos, expo_neg, avg_objectness)
 
     return expo_obj
 
@@ -126,10 +124,8 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg, f
     for photo in user_photos:
         pos_expo, neg_expo, objectness =  photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors, cfg)
         # Apply Focal Exposure
-        # f_expo_pos = FE(pos_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
-        # f_expo_neg = FE(neg_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
-        f_expo_pos = pos_expo
-        f_expo_neg = neg_expo
+        f_expo_pos = FE(pos_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+        f_expo_neg = FE(neg_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
         f_dens = objectness
 
         if filter:

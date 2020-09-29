@@ -57,7 +57,6 @@ def normalizing(ini_expo_paths, save_path):
 
         writer.close()
 
-
 def load_class_decoding():
     """
 

@@ -85,12 +85,10 @@ _C.SOLVER.K = 4
 # in a considered image.
 _C.SOLVER.F_TOP = 0.3
 # Select a feature type for a photo. The types include: ORG, ABS, POS_NEG
-# - (ORG): Original features are the scaled positive, negative exposures
-# of the photo by the FE function and the dense object score [f_expo_pos, f_expo_neg, f_dens].
-# - (ABS): Sum of absolute exposure corr, and the dense object score [f_expo_pos + abs(f_expo_neg), f_dens].
-# - (POS_NEG): Only the scaled positive and negative exposure corr  [f_expo_pos, f_expo_neg].
-# - (SUM): Only the scaled positive and negative exposure corr  [f_expo_pos + f_expo_neg, f_dens].
-_C.SOLVER.FEATURE_TYPE = 'SUM'
+# - (VOTE): choose dominant score type:
+# f_expo = positive_score (if positive_score > abs(negative_score)) and reversely
+# return [f_expo, f_dens].
+_C.SOLVER.FEATURE_TYPE = 'VOTE'
 # Currently supported correlation types: KENDALL, PEARSON
 # Evaluate the correlation score between the crowd-sourcing user exposure corr
 # and the learned user exposure corr.
@@ -142,7 +140,6 @@ _C.REGRESSOR.TYPE = 'RF'
 # Regression features, currently supported types:
 # - FR1: CENTROIDS + VARIANCE ( K-MEANS, GM)
 # - FR2: MEANS + VARIANCE ( K-MEANS, GM)
-# - FR3: MEANS ( K-MEANS, GM)
 _C.REGRESSOR.FEATURES = 'FR2'
 
 # ---------------------------------------------------------------------------- #

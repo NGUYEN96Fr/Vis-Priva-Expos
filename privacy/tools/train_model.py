@@ -60,11 +60,11 @@ def main():
     args = default_argument_parser().parse_args()
     cfg = set_up(args)
     model = VISPEL(cfg)
-    if cfg.OUTPUT.VERBOSE:
-        print('#-----------------------------------#')
-        print('# MODEL CONFIGURATION')
-        print("#-----------------------------------#")
-        print(model.cfg)
+    # if cfg.OUTPUT.VERBOSE:
+    #     print('#-----------------------------------#')
+    #     print('# MODEL CONFIGURATION')
+    #     print("#-----------------------------------#")
+    #     print(model.cfg)
 
     model.train_vispel()
     if cfg.OUTPUT.VERBOSE:

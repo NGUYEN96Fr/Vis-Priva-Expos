@@ -3,7 +3,7 @@ from sklearn.decomposition import PCA
 from exposure.exposure import community_expo
 from detectors.activator import activator
 from clusteror.clustering import train_clusteror
-from regressor.features import build_features
+from regressor.features import build_features, feature_selector
 from regressor.regression import train_regressor
 from clusteror.vis_clus import vis_clus
 
@@ -49,6 +49,9 @@ def situ_trainer(situ_name, X_train_set, X_community, gt_situ_expos, vis_concept
 
     # Build regression features for user ids in the trained set
     reg_train_features, gt_train_expos = build_features(trained_clusteror, train_expo_features, gt_situ_expos, cfg)
+
+    # Select pertinent features
+    reg_train_features, gt_train_expos  = feature_selector(reg_train_features, gt_train_expos)
 
     # Feature selector (feature reduction)
     if cfg.PCA.STATE:

@@ -1,6 +1,46 @@
 import numpy as np
 from numpy import linalg as LA
 
+def feature_selector(reg_features, gt_expos, esp =0.1, keep = 0.6):
+    """
+
+    Parameters
+    ----------
+    reg_features
+    gt_expos
+    esp: float
+        absolute gt expo difference between two users
+
+    Returns
+    -------
+
+    """
+    sty_dists = [] # similarity distance
+
+    for k in range(reg_features.shape[0]):
+        ref_expo = gt_expos[k]
+        user_dists = []
+        for h in range(reg_features.shape[0]):
+            if h != k:
+                cur_expo =gt_expos[h]
+                if abs(cur_expo - ref_expo) < esp:
+                    feature_dist = LA.norm(reg_features[k,:]-reg_features[h,:])
+                    user_dists.append(feature_dist)
+
+        if len(user_dists) > 0:
+            sty_dists.append(sum(user_dists)/len(user_dists))
+        else:
+            sty_dists.append(0)
+
+    n_users = int(keep*reg_features.shape[0])
+    sty_dists = np.asarray(sty_dists)
+    sorted_indexes = np.argsort(sty_dists)
+    sorted_dists = sty_dists[sorted_indexes]
+    sorted_gt_expos = gt_expos[sorted_indexes][:n_users]
+    sorted_reg_features = reg_features[sorted_indexes, :][:n_users,:]
+
+    return sorted_reg_features, sorted_gt_expos
+
 
 def user_features(clusteror, user_expo_features, cfg):
     """
@@ -54,16 +94,6 @@ def user_features(clusteror, user_expo_features, cfg):
                 reg_features.append(cluster_variance)
 
 
-            elif cfg.REGRESSOR.FEATURES == 'FR3':
-                if len(photo_indexes) > 0:
-                    cluster_expo_features = agg_features[photo_indexes, :]
-                    centroid = np.mean(cluster_expo_features, 0)
-                else:
-                    centroid = np.zeros(centroids.shape[1]) # there are no photos belong
-                                                            # to the current centroid k
-                for x in list(centroid):
-                    reg_features.append(x)
-
     elif cfg.CLUSTEROR.TYPE == 'GM':
         photo_labels = clusteror.predict(agg_features)
         centroids = clusteror.means_
@@ -98,16 +128,6 @@ def user_features(clusteror, user_expo_features, cfg):
                 for x in list(centroid):
                     reg_features.append(x)
                 reg_features.append(cluster_variance)
-
-            elif cfg.REGRESSOR.FEATURES == 'FR3':
-                if len(photo_indexes) > 0:
-                    cluster_expo_features = agg_features[photo_indexes, :]
-                    centroid = np.mean(cluster_expo_features, 0)
-                else:
-                    centroid = np.zeros(agg_features.shape[1]) # there are no photos belong
-                                                            # to the current centroid k
-                for x in list(centroid):
-                    reg_features.append(x)
 
 
     return reg_features

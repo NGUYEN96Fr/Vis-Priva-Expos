@@ -7,15 +7,15 @@ DETECTOR:
   LOAD: False
 SOLVER:
   GAMMA: 0
-  K: 5
-  F_TOP: 0.1
-  FEATURE_TYPE: 'ORG'
+  K: 10
+  F_TOP: 0.2
+  FEATURE_TYPE: 'VOTE'
   CORR_TYPE: 'PEARSON'
-  FILTERING: False
+  FILTERING: True
 OUTPUT:
   VERBOSE: True
 PCA:
-  STATE: True
+  STATE: False
   N_COMPONENTS: 6
 DATASETS:
   TRAIN_TEST_SPLIT: "process_raw_data/out/train_test_split_rcnn_v1.json"
