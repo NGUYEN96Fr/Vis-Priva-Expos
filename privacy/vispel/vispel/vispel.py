@@ -5,6 +5,7 @@ from exposure.exposure import community_expo
 from regressor.features import build_features
 from regressor.regression import test_regressor
 from modeling.builder import regressor_builder, clusteror_builder
+from clusteror.clustering import test_clusteror
 
 
 class VISPEL(object):
@@ -64,7 +65,7 @@ class VISPEL(object):
             test_expo_features = community_expo(self.X_test_set, self.cfg.SOLVER.F_TOP, \
                                                  self.detectors[situ_name], self.opt_threds[situ_name], \
                                                  self.cfg.DETECTOR.LOAD, self.cfg, self.cfg.SOLVER.FILTERING)
-
+            test_clusteror(situ_name, self.clusterors[situ_name], test_expo_features, self.cfg)
             reg_test_features, gt_test_expos = build_features(self.clusterors[situ_name],\
                                                     test_expo_features, gt_situ_expos, self.cfg)
 

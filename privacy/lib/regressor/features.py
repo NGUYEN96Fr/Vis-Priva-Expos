@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import linalg as LA
 
-def feature_selector(reg_features, gt_expos, esp =0.1, keep = 0.6):
+def feature_selector(reg_features, gt_expos, esp =0.1, keep = 0.8):
     """
 
     Parameters
