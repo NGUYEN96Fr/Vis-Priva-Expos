@@ -55,15 +55,15 @@ def train_clusteror(situ_name, model, com_features, cfg):
         centers = model.means_
         labels = model.predict(aggfeatures_)
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.scatter(aggfeatures_[:,0], aggfeatures_[:,1], c=labels, s=2)
-    for i, j in centers:
-        ax.scatter(i, j, s=50, c='red', marker='+')
-    ax.set_xlabel('object-ness')
-    ax.set_ylabel('expo_score')
-
-    fig.savefig('vis_obj_'+situ_name+'.jpg')
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111)
+    # ax.scatter(aggfeatures_[:,0], aggfeatures_[:,1], c=labels, s=2)
+    # for i, j in centers:
+    #     ax.scatter(i, j, s=50, c='red', marker='+')
+    # ax.set_xlabel('object-ness')
+    # ax.set_ylabel('expo_score')
+    #
+    # fig.savefig('vis_obj_'+situ_name+'.jpg')
 
     return model
 
@@ -83,7 +83,6 @@ def test_clusteror(situ_name, trained_clusteror, test_features, cfg):
 
     """
     aggfeatures_ = agg_features(test_features)
-    print(aggfeatures_.shape)
 
     if cfg.CLUSTEROR.TYPE == 'K_MEANS':
         centers = trained_clusteror.cluster_centers_

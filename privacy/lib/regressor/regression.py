@@ -31,12 +31,16 @@ def train_regressor(model, x_train, y_train, cfg):
 
     y_pred = model.predict(x_train)
 
-    if cfg.SOLVER.CORR_TYPE == 'KENDALL':
-        print('correlation: ', kendall_corr(y_pred, y_train))
-    elif cfg.SOLVER.CORR_TYPE == 'PEARSON':
-        print('correlation: ', pear_corr(y_pred, y_train))
+    if cfg.OUTPUT.VERBOSE:
+
+        if cfg.SOLVER.CORR_TYPE == 'KENDALL':
+            print('correlation: ', kendall_corr(y_pred, y_train))
+
+        elif cfg.SOLVER.CORR_TYPE == 'PEARSON':
+            print('correlation: ', pear_corr(y_pred, y_train))
 
     return model
+
 
 def test_regressor(model, situ_name, x_test, y_test, pca_var, cfg):
     """Train regressor by each situation
@@ -57,14 +61,17 @@ def test_regressor(model, situ_name, x_test, y_test, pca_var, cfg):
     if cfg.REGRESSOR.TYPE == 'SVM':
         y_pred = model.predict(x_test)
 
-    # if cfg.PCA.STATE:
-    #     pca_plot(situ_name, x_test, y_test, y_pred, pca_var)
+    if cfg.PCA.STATE:
+        pca_plot(situ_name, x_test, y_test, y_pred, pca_var)
 
     if cfg.SOLVER.CORR_TYPE == 'KENDALL':
         corr = kendall_corr(y_pred, y_test)
-        print('correlation: ', kendall_corr(y_pred, y_test))
+        if cfg.OUTPUT.VERBOSE:
+            print('correlation: ', kendall_corr(y_pred, y_test))
+
     elif cfg.SOLVER.CORR_TYPE == 'PEARSON':
         corr = pear_corr(y_pred, y_test)
-        print('correlation: ', pear_corr(y_pred, y_test))
+        if cfg.OUTPUT.VERBOSE:
+            print('correlation: ', pear_corr(y_pred, y_test))
 
     return corr

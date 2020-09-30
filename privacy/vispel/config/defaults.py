@@ -11,6 +11,8 @@ _C.VERSION = 1
 _C.MODEL = VISPEL()
 # Setting in the debug mode
 _C.MODEL.DEBUG = False
+# Setting in the debug mode
+_C.MODEL.SEED = 2020
 # Architecture meta-data
 _C.MODEL.META_ARCHITECTURE = "VISual-Privacy-Exposure-Learner"
 
@@ -52,12 +54,18 @@ _C.DETECTOR = VISPEL()
 _C.DETECTOR.LOAD = False
 
 # -----------------------------------------------------------------------------
-# SELECT good ground-truth users
+# SELECT good training users
 # -----------------------------------------------------------------------------
-# _C.DETECTOR = VISPEL()
-# Load pre-defined detectors which was determined in
-# the privacy baseline algorithm.
-# _C.DETECTOR.LOAD = False
+_C.USER_SELECTOR = VISPEL()
+# If apply the user selection process
+_C.USER_SELECTOR.STATE = False
+# Absolute visual score difference between two users. If two
+# users have the score difference smaller than EPS, they will
+# take into account to calculate the feature distance
+_C.USER_SELECTOR.EPS = 0.1
+# Percentage of kept users
+# following their ranked feature distance
+_C.USER_SELECTOR.KEEP = 0.8
 
 # -----------------------------------------------------------------------------
 # DATASETS

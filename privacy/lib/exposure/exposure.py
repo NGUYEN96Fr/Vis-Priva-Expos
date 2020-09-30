@@ -20,10 +20,12 @@ def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
 
         else:
             f_expo = f_expo_neg
-
-        f_expo = f_expo_neg + f_expo_pos
         
         return [f_dens, f_expo]
+
+    if transform == 'ORG':
+
+        return [f_expo_pos, f_expo_neg, f_dens]
 
 
 def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):

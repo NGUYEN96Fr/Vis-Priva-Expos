@@ -1,43 +1,48 @@
 import numpy as np
 from numpy import linalg as LA
 
-def feature_selector(reg_features, gt_expos, esp =0.1, keep = 0.8):
+def user_selector(reg_features, gt_expos, cfg):
     """
+    Select pertinent users in the train set
 
     Parameters
     ----------
     reg_features
     gt_expos
-    esp: float
-        absolute gt expo difference between two users
+    cfg
 
     Returns
     -------
 
     """
-    sty_dists = [] # similarity distance
+    if cfg.USER_SELECTOR.STATE:
 
-    for k in range(reg_features.shape[0]):
-        ref_expo = gt_expos[k]
-        user_dists = []
-        for h in range(reg_features.shape[0]):
-            if h != k:
-                cur_expo =gt_expos[h]
-                if abs(cur_expo - ref_expo) < esp:
-                    feature_dist = LA.norm(reg_features[k,:]-reg_features[h,:])
-                    user_dists.append(feature_dist)
+        sty_dists = [] # similarity distance
 
-        if len(user_dists) > 0:
-            sty_dists.append(sum(user_dists)/len(user_dists))
-        else:
-            sty_dists.append(0)
+        for k in range(reg_features.shape[0]):
+            ref_expo = gt_expos[k]
+            user_dists = []
+            for h in range(reg_features.shape[0]):
+                if h != k:
+                    cur_expo =gt_expos[h]
+                    if abs(cur_expo - ref_expo) < cfg.USER_SELECTOR.EPS:
+                        feature_dist = LA.norm(reg_features[k,:]-reg_features[h,:])
+                        user_dists.append(feature_dist)
 
-    n_users = int(keep*reg_features.shape[0])
-    sty_dists = np.asarray(sty_dists)
-    sorted_indexes = np.argsort(sty_dists)
-    sorted_dists = sty_dists[sorted_indexes]
-    sorted_gt_expos = gt_expos[sorted_indexes][:n_users]
-    sorted_reg_features = reg_features[sorted_indexes, :][:n_users,:]
+            if len(user_dists) > 0:
+                sty_dists.append(sum(user_dists)/len(user_dists))
+            else:
+                sty_dists.append(0)
+
+        n_users = int(cfg.USER_SELECTOR.KEEP*reg_features.shape[0])
+        sty_dists = np.asarray(sty_dists)
+        sorted_indexes = np.argsort(sty_dists)
+        sorted_gt_expos = gt_expos[sorted_indexes][:n_users]
+        sorted_reg_features = reg_features[sorted_indexes, :][:n_users,:]
+
+    else:
+        sorted_reg_features = reg_features
+        sorted_gt_expos = gt_expos
 
     return sorted_reg_features, sorted_gt_expos
 

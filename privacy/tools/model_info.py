@@ -2,7 +2,7 @@
 This module load the trained model and reproduce its results
 
 Use:
-    python model_info.py --model_name out/RF1.pkl
+    python model_info.py --model_name out/best_bank_ft0.pkl
 """
 
 import pickle
@@ -30,15 +30,13 @@ def main():
     """
     args = default_argument_parser().parse_args()
     model = pickle.load(open(args.model_name,'rb'))
+    model.cfg.OUTPUT.VERBOSE = True
     print('#-----------------------------------#')
     print('# MODEL CONFIGURATION')
     print("#-----------------------------------#")
     print(model.cfg)
-    print('#-----------------------------------#')
-    print('# MODEL TRAINING RESULTS')
-    print("#-----------------------------------#")
+    model.set_seeds()
     model.train_vispel()
-    # Print the modeling test results
     model.test_vispel()
 
 
