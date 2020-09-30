@@ -73,7 +73,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
                 if sum(valid_obj) > 0:
                     obj_score += sum(valid_obj)/len(valid_obj)
             else:
-                valid_obj += [score for score in scores if score >= opt_threshs[object_]]
+                valid_obj = [score for score in scores if score >= opt_threshs[object_]]
                 if sum(valid_obj) > 0:
                     obj_score += sum(valid_obj) / len(valid_obj)
 

@@ -97,6 +97,7 @@ def test_clusteror(situ_name, trained_clusteror, test_features, cfg):
     ax.scatter(aggfeatures_[:,0], aggfeatures_[:,1], c=labels, s=2)
     for i, j in centers:
         ax.scatter(i, j, s=50, c='red', marker='+')
+
     ax.set_xlabel('object-ness')
     ax.set_ylabel('expo_score')
 

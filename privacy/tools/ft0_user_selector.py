@@ -1,8 +1,9 @@
 """
-The module trains exposure predictors on different modeled situations
+The module fine-tunes exposure predictor on the user selection,
+ and loading methods.
 
 run:
-    python user_selector_ft0.py --config_file ../configs/rf.yaml --model_name best_bank_ft01.pkl --situation BANK
+    python ft0_user_selector.py --config_file ../configs/rf.yaml --model_name best_bank_ft0.pkl --situation BANK
 
 """
 import _init_paths
@@ -69,16 +70,16 @@ def main():
 
     EPSs = [0.05, 0.1, 0.15, 0.2]
     KEEPs = [0.8, 0.85, 0.9, 0.95, 1.0]
-    f_tops = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]
+    DETECTOR_LOAD = [True, False]
 
     for eps in tqdm.tqdm(EPSs):
         cfg.USER_SELECTOR.EPS = eps
 
-        for f_top in f_tops:
-            cfg.SOLVER.F_TOP = f_top
+        for keep in KEEPs:
+            cfg.USER_SELECTOR.KEEP = keep
 
-            for keep in KEEPs:
-                cfg.USER_SELECTOR.KEEP = keep
+            for load in DETECTOR_LOAD:
+                cfg.DETECTOR.LOAD = load
                 model = VISPEL(cfg, situ_decoding(args.situation))
 
                 model.train_vispel()

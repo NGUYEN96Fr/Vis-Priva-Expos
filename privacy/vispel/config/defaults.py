@@ -96,6 +96,7 @@ _C.SOLVER.F_TOP = 0.3
 # - (VOTE): choose dominant score type:
 # f_expo = positive_score (if positive_score > abs(negative_score)) and reversely
 # return [f_expo, f_dens].
+# - (ORG): Original Features
 _C.SOLVER.FEATURE_TYPE = 'VOTE'
 # Currently supported correlation types: KENDALL, PEARSON
 # Evaluate the correlation score between the crowd-sourcing user exposure corr
