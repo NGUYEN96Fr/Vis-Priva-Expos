@@ -64,6 +64,7 @@ def main():
             model.set_seeds()
             model.train_vispel()
             model.test_vispel()
+
             trained_models.append(copy.deepcopy(model))
             test_corrs.append(model.test_result)
 

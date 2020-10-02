@@ -2,7 +2,7 @@
 This module fine-tunes models on engineering features
 
 Use:
-    python ft1_features.py --pre_model out/best_bank_ft0.pkl --model_name best_bank_ft1.pkl
+        python ft1_features.py --pre_model out/best_bank_ft0.pkl --model_name best_bank_ft1.pkl
 """
 
 

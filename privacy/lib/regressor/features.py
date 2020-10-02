@@ -58,8 +58,10 @@ def user_features(clusteror, user_expo_features, cfg):
     """
     reg_features = []
     agg_features = []
+
     for photo, expo_features in user_expo_features.items():
         agg_features.append(expo_features)
+        # agg_features.append([abs(feature) for feature in expo_features])
 
     agg_features = np.asarray(agg_features)
 
@@ -85,19 +87,31 @@ def user_features(clusteror, user_expo_features, cfg):
                 reg_features.append(cluster_variance)
 
             elif cfg.REGRESSOR.FEATURES == 'FR2':
+
                 if len(photo_indexes) > 0:
                     cluster_expo_features = agg_features[photo_indexes, :]
                     centroid = np.mean(cluster_expo_features, 0)
-                    cluster_variance = LA.norm(cluster_expo_features, 'fro')
+                    cluster_norms = LA.norm(cluster_expo_features, 'fro')
                 else:
                     centroid = np.zeros(centroids.shape[1]) # there are no photos belong
                                                             # to the current centroid k
-                    cluster_variance = 0
+                    cluster_norms = 0
+                for x in list(centroid):
+                    reg_features.append(x)
+                reg_features.append(cluster_norms)
+
+            elif cfg.REGRESSOR.FEATURES == 'FR3':
+                if len(photo_indexes) > 0:
+                    cluster_expo_features = agg_features[photo_indexes, :]
+                    centroid = np.mean(cluster_expo_features, 0)
+                    cluster_stds = np.std(cluster_expo_features, axis=0)
+                else:
+                    centroid = np.zeros(centroids.shape[1]) # there are no photos belong
+                                                            # to the current centroid k
+                    cluster_stds = np.zeros(centroids.shape[1])
 
                 for x in list(centroid):
                     reg_features.append(x)
-                reg_features.append(cluster_variance)
-
 
     elif cfg.CLUSTEROR.TYPE == 'GM':
         photo_labels = clusteror.predict(agg_features)

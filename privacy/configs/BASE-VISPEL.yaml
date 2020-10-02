@@ -1,5 +1,6 @@
 MODEL:
   DEBUG: False
+  PLOT: False
 
 ##
 FINE_TUNING:
@@ -19,8 +20,8 @@ USER_SELECTOR:
 ##
 SOLVER:
   GAMMA: 0
-  K: 10
-  F_TOP: 0.2
+  K: 15
+  F_TOP: 0.0
   FEATURE_TYPE: 'ORG'
   CORR_TYPE: 'PEARSON'
   FILTERING: True

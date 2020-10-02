@@ -72,7 +72,7 @@ class VISPEL(object):
         reg_test_features, gt_test_expos = build_features(self.clusteror, test_expo_features,
                                                           self.gt_expos, self.cfg)
 
-        # test_clusteror(self.situation, self.clusteror, test_expo_features, self.cfg)
+        test_clusteror(self.situation, self.clusteror, test_expo_features, self.cfg)
 
         # Perform feature transform
         if self.cfg.PCA.STATE:

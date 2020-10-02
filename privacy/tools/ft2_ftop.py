@@ -55,14 +55,13 @@ def main():
     F_TOPs = [0, 0.1, 0.2, 0.3, 0.4, 0.5]
     for f_top in tqdm.tqdm(F_TOPs):
 
-
         model.cfg.SOLVER.F_TOP = f_top
         model.set_seeds()
 
         model.train_vispel()
-        trained_models.append(copy.deepcopy(model))
-
         model.test_vispel()
+
+        trained_models.append(copy.deepcopy(model))
         test_corrs.append(model.test_result)
 
     if model.cfg.OUTPUT.VERBOSE:

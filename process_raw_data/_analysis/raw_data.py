@@ -3,13 +3,67 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy import linalg as LA
 
+import matplotlib
+from mpl_toolkits.axes_grid1 import AxesGrid
+
+def shiftedColorMap(cmap, start=0, midpoint=0.5, stop=1.0, name='shiftedcmap'):
+    '''
+    Function to offset the "center" of a colormap. Useful for
+    data with a negative min and positive max and you want the
+    middle of the colormap's dynamic range to be at zero.
+
+    Input
+    -----
+      cmap : The matplotlib colormap to be altered
+      start : Offset from lowest point in the colormap's range.
+          Defaults to 0.0 (no lower offset). Should be between
+          0.0 and `midpoint`.
+      midpoint : The new center of the colormap. Defaults to 
+          0.5 (no shift). Should be between 0.0 and 1.0. In
+          general, this should be  1 - vmax / (vmax + abs(vmin))
+          For example if your data range from -15.0 to +5.0 and
+          you want the center of the colormap at 0.0, `midpoint`
+          should be set to  1 - 5/(5 + 15)) or 0.75
+      stop : Offset from highest point in the colormap's range.
+          Defaults to 1.0 (no upper offset). Should be between
+          `midpoint` and 1.0.
+    '''
+    cdict = {
+        'red': [],
+        'green': [],
+        'blue': [],
+        'alpha': []
+    }
+
+    # regular index to compute the colors
+    reg_index = np.linspace(start, stop, 257)
+
+    # shifted index to match the data
+    shift_index = np.hstack([
+        np.linspace(0.0, midpoint, 128, endpoint=False), 
+        np.linspace(midpoint, 1.0, 129, endpoint=True)
+    ])
+
+    for ri, si in zip(reg_index, shift_index):
+        r, g, b, a = cmap(ri)
+
+        cdict['red'].append((si, r, r))
+        cdict['green'].append((si, g, g))
+        cdict['blue'].append((si, b, b))
+        cdict['alpha'].append((si, a, a))
+
+    newcmap = matplotlib.colors.LinearSegmentedColormap(name, cdict)
+    plt.register_cmap(cmap=newcmap)
+
+    return newcmap
+
+
 def count_vis_parttern():
     """
     Count visual concept pattern
     :return:
     """
-    path = '/home/users/vnguyen/intern20/Vis-Priva-Expos/' \
-           'process_raw_data/raw_data/visual_concepts/processed_situations'
+    path = '/home/nguyen/Documents/intern20/Vis-Priva-Expos/process_raw_data/raw_data/visual_concepts/processed_situations'
 
     vis_situs = os.listdir(path)
     vis_concepts = {}
@@ -30,7 +84,7 @@ def count_vis_parttern():
     vis_patterns = {}
     stats = {}
     count = 0
-    min_thresh = 0.4
+    min_thresh = 0.38
 
     for concept_1, pattern_1 in vis_concepts.items():
         #print(concept_1)
@@ -66,17 +120,17 @@ def count_vis_parttern():
 
             else:
                 count += 1
-                vis_patterns['p_' + str(count)] = []
-                vis_patterns['p_' + str(count)].append(pattern_1)
-                stats['p_' + str(count)] = []
-                stats['p_' + str(count)].append(concept_1)
+                vis_patterns['P' + str(count)] = []
+                vis_patterns['P' + str(count)].append(pattern_1)
+                stats['P' + str(count)] = []
+                stats['P' + str(count)].append(concept_1)
 
         else:
             count += 1
-            vis_patterns['p_' + str(count)] = []
-            vis_patterns['p_' + str(count)].append(pattern_1)
-            stats['p_' + str(count)] = []
-            stats['p_' + str(count)].append(concept_1)
+            vis_patterns['P' + str(count)] = []
+            vis_patterns['P' + str(count)].append(pattern_1)
+            stats['P' + str(count)] = []
+            stats['P' + str(count)].append(concept_1)
 
     #print(stats)
     #print(vis_patterns)
@@ -99,12 +153,86 @@ def count_vis_parttern():
 
     return vis_pattern_array, stats
 
+def kmeans_pattern():
+    """
 
-def plot_():
+    """
+    from sklearn.cluster import KMeans
+
+    path = '/home/nguyen/Documents/intern20/Vis-Priva-Expos/process_raw_data/raw_data/visual_concepts/processed_situations'
+    K = 40 # number of clusters
+
+    vis_situs = os.listdir(path)
+    vis_concepts = {}
+
+    for vis_situ in vis_situs:
+        print(vis_situ.split('.')[0])
+        with open(os.path.join(path, vis_situ)) as fp:
+            lines = fp.readlines()
+            for line in lines:
+                parts = line.split(' ')
+                object_ = parts[0]
+                score_ = float(parts[1].split('\n')[0])*3
+                if object_ not in vis_concepts:
+                    vis_concepts[object_] = []
+                vis_concepts[object_].append(score_)
+
+    features =[]
+    for concept, scores in vis_concepts.items():
+        features.append(scores)
+
+    features = np.asarray(features)
+
+    kmeans = KMeans(n_clusters=K, random_state=0, max_iter=500).fit(features)
+    centers = kmeans.cluster_centers_
+    centers = centers.transpose()
+
+    stats = {}
+
+    for concept, scores in vis_concepts.items():
+        scores = np.asarray(scores)
+        scores = scores.reshape(1, scores.shape[0])
+        pattern = kmeans.predict(np.asarray(scores))[0]
+        pattern = 'P'+str(pattern)
+        if pattern not in stats:
+            stats[pattern] = []
+        stats[pattern].append(concept)
+
+    sum_centers = np.sum(centers, axis=0)
+    sorted_indexes = np.argsort(sum_centers)[::-1]
+
+    org_stats = {}
+    sorted_centers = centers[:,sorted_indexes]
+    count_pattern = 1
+
+    for index in range(K):
+        old_key = 'P'+str(sorted_indexes[index])
+        new_key = 'P'+str(count_pattern)
+        org_stats[new_key] = stats[old_key]
+        count_pattern += 1 
+
+    for pattern, concepts in org_stats.items():
+        message = pattern+'&'
+        ADD = False
+        for concept in concepts:
+            if not ADD:
+                message = message+' '+concept.replace('_',' ')
+                ADD = True
+            else:
+                message = message+', '+concept.replace('_',' ')
+                
+        print(message)
+
+
+    return sorted_centers, org_stats
+
+
+def plot():
     """"""
-    vis_pattern_array, stats = count_vis_parttern()
+    # vis_pattern_array, stats = count_vis_parttern()
+    vis_pattern_array, stats = kmeans_pattern()
 
-    situs = ['IT', 'BANK', 'ACCOM', 'WAIT']
+    situs = ['BANK', 'IT', 'ACCOM', 'WAIT']
     situ_spots = np.arange(0,len(situs),1)
     pattern_spots = np.arange(0,vis_pattern_array.shape[1],1)
 
@@ -120,17 +248,21 @@ def plot_():
         name='test',
         colors=['red', 'white', 'green']
     )
-    plt.matshow(vis_pattern_array, fignum= 1, cmap=cmap)
+    shifted_cmap = shiftedColorMap(cmap, midpoint=0.75, name='shifted')
+    im = plt.matshow(vis_pattern_array, fignum= 1, cmap=shifted_cmap)
+    fig = plt.gcf()
+    fig.colorbar(im)
     plt.yticks(situ_spots, situs)
     ax = plt.gca()
     plt.xticks(pattern_spots,patterns,rotation ='vertical')
 
     ax.xaxis.tick_bottom()
-    plt.savefig('abc.jpg')
+    plt.savefig('kmeans.jpg')
+
 
 
 def main():
-    plot_()
+    plot()
 
 if __name__ == '__main__':
     main()

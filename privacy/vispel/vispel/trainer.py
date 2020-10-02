@@ -1,11 +1,8 @@
-import numpy as np
 from sklearn.decomposition import PCA
 from exposure.exposure import community_expo
-from detectors.activator import activator
 from clusteror.clustering import train_clusteror
 from regressor.features import build_features, user_selector
 from regressor.regression import train_regressor
-from clusteror.vis_clus import vis_clus
 
 
 def trainer(situ_name, X_train_set, X_community, gt_situ_expos, clusteror, regressor, detectors, opt_threds,  cfg):
@@ -31,8 +28,6 @@ def trainer(situ_name, X_train_set, X_community, gt_situ_expos, clusteror, regre
     -------
 
     """
-    #vis_clus(situ_name, X_community, detectors)
-
     # Calculate photo exposures
     # for all user ids in the community
     commu_expo_features = community_expo(X_community, cfg.SOLVER.F_TOP,\

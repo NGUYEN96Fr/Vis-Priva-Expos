@@ -11,7 +11,9 @@ _C.VERSION = 1
 _C.MODEL = VISPEL()
 # Setting in the debug mode
 _C.MODEL.DEBUG = False
-# Setting in the debug mode
+#
+_C.MODEL.PLOT = False
+# Setting in seed for models
 _C.MODEL.SEED = 2020
 # Architecture meta-data
 _C.MODEL.META_ARCHITECTURE = "VISual-Privacy-Exposure-Learner"
