@@ -72,6 +72,7 @@ def main():
     KEEPs = [0.8, 0.85, 0.9, 0.95, 1.0]
     DETECTOR_LOAD = [True, False]
 
+
     for eps in tqdm.tqdm(EPSs):
         cfg.USER_SELECTOR.EPS = eps
 
