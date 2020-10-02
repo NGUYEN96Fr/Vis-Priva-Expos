@@ -53,7 +53,7 @@ def main():
     trained_models = []
     test_corrs = []
 
-    Ks = [10, 15]
+    Ks = [10, 15, 20]
     GAMMAs = [0, 1, 2, 3, 4, 5]
     for gamma in tqdm.tqdm(GAMMAs):
         model.cfg.SOLVER.GAMMA = gamma

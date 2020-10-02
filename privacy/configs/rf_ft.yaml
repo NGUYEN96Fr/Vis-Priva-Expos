@@ -3,6 +3,10 @@ _BASE_: "KMEANS.yaml"
 OUTPUT:
   DIR: 'out'
 
+FINE_TUNING:
+  STATUS: True
+  CV: 5
+
 REGRESSOR:
   TYPE: 'RF'
   FEATURES: 'FR2'
