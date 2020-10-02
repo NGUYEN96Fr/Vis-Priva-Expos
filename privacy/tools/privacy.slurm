@@ -1,12 +1,21 @@
 #!/bin/bash
 #SBATCH -N 1
 #SBATCH -n 1
-#SBATCH --partition gpu-test
-#SBATCH -w node21
+#SBATCH --partition bigmem
+#SBATCH -w node09
+#SBATCH --exclusive
+#SBATCH -J FTCV5_CPUs
 
-#SBATCH --output=/home/users/vnguyen/intern20/Vis-Priva-Expos/privacy/tools/privacy.out
-#SBATCH --error=/home/users/vnguyen/intern20/Vis-Priva-Expos/privacy/tools/privacy.errs
+#SBATCH --output=/home/users/vnguyen/intern20/Vis-Priva-Expos/privacy/tools/FTCV5_CPUs.out
+#SBATCH --error=/home/users/vnguyen/intern20/Vis-Priva-Expos/privacy/tools/FTCV5_CPUs.errs
 
-python user_selector_ft0.py --config_file ../configs/rf.yaml --model_name best_accom_ft01.pkl --situation ACCOM
+python ft_official.py --config_file ../configs/rf_ft.yaml --model_name bestCV5_bank.pkl --situation BANK
 
-python ftop_ft1.py --pre_model out/best_accom_ft0.pkl --model_name best_accom_ft1.pkl
+python ft_official.py --config_file ../configs/rf_ft.yaml --model_name bestCV5_accom.pkl --situation ACCOM
+
+python ft_official.py --config_file ../configs/rf_ft.yaml --model_name bestCV5_it.pkl --situation IT
+
+python ft_official.py --config_file ../configs/rf_ft.yaml --model_name bestCV5_wait.pkl --situation WAIT
+
+
+### Cross validation 5
