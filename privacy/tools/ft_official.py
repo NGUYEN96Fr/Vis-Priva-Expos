@@ -3,10 +3,10 @@ The module fine-tunes exposure predictor on the user selection,
  and loading methods.
 
 run:
-    python ft_official.py --config_file ../configs/rf_ft.yaml --model_name best_bank.pkl --situation BANK
-    python ft_official.py --config_file ../configs/rf_ft.yaml --model_name best_accom.pkl --situation ACCOM
-    python ft_official.py --config_file ../configs/rf_ft.yaml --model_name best_it.pkl --situation IT
-    python ft_official.py --config_file ../configs/rf_ft.yaml --model_name best_wait.pkl --situation WAIT
+    python ft_official.py --config_file ../configs/rf_kmeans_ft_mobi_cv5.yaml --model_name best_bank.pkl --situation BANK
+    python ft_official.py --config_file ../configs/rf_kmeans_ft_mobi_cv5.yaml --model_name best_accom.pkl --situation ACCOM
+    python ft_official.py --config_file ../configs/rf_kmeans_ft_mobi_cv5.yaml --model_name best_it.pkl --situation IT
+    python ft_official.py --config_file ../configs/rf_kmeans_ft_mobi_cv5.yaml --model_name best_wait.pkl --situation WAIT
 
 """
 import _init_paths

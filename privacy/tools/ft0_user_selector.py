@@ -3,7 +3,7 @@ The module fine-tunes exposure predictor on the user selection,
  and loading methods.
 
 run:
-    python ft0_user_selector.py --config_file ../configs/rf.yaml --model_name best_bank_ft0.pkl --situation BANK
+    python ft0_user_selector.py --config_file ../configs/rf_kmeans.yaml --model_name ft0_rcnn-bank.pkl --situation BANK
 
 """
 import _init_paths
