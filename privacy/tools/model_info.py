@@ -2,7 +2,7 @@
 This module load the trained model and reproduce its results
 
 Use:
-    python model_info.py --model_name out/best_it_ft0.pkl
+    python model_info.py --model_name out/rcnn-bank_42.pkl
 """
 
 import pickle

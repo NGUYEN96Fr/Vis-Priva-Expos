@@ -1,4 +1,4 @@
-_BASE_: "BASE-MOBINET.yaml"
+_BASE_: "BASE-RCNN.yaml"
 
 OUTPUT:
   DIR: 'out'

@@ -3,28 +3,23 @@ MODEL:
   PLOT: False
 
 ##
-FINE_TUNING:
-  STATUS: True
-  CV: 10
-
-##
 DETECTOR:
   LOAD: False
 
 ##
 USER_SELECTOR:
   STATE: True
-  EPS: 0.05
-  KEEP: 0.8
+  EPS: 0.2
+  KEEP: 0.95
 
 ##
 SOLVER:
-  GAMMA: 0
-  K: 15
+  GAMMA: 2
+  K: 10
   F_TOP: 0.2
   FEATURE_TYPE: 'ORG'
   CORR_TYPE: 'PEARSON'
-  FILTERING: False
+  FILTERING: True
 
 ##
 PCA:
