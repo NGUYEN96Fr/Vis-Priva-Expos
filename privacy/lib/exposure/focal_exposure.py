@@ -1,8 +1,14 @@
 import math
+import numpy as np
 
-def sigmoid_scaling(x):
+def cut_off(x, tau = 9):
 
-    return 6*(1/(1+math.exp(-x)) - 0.5)
+    if abs(x) <= tau:
+        x_cut = x
+    else:
+        x_cut = np.sign(x)*9
+
+    return x_cut
 
 
 def focal_exposure(expo, gamma, K = 10):
@@ -24,4 +30,5 @@ def focal_exposure(expo, gamma, K = 10):
         rescaled photo exposure
     """
     scaled_expo =  (1/(1-(1/K)*abs(expo))**gamma)*expo
-    return sigmoid_scaling(scaled_expo)
+
+    return cut_off(scaled_expo)

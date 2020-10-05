@@ -3,7 +3,7 @@ The module fine-tunes exposure predictor on the user selection,
  and loading methods.
 
 run:
-    python ft0_user_selector.py --config_file ../configs/rf.yaml --model_name best_bank_ft0.pkl --situation BANK
+    python ft0_user_selector.py --config_file ../configs/rf_kmeans.yaml --model_name rcnn-bank_ft0.pkl --situation BANK
 
 """
 import _init_paths
@@ -17,6 +17,7 @@ from situ.acronym import situ_decoding
 from vispel.config import get_cfg
 from vispel.vispel import VISPEL
 
+
 def default_argument_parser():
     """
     Create a parser with some common arguments.
@@ -26,7 +27,7 @@ def default_argument_parser():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--config_file", default="", metavar="FILE", help="path to config file")
-    parser.add_argument("--model_name", required= True, help= "saved modeling name")
+    parser.add_argument("--model_name", required= True, help= "saved model name")
     parser.add_argument("--situation", required=True, help="IT, ACCOM, BANK, WAIT")
 
     return parser
@@ -72,6 +73,9 @@ def main():
     KEEPs = [0.8, 0.85, 0.9, 0.95, 1.0]
     DETECTOR_LOAD = [True, False]
 
+    # EPSs = [0.15]
+    # KEEPs = [0.9]
+
     for eps in tqdm.tqdm(EPSs):
         cfg.USER_SELECTOR.EPS = eps
 
@@ -80,6 +84,7 @@ def main():
 
             for load in DETECTOR_LOAD:
                 cfg.DETECTOR.LOAD = load
+
                 model = VISPEL(cfg, situ_decoding(args.situation))
 
                 model.train_vispel()

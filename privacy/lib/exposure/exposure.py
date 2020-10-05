@@ -1,5 +1,6 @@
 from exposure.focal_exposure import focal_exposure as FE
 
+
 def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
     """
     Apply feature transform on photo features scaled by focal exposure
@@ -57,17 +58,51 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
             photo exposure and its objectness sum
                 {exp +, expo -, objness}
     """
-    expo_pos = 0  # positive exposure
-    expo_neg = 0  # negative exposure
+
+    expo_pos = []  # positive exposure
+    expo_neg = []  # negative exposure
 
     objectness = []
 
+    attract_pos_concepts = []
+    attract_neg_concepts = []
+    neutral_pos_concepts = []
+    neutral_neg_concepts = []
+
     for object_, scores in photo.items():
-
-        obj_score = 0
-
         if object_ in detectors:
+            if detectors[object_] > 0.4:
+                attract_pos_concepts.append(object_)
+            elif detectors[object_] < -1:
+                attract_neg_concepts.append(object_)
 
+            if 0 <= detectors[object_] <= 0.4:
+                neutral_pos_concepts.append(object_)
+            if -1 <= detectors[object_] < 0:
+                neutral_neg_concepts.append(object_)
+
+    if len(neutral_pos_concepts) != 0:
+        ratio = len(attract_pos_concepts)/len(neutral_pos_concepts)
+        if ratio > 0 and ratio < 1/3:
+            scale_pos_flag = True
+        else:
+            scale_pos_flag = False
+    else:
+        scale_pos_flag = False
+
+    if len(neutral_neg_concepts) != 0:
+        ratio = len(attract_neg_concepts)/len(neutral_neg_concepts)
+        if ratio > 0 and ratio < 1/3:
+            scale_neg_flag = True
+        else:
+            scale_neg_flag = False
+    else:
+        scale_neg_flag = False
+
+
+    for object_, scores in photo.items():
+        obj_score = 0
+        if object_ in detectors:
             if not load_detectors:
                 valid_obj = [score for score in scores if score >= f_top]
                 if sum(valid_obj) > 0:
@@ -76,22 +111,42 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
                 valid_obj = [score for score in scores if score >= opt_threshs[object_]]
                 if sum(valid_obj) > 0:
                     obj_score += sum(valid_obj) / len(valid_obj)
-
             objectness.append(obj_score)
 
+            # Only scale object scores when object-ness is sufficiently high, and
+            # exist numerous neutral objects as the same type (positive or negative)
+
             if detectors[object_] >= 0:
-                expo_pos += obj_score * detectors[object_]
+                if scale_pos_flag and obj_score > 0.7:
+                    scaled_expo = FE(detectors[object_], cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+                else:
+                    scaled_expo = detectors[object_]
+                expo_pos.append(scaled_expo)
             else:
-                expo_neg += obj_score * detectors[object_]
+                if scale_neg_flag and obj_score > 0.7:
+                    scaled_expo = FE(detectors[object_], cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+                else:
+                    scaled_expo = detectors[object_]
+                expo_neg.append(scaled_expo)
 
-    if sum(objectness) > 0:
-        avg_objectness = sum(objectness)/len(objectness)
+    if sum(objectness) != 0:
+        objectness = sum(objectness)/len(objectness)
     else:
-        avg_objectness = 0
+        objectness = 0
 
-    expo_obj = (expo_pos, expo_neg, avg_objectness)
+    if sum(expo_pos) != 0:
+        expo_pos = sum(expo_pos)/len(expo_pos)
+    else:
+        expo_pos = 0
 
-    return expo_obj
+    if sum(expo_neg) != 0:
+        expo_neg = sum(expo_neg)/len(expo_neg)
+    else:
+        expo_neg = 0
+    expo_obj = (expo_pos, expo_neg, objectness)
+
+    scale_flag = scale_pos_flag + scale_neg_flag
+    return expo_obj, scale_flag
 
 
 def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg, filter):
@@ -124,16 +179,18 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg, f
 
     """
     expo = {}
-
+    count_rescaled_imgs = []
     for photo in user_photos:
-        pos_expo, neg_expo, objectness =  photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors, cfg)
-        # Apply Focal Exposure
-        f_expo_pos = FE(pos_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
-        f_expo_neg = FE(neg_expo, cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+        (pos_expo, neg_expo, objectness), scale_flag =  photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors, cfg)
+        f_expo_pos = pos_expo
+        f_expo_neg = neg_expo
         f_dens = objectness
 
+        if scale_flag:
+            count_rescaled_imgs.append(photo)
+
         if filter:
-            if abs(f_expo_pos) + abs(f_expo_neg) >= 0.1:
+            if abs(f_expo_pos) + abs(f_expo_neg) >= -1:
                 # Apply feature transform
                 expo[photo] = feature_transform(f_expo_pos, f_expo_neg, f_dens, cfg.SOLVER.FEATURE_TYPE)
 

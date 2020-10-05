@@ -1,7 +1,7 @@
 """
 
 Usage:
-    python main.py configs.ini
+    python main_rcnn.py configs.ini
     'job_search_IT': 0.3602455116187282, 'bank_credit': 0.32976493463441026,
     'job_search_waiter_waitress': 0.6520290400573133, 'accommodation_search': 0.45494309340635974
 """

@@ -97,15 +97,24 @@ def test_clusteror(situ_name, trained_clusteror, test_features, cfg):
         centers = trained_clusteror.means_
         labels = trained_clusteror.predict(aggfeatures_)
 
-    if cfg.MODEL.PLOT:
-
+    # if cfg.MODEL.PLOT:
+    if True:
         fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax.scatter(aggfeatures_[:,0], aggfeatures_[:,1], c=labels, s=2)
-        for i, j in centers:
-            ax.scatter(i, j, s=50, c='red', marker='+')
+        ax = fig.add_subplot(111, projection='3d')
+        ax.scatter(aggfeatures_[:,0], aggfeatures_[:,1], aggfeatures_[:,2], c=labels, s=3)
+        # ax.plot_trisurf(aggfeatures_[:,0], aggfeatures_[:,1], aggfeatures_[:,2], cmap=plt.cm.viridis, linewidth=0.2)
 
-        ax.set_xlabel('object-ness')
-        ax.set_ylabel('expo_score')
+        for i, j, z in centers:
+            ax.scatter(i, j, z, s=50, c='red', marker='+')
 
-        fig.savefig(situ_name+'_test.jpg')
+        # ax.set_xlabel('object-ness')
+        # ax.set_ylabel('expo_score')
+
+        # ax.set_xlabel('fa')
+        # ax.set_ylabel('fn')
+        # ax.set_zlabel('fo')
+        ax.set_yticklabels([])
+        ax.set_xticklabels([])
+        ax.set_zticklabels([])
+
+        fig.savefig(situ_name+'_test.svg', format='svg', dpi=1200)
