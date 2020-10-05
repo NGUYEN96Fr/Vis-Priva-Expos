@@ -2,7 +2,7 @@
 This module fine-tunes models on F_top
 
 Use:
-    python ft2_ftop.py --pre_model out/best_bank_ft1.pkl --model_name best_bank_ft2.pkl
+    python ft2_ftop.py --pre_model out/rcnn-bank_ft1.pkl --model_name rcnn-bank_ft2.pkl
 """
 
 

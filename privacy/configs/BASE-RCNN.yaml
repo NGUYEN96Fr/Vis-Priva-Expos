@@ -14,7 +14,7 @@ USER_SELECTOR:
 
 ##
 SOLVER:
-  GAMMA: 2
+  GAMMA: 0
   K: 10
   F_TOP: 0.2
   FEATURE_TYPE: 'ORG'

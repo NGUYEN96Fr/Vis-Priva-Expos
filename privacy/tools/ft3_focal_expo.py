@@ -3,7 +3,7 @@ This module fine-tunes models
 on the focal exposure's gamma parameters
 
 Use:
-    python ft3_focal_expo.py --pre_model out/best_bank_ft2.pkl --model_name best_bank_ft3.pkl
+    python ft3_focal_expo.py --pre_model out/rcnn-bank_ft2.pkl --model_name rcnn-bank_ft3.pkl
 """
 
 
@@ -55,6 +55,9 @@ def main():
 
     Ks = [10, 15, 20]
     GAMMAs = [0, 1, 2, 3, 4, 5]
+    # Ks = [15]
+    # GAMMAs = [2]
+
     for gamma in tqdm.tqdm(GAMMAs):
         model.cfg.SOLVER.GAMMA = gamma
 
