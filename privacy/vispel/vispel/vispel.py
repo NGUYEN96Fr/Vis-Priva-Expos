@@ -82,6 +82,7 @@ class VISPEL(object):
             X_test_rd = reg_test_features
             pca_variance = 0
 
+        print(self.regressor.best_params_)
         corr_score = test_regressor(self.regressor, self.situation,
                                     X_test_rd, gt_test_expos, pca_variance, self.cfg)
 
