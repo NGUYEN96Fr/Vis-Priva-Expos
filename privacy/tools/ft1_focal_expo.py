@@ -1,8 +1,9 @@
 """
-This module fine-tunes models on F_top
+This module fine-tunes models
+on the focal exposure's gamma parameters
 
 Use:
-    python ft2_ftop.py --pre_model out/rcnn-bank_ft1.pkl --model_name rcnn-bank_ft2.pkl
+    python ft1_focal_expo.py --pre_model out/rcnn-bank_ft1.pkl --model_name rcnn-bank_ft2.pkl
 """
 
 
@@ -52,17 +53,21 @@ def main():
     trained_models = []
     test_corrs = []
 
-    F_TOPs = [0, 0.1, 0.2, 0.3, 0.4, 0.5]
-    for f_top in tqdm.tqdm(F_TOPs):
+    Ks = [10, 15, 20]
+    GAMMAs = [0, 1, 2, 3, 4, 5]
 
-        model.cfg.SOLVER.F_TOP = f_top
-        model.set_seeds()
+    for gamma in tqdm.tqdm(GAMMAs):
+        model.cfg.SOLVER.GAMMA = gamma
 
-        model.train_vispel()
-        model.test_vispel()
+        for k in Ks:
+            model.cfg.SOLVER.K = k
 
-        trained_models.append(copy.deepcopy(model))
-        test_corrs.append(model.test_result)
+            model.set_seeds()
+            model.train_vispel()
+            model.test_vispel()
+
+            trained_models.append(copy.deepcopy(model))
+            test_corrs.append(model.test_result)
 
     if model.cfg.OUTPUT.VERBOSE:
         print("Save modeling !!!")

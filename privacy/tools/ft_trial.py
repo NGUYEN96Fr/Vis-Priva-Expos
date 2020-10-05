@@ -3,7 +3,7 @@ The module fine-tunes exposure predictor on the user selection,
  and loading methods.
 
 run:
-    python ft_trial.py --config_file ../configs/rf_kmeans.yaml --model_name best_bank_trial.pkl --situation BANK
+    python ft_trial.py --config_file ../configs/rcnn_rf_kmeans.yaml --model_name best_bank_trial.pkl --situation BANK
 
     python model_info.py --model_name out/best_bank_trial.pkl
 

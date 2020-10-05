@@ -13,17 +13,6 @@ def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
         transformed features
 
     """
-
-    if transform == 'VOTE':
-
-        if f_expo_pos > abs(f_expo_neg):
-            f_expo = f_expo_pos
-
-        else:
-            f_expo = f_expo_neg
-        
-        return [f_dens, f_expo]
-
     if transform == 'ORG':
 
         return [f_expo_pos, f_expo_neg, f_dens]
@@ -117,13 +106,16 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
             # exist numerous neutral objects as the same type (positive or negative)
 
             if detectors[object_] >= 0:
-                if scale_pos_flag and obj_score > 0.7:
+                #if scale_pos_flag and obj_score > 0.7:
+                if obj_score > 0.7:
                     scaled_expo = FE(detectors[object_], cfg.SOLVER.GAMMA, cfg.SOLVER.K)
                 else:
                     scaled_expo = detectors[object_]
                 expo_pos.append(scaled_expo)
-            else:
-                if scale_neg_flag and obj_score > 0.7:
+
+            if detectors[object_] <= 0:
+                # if scale_neg_flag and obj_score > 0.7:
+                if obj_score > 0.7:
                     scaled_expo = FE(detectors[object_], cfg.SOLVER.GAMMA, cfg.SOLVER.K)
                 else:
                     scaled_expo = detectors[object_]
@@ -149,7 +141,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
     return expo_obj, scale_flag
 
 
-def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg, filter):
+def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg):
     """Estimate user exposure
 
     Parameters
@@ -189,11 +181,10 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg, f
         if scale_flag:
             count_rescaled_imgs.append(photo)
 
-        if filter:
-            if abs(f_expo_pos) + abs(f_expo_neg) >= -1:
+        if cfg.SOLVER.FILTERING:
+            if abs(f_expo_pos) + abs(f_expo_neg) >= cfg.SOLVER.FILT:
                 # Apply feature transform
                 expo[photo] = feature_transform(f_expo_pos, f_expo_neg, f_dens, cfg.SOLVER.FEATURE_TYPE)
-
         else:
             # Apply feature transform
             expo[photo] = feature_transform(f_expo_pos, f_expo_neg, f_dens, cfg.SOLVER.FEATURE_TYPE)
@@ -201,7 +192,7 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg, f
     return expo
 
 
-def community_expo(users, f_top, detectors, opt_threshs, load_detectors, cfg, filter = False):
+def community_expo(users, f_top, detectors, opt_threshs, load_detectors, cfg):
     """Estimate photo exposure for all users in a given situation
 
     Parameters
@@ -224,9 +215,6 @@ def community_expo(users, f_top, detectors, opt_threshs, load_detectors, cfg, fi
             optimal active detector thresholds
                 {detector1: thresh1, ...}
 
-        filter : boolean
-            if filtering neutral images
-
     Returns
     -------
         expo : dict
@@ -237,6 +225,6 @@ def community_expo(users, f_top, detectors, opt_threshs, load_detectors, cfg, fi
     expo = {}
 
     for user, photos in users.items():
-        expo[user] = user_expo(photos, f_top, detectors, opt_threshs, load_detectors, cfg, filter)
+        expo[user] = user_expo(photos, f_top, detectors, opt_threshs, load_detectors, cfg)
 
     return expo

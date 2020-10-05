@@ -36,7 +36,7 @@ def main():
     print("#-----------------------------------#")
     print(model.cfg)
     model.set_seeds()
-    model.train_vispel()
+    # model.train_vispel()
     model.test_vispel()
 
 

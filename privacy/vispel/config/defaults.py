@@ -93,13 +93,10 @@ _C.SOLVER.GAMMA = 2
 _C.SOLVER.K = 4
 # Top confidence detected objects of a detector
 # in a considered image.
-_C.SOLVER.F_TOP = 0.3
+_C.SOLVER.F_TOP = 0.2
 # Select a feature type for a photo. The types include: ORG, ABS, POS_NEG
-# - (VOTE): choose dominant score type:
-# f_expo = positive_score (if positive_score > abs(negative_score)) and reversely
-# return [f_expo, f_dens].
 # - (ORG): Original Features
-_C.SOLVER.FEATURE_TYPE = 'VOTE'
+_C.SOLVER.FEATURE_TYPE = 'ORG'
 # Currently supported correlation types: KENDALL, PEARSON
 # Evaluate the correlation score between the crowd-sourcing user exposure corr
 # and the learned user exposure corr.
@@ -107,7 +104,9 @@ _C.SOLVER.CORR_TYPE = 'KENDALL'
 # Filtering neutral images whose absolute exposure sum is smaller than 0.01. The
 # accepted images should satisfy the following condition:
 #               abs(negative_scaled_exposure) + positive_scaled_exposure > 0.01
-_C.SOLVER.FILTERING = False
+_C.SOLVER.FILTERING = True
+# FILTERING THRESHOLD
+_C.SOLVER.FILT = 0.1
 
 # ---------------------------------------------------------------------------- #
 # CLUSTEROR
