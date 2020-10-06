@@ -3,7 +3,7 @@ The module fine-tunes exposure predictor on the user selection,
  and loading methods.
 
 run:
-    python ft0_user_selector.py --config_file ../configs/rf_kmeans.yaml --model_name rcnn-bank_ft0.pkl --situation BANK
+    python ft0_user_selector.py --config_file ../configs/rcnn_rf_kmeans.yaml --model_name rcnn-bank_ft0.pkl --situation BANK
 
 """
 import _init_paths
@@ -69,31 +69,32 @@ def main():
     args = default_argument_parser().parse_args()
     cfg = set_up(args)
 
+    FILTERINGs = [0, 0.1, 0.3]
     EPSs = [0.05, 0.1, 0.15, 0.2]
     KEEPs = [0.8, 0.85, 0.9, 0.95, 1.0]
     DETECTOR_LOAD = [True, False]
 
-    # EPSs = [0.15]
-    # KEEPs = [0.9]
+    for f_thres in tqdm.tqdm(FILTERINGs):
+        cfg.SOLVER.FILT = f_thres
 
-    for eps in tqdm.tqdm(EPSs):
-        cfg.USER_SELECTOR.EPS = eps
+        for eps in tqdm.tqdm(EPSs):
+            cfg.USER_SELECTOR.EPS = eps
 
-        for keep in KEEPs:
-            cfg.USER_SELECTOR.KEEP = keep
+            for keep in KEEPs:
+                cfg.USER_SELECTOR.KEEP = keep
 
-            for load in DETECTOR_LOAD:
-                cfg.DETECTOR.LOAD = load
+                for load in DETECTOR_LOAD:
+                    cfg.DETECTOR.LOAD = load
 
-                model = VISPEL(cfg, situ_decoding(args.situation))
+                    model = VISPEL(cfg, situ_decoding(args.situation))
 
-                model.train_vispel()
-                trained_models.append(copy.deepcopy(model))
+                    model.train_vispel()
+                    trained_models.append(copy.deepcopy(model))
 
-                model.test_vispel()
-                test_corrs.append(model.test_result)
+                    model.test_vispel()
+                    test_corrs.append(model.test_result)
 
-                del model
+                    del model
 
     if cfg.OUTPUT.VERBOSE:
         print("Save modeling !!!")

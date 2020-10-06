@@ -31,12 +31,12 @@ def trainer(situ_name, X_train_set, X_community, gt_situ_expos, clusteror, regre
     # Calculate photo exposures
     # for all user ids in the community
     commu_expo_features = community_expo(X_community, cfg.SOLVER.F_TOP,\
-                                       detectors, opt_threds, cfg.DETECTOR.LOAD, cfg, cfg.SOLVER.FILTERING)
+                                       detectors, opt_threds, cfg.DETECTOR.LOAD, cfg)
 
     # Calculate photo exposures
     # for user ids in the train set
     train_expo_features = community_expo(X_train_set, cfg.SOLVER.F_TOP,\
-                                       detectors, opt_threds, cfg.DETECTOR.LOAD, cfg, cfg.SOLVER.FILTERING)
+                                       detectors, opt_threds, cfg.DETECTOR.LOAD, cfg)
 
     # Build exposure features for  all user ids
     # by clustering their photo exposures

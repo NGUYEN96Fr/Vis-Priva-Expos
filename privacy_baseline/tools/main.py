@@ -2,8 +2,16 @@
 
 Usage:
     python main_rcnn.py configs.ini
+
+    RCNN
     'job_search_IT': 0.3602455116187282, 'bank_credit': 0.32976493463441026,
     'job_search_waiter_waitress': 0.6520290400573133, 'accommodation_search': 0.45494309340635974
+
+    MOBINET
+
+    {'job_search_IT': 0.4085859136038954, 'bank_credit': 0.2623822689326612,
+    'job_search_waiter_waitress': 0.5761314514591731, 'accommodation_search': 0.3790351692316718}
+
 """
 
 import os
@@ -43,7 +51,7 @@ def main():
     load = False
     plot_ = False
     cross_val = True # cross validation
-    save_file = '1_' # save file prefix
+    save_file = 'mobi_' # save file prefix
 
     ##Load crowdsourcing user privacy exposure corr in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
@@ -65,10 +73,10 @@ def main():
                 print(' ',situ)
                 gt_user_expo = gt_user_expo_situs[situ]
                 optimal_thres_situs[situ] = search_optimal_thres(train_data, gt_user_expo, detectors, corr_type)
-            with open(os.path.join(root, 'privacy_baseline', outdir, 'optimal_thres_situs.txt'), 'w') as fp:
+            with open(os.path.join(root, 'privacy_baseline', outdir, 'mobinet_optimal_thres_situs.txt'), 'w') as fp:
                 json.dump(optimal_thres_situs, fp)            
         else:
-            optimal_thres_situs = json.load(open(os.path.join(root,'privacy_baseline' ,outdir, 'optimal_thres_situs.txt')))
+            optimal_thres_situs = json.load(open(os.path.join(root,'privacy_baseline' ,outdir, 'mobinet_optimal_thres_situs.txt')))
         print('Done!')
 
         print('Extracting and Ranking optimal thresh per situ...')

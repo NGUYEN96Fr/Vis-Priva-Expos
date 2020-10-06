@@ -67,7 +67,7 @@ class VISPEL(object):
 
         test_expo_features = community_expo(self.X_test, self.cfg.SOLVER.F_TOP,\
                                             self.detectors, self.opt_threds, self.cfg.DETECTOR.LOAD,
-                                            self.cfg, self.cfg.SOLVER.FILTERING)
+                                            self.cfg)
 
         reg_test_features, gt_test_expos = build_features(self.clusteror, test_expo_features,
                                                           self.gt_expos, self.cfg)
