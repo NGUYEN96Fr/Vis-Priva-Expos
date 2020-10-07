@@ -3,7 +3,7 @@ This module fine-tunes models
 on the focal exposure's gamma parameters
 
 Use:
-    python ft1_focal_expo.py --pre_model out/rcnn-bank_ft1.pkl --model_name rcnn-bank_ft2.pkl
+    python ft1_focal_expo.py --pre_model out/rcnn-bank_ft0.pkl --model_name rcnn-bank_ft1.pkl > out/rcnn-bank_ft1.txt
 """
 
 
@@ -53,12 +53,22 @@ def main():
     trained_models = []
     test_corrs = []
 
-    Ks = [10, 15, 20]
-    GAMMAs = [0, 1, 2, 3, 4, 5]
+    model.cfg.FINE_TUNING.STATUS = True
+    model.cfg.FINE_TUNING.CV = 8
+    model.cfg.REGRESSOR.RF.BOOTSTRAP = [True, False]
+    model.cfg.REGRESSOR.RF.MAX_DEPTH = [5,7,9]
+    model.cfg.REGRESSOR.RF.MAX_FEATURES = ['auto']
+    model.cfg.REGRESSOR.RF.N_ESTIMATORS = [80, 120, 160]
+    model.cfg.REGRESSOR.RF.MIN_SAMPLES_LEAF = [2,3]
+    model.cfg.REGRESSOR.RF.MIN_SAMPLES_SPLIT= [2,3]
+
+    Ks = [10,15,20]
+    GAMMAs = [1, 2, 3]
 
     for gamma in tqdm.tqdm(GAMMAs):
         model.cfg.SOLVER.GAMMA = gamma
-
+        print('#----------------------#')
+        print('GAMMA: ',gamma)
         for k in Ks:
             model.cfg.SOLVER.K = k
 
@@ -68,6 +78,7 @@ def main():
 
             trained_models.append(copy.deepcopy(model))
             test_corrs.append(model.test_result)
+            print(model.test_result)
 
     if model.cfg.OUTPUT.VERBOSE:
         print("Save modeling !!!")

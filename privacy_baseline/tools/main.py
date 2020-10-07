@@ -50,8 +50,8 @@ def main():
     debug = False
     load = False
     plot_ = False
-    cross_val = True # cross validation
-    save_file = 'mobi_' # save file prefix
+    cross_val = False # cross validation
+    save_file = 'rcnn_' # save file prefix
 
     ##Load crowdsourcing user privacy exposure corr in each situation
     gt_user_expo_situs = load_gt_user_expo(root, gt_expo_path)
@@ -73,10 +73,10 @@ def main():
                 print(' ',situ)
                 gt_user_expo = gt_user_expo_situs[situ]
                 optimal_thres_situs[situ] = search_optimal_thres(train_data, gt_user_expo, detectors, corr_type)
-            with open(os.path.join(root, 'privacy_baseline', outdir, 'mobinet_optimal_thres_situs.txt'), 'w') as fp:
+            with open(os.path.join(root, 'privacy_baseline', outdir, 'rcnn_optimal_thres_situs_v1.txt'), 'w') as fp:
                 json.dump(optimal_thres_situs, fp)            
         else:
-            optimal_thres_situs = json.load(open(os.path.join(root,'privacy_baseline' ,outdir, 'mobinet_optimal_thres_situs.txt')))
+            optimal_thres_situs = json.load(open(os.path.join(root,'privacy_baseline' ,outdir, 'rcnn_optimal_thres_situs_v1.txt')))
         print('Done!')
 
         print('Extracting and Ranking optimal thresh per situ...')
