@@ -1,11 +1,8 @@
 _BASE_: "BASE-MOBINET.yaml"
 
-OUTPUT:
-  DIR: 'out'
-
 FINE_TUNING:
   STATUS: True
-  CV: 10
+  CV: 8
 
 CLUSTEROR:
   K_MEANS:

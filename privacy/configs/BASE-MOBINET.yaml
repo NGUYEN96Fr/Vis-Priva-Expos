@@ -3,19 +3,14 @@ MODEL:
   PLOT: False
 
 ##
-FINE_TUNING:
-  STATUS: True
-  CV: 10
-
-##
 DETECTOR:
-  LOAD: False
+  LOAD: True
 
 ##
 USER_SELECTOR:
   STATE: True
   EPS: 0.05
-  KEEP: 0.8
+  KEEP: 0.9
 
 ##
 SOLVER:

@@ -1,11 +1,8 @@
-_BASE_: "BASE-MOBINET.yaml"
-
-OUTPUT:
-  DIR: 'out'
+_BASE_: "BASE-RCNN.yaml"
 
 FINE_TUNING:
   STATUS: True
-  CV: 5
+  CV: 8
 
 CLUSTEROR:
   K_MEANS:

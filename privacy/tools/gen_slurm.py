@@ -5,6 +5,7 @@ Usage:
 
     python gen_slurm.py -f fine_tune_bank.slurm -p gpu-test -n node21 -e 1 -s BANK -d MOBI
 """
+import os
 import argparse
 
 
@@ -16,12 +17,13 @@ def argument_parser():
         argparse.ArgumentParser
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", default="fine_tune_bank.slurm", help="saved slurm file name")
+    parser.add_argument("-f", "--file", default="bank_mobi.slurm", help="saved slurm file name")
+    parser.add_argument("-dir", "--directory", default= '/home/users/apopescu/van-khoa/saved_models', help= 'saved directory')
     parser.add_argument("-p", "--partition", required= True, help= "partition of node")
     parser.add_argument("-n", "--node", default="", required=True, help="node where to train models")
     parser.add_argument("-e", "--exclusive", required=True, help="1 to turn on the exclusive mode")
     parser.add_argument("-s", "--situation", required=True, help="IT, ACCOM, BANK, WAIT")
-    parser.add_argument("-d", "--detector", required=True, help="MOBI, FRCNN")
+    parser.add_argument("-d", "--detector", required=True, help="MOBI, RCNN")
 
     return parser
 
@@ -51,16 +53,16 @@ def main():
 
     common_part = 'python3 ft_official.py --config_file ../configs/'
     save_model = args.file.split('.slurm')[0]
-    out_dir = args.file.split('.slurm')[0]
+    out_dir = os.path.join(args.directory, args.file.split('.slurm')[0])
     counter = 0
 
     for eps in EPSs:
         for keep in KEEPs:
             for feature in FEATURE_TYPEs:
                 if args.detector == 'MOBI':
-                    model_part = common_part+'rf_kmeans_ft_mobi_cv5.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
-                elif args.detector == 'FRCNN':
-                    model_part = common_part+'rcnn_rf_kmeans.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
+                    model_part = common_part+'rf_kmeans_ft_mobi_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
+                elif args.detector == 'RCNN':
+                    model_part = common_part+'rf_kmeans_ft_rcnn_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
                 param_part = model_part+' --opts'+' USER_SELECTOR.EPS '+str(eps)+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
                 writer.write(param_part+' &\n')
                 counter += 1
