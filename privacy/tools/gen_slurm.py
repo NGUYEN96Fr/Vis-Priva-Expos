@@ -49,7 +49,7 @@ def main():
     writer.write('# SBATCH --error=%s\n'%(args.file.replace('slurm', 'errs')))
     writer.write('\n')
 
-    common_part = 'python3 ft0_user_selector.py --config_file ../configs/'
+    common_part = 'python3 ft_official.py --config_file ../configs/'
     save_model = args.file.split('.slurm')[0]
     out_dir = args.file.split('.slurm')[0]
     counter = 0
@@ -58,12 +58,14 @@ def main():
         for keep in KEEPs:
             for feature in FEATURE_TYPEs:
                 if args.detector == 'MOBI':
-                    model_part = common_part+'mobi_rf_kmeans.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation= '+args.situation
+                    model_part = common_part+'rf_kmeans_ft_mobi_cv5.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
                 elif args.detector == 'FRCNN':
-                    model_part = common_part+'rcnn_rf_kmeans.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation= '+args.situation
+                    model_part = common_part+'rcnn_rf_kmeans.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
                 param_part = model_part+' --opts'+' USER_SELECTOR.EPS '+str(eps)+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
-                writer.write(param_part+'\n')
+                writer.write(param_part+' &\n')
                 counter += 1
+
+    writer.write('wait\n')
 
 if __name__ == '__main__':
     main()
