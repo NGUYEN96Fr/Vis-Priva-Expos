@@ -31,6 +31,12 @@ def default_argument_parser():
     parser.add_argument("--config_file", default="", metavar="FILE", help="path to config file")
     parser.add_argument("--model_name", required= True, help= "saved modeling name")
     parser.add_argument("--situation", required=True, help="IT, ACCOM, BANK, WAIT")
+    parser.add_argument(
+        "--opts",
+        help="Modify config options using the command-line 'KEY VALUE' pairs",
+        default=[],
+        nargs=argparse.REMAINDER,
+    )
 
     return parser
 
@@ -56,6 +62,7 @@ def set_up(args):
     """
     cfg = get_cfg()
     cfg.merge_from_file(args.config_file)
+    cfg.merge_from_list(args.opts)
 
     return cfg
 
@@ -71,44 +78,32 @@ def main():
     args = default_argument_parser().parse_args()
     cfg = set_up(args)
 
-    EPSs = [0.05, 0.1, 0.15, 0.2]
-    KEEPs = [0.8, 0.85, 0.9, 0.95, 1.0]
-    DETECTOR_LOAD = [True, False]
-    FEATURE_TYPEs = ['VOTE', 'ORG']
-    F_TOPs = [0, 0.1, 0.2, 0.3, 0.4, 0.5]
+    DETECTOR_LOADs = [True, False]
+    F_TOPs = [0, 0.2, 0.4]
     Ks = [10, 15, 20]
-    GAMMAs = [0, 1, 2, 3, 4, 5]
+    GAMMAs = [0, 1, 2, 3, 4]
 
-    for eps in tqdm.tqdm(EPSs):
-        cfg.USER_SELECTOR.EPS = eps
+    for load in DETECTOR_LOADs:
+        cfg.DETECTOR.LOAD = load
 
-        for keep in KEEPs:
-            cfg.USER_SELECTOR.KEEP = keep
+        for f_top in F_TOPs:
+            cfg.SOLVER.F_TOP = f_top
 
-            for load in DETECTOR_LOAD:
-                cfg.DETECTOR.LOAD = load
+            for gamma in tqdm.tqdm(GAMMAs):
+                cfg.SOLVER.GAMMA = gamma
 
-                for feature in FEATURE_TYPEs:
-                    cfg.SOLVER.FEATURE_TYPE = feature
+                for k in Ks:
+                    cfg.SOLVER.K = k
 
-                    for f_top in F_TOPs:
-                        cfg.SOLVER.F_TOP = f_top
+                    model = VISPEL(cfg, situ_decoding(args.situation))
 
-                        for gamma in tqdm.tqdm(GAMMAs):
-                            cfg.SOLVER.GAMMA = gamma
+                    model.train_vispel()
+                    trained_models.append(copy.deepcopy(model))
 
-                            for k in Ks:
-                                cfg.SOLVER.K = k
+                    model.test_vispel()
+                    test_corrs.append(model.test_result)
 
-                                model = VISPEL(cfg, situ_decoding(args.situation))
-
-                                model.train_vispel()
-                                trained_models.append(copy.deepcopy(model))
-
-                                model.test_vispel()
-                                test_corrs.append(model.test_result)
-
-                                del model
+                    del model
 
     if cfg.OUTPUT.VERBOSE:
         print("Save modeling !!!")
