@@ -1,9 +1,8 @@
 #!/bin/bash
 # SBATCH -N 1
 #SBATCH -n 1
-#SBATCH --partition gpu-test
-#SBATCH -w node21
-#SBATCH --exclusive
+#SBATCH --partition allcpu
+#SBATCH -w node01
 #SBATCH -J FT
 # SBATCH --output=fine_tune_bank.out
 # SBATCH --error=fine_tune_bank.errs
