@@ -34,7 +34,7 @@ _C.FINE_TUNING.STATUS = False
 # Cross validation
 _C.FINE_TUNING.CV = 10
 # Number of used jobs
-_C.FINE_TUNING.N_JOBS = -1
+_C.FINE_TUNING.N_JOBS = 1
 
 # ---------------------------------------------------------------------------- #
 # FEATURE REDUCTION - PCA

@@ -42,8 +42,10 @@ def default_argument_parser():
 
 
 def save_model(model, filename, out_dir):
-    root = os.getcwd()
-    out_dir_path = os.path.join(root, out_dir)
+    # root = os.getcwd()
+    # out_dir_path = os.path.join(root, out_dir)
+
+    out_dir_path = out_dir
     if not os.path.exists(out_dir_path):
         os.makedirs(out_dir_path)
 

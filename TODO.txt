@@ -62,3 +62,15 @@ exist in train users, but may in test users.
     >>>
 
 - CREATE A RANKING MAPPING FUNCTION
+
+######################
+
+NEW TASKS 9/10/2020
+
+######################
+
+- Réduire le nombre des paramètres:
+    + tau_a, tau_n : tau_e (symétrique)
+
+- Grid search sur le K, gamma, pour choisir les meilleurs folds:
+    + Optimiser sur ces folds sur tous les autres paramètres du Focal Exposure
