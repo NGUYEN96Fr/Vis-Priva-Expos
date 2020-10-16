@@ -85,13 +85,13 @@ def main():
     Ks = [10, 15, 20]
     GAMMAs = [0, 1, 2, 3, 4]
 
-    for load in DETECTOR_LOADs:
+    for load in tqdm.tqdm(DETECTOR_LOADs):
         cfg.DETECTOR.LOAD = load
 
         for f_top in F_TOPs:
             cfg.SOLVER.F_TOP = f_top
 
-            for gamma in tqdm.tqdm(GAMMAs):
+            for gamma in GAMMAs:
                 cfg.SOLVER.GAMMA = gamma
 
                 for k in Ks:
