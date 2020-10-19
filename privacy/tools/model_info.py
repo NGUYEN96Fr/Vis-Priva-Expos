@@ -10,7 +10,7 @@ import _init_paths
 import  argparse
 
 
-def default_argument_parser():
+def argument_parser():
     """
     Create a parser with some common arguments.
 
@@ -23,12 +23,12 @@ def default_argument_parser():
     return parser
 
 
-def main():
+def info():
     """
 
     :return:
     """
-    args = default_argument_parser().parse_args()
+    args = argument_parser().parse_args()
     model = pickle.load(open(args.model_name,'rb'))
     model.cfg.OUTPUT.VERBOSE = True
     print('#-----------------------------------#')
@@ -38,6 +38,8 @@ def main():
     model.set_seeds()
     model.test_vispel()
 
+    return model.test_result
+
 
 if __name__ == '__main__':
-    main()
+    info()

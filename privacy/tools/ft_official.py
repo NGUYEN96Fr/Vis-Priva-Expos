@@ -80,32 +80,36 @@ def main():
     args = default_argument_parser().parse_args()
     cfg = set_up(args)
 
+    PFTs = ['ORG', 'POOLING']
     DETECTOR_LOADs = [True, False]
     F_TOPs = [0, 0.2, 0.4]
     Ks = [10, 15, 20]
     GAMMAs = [0, 1, 2, 3, 4]
 
-    for load in tqdm.tqdm(DETECTOR_LOADs):
-        cfg.DETECTOR.LOAD = load
+    for ptf in PFTs:
+        cfg.SOLVER.PFT = ptf
 
-        for f_top in F_TOPs:
-            cfg.SOLVER.F_TOP = f_top
+        for load in tqdm.tqdm(DETECTOR_LOADs):
+            cfg.DETECTOR.LOAD = load
 
-            for gamma in GAMMAs:
-                cfg.SOLVER.GAMMA = gamma
+            for f_top in F_TOPs:
+                cfg.SOLVER.F_TOP = f_top
 
-                for k in Ks:
-                    cfg.SOLVER.K = k
+                for gamma in GAMMAs:
+                    cfg.FE.GAMMA = gamma
 
-                    model = VISPEL(cfg, situ_decoding(args.situation))
+                    for k in Ks:
+                        cfg.FE.K = k
 
-                    model.train_vispel()
-                    trained_models.append(copy.deepcopy(model))
+                        model = VISPEL(cfg, situ_decoding(args.situation))
 
-                    model.test_vispel()
-                    test_corrs.append(model.test_result)
+                        model.train_vispel()
+                        trained_models.append(copy.deepcopy(model))
 
-                    del model
+                        model.test_vispel()
+                        test_corrs.append(model.test_result)
+
+                        del model
 
     if cfg.OUTPUT.VERBOSE:
         print("Save modeling !!!")

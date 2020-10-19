@@ -14,13 +14,20 @@ USER_SELECTOR:
 
 ##
 SOLVER:
-  GAMMA: 0
-  K: 15
   F_TOP: 0.1
+  PFT: 'POOLING'
   FEATURE_TYPE: 'ORG'
   CORR_TYPE: 'PEARSON'
   FILTERING: True
   FILT: 0.1
+
+##
+FE:
+  GAMMA: 0
+  K: 15
+  TAU_e: 10.0
+  TAU_o: 0.66
+  TAU_i: 0.01
 
 ##
 PCA:

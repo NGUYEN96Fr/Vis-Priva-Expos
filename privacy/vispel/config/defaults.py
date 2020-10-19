@@ -87,15 +87,16 @@ _C.DATASETS.PRE_VIS_CONCEPTS = ''
 # SOLVER
 # ---------------------------------------------------------------------------- #
 _C.SOLVER = VISPEL()
-# Focusing factor in the Focal Exposure (FE) function.
-_C.SOLVER.GAMMA = 2
-# Scaling constant in the Focal Exposure (FE) function.
-_C.SOLVER.K = 4
+# Photo feature type
+# - ORG: Original
+# - POOLING: max-pooling applied on detected visual concept scores
+_C.SOLVER.PFT = 'ORG'
 # Top confidence detected objects of a detector
 # in a considered image.
 _C.SOLVER.F_TOP = 0.2
-# Select a feature type for a photo. The types include: ORG, ABS, POS_NEG
-# - (ORG): Original Features
+# Feature transform applied in photos. These types include: ORG, VOTE
+# - ORG: Original Features
+# - VOTE: Select the high feature exposure
 _C.SOLVER.FEATURE_TYPE = 'ORG'
 # Currently supported correlation types: KENDALL, PEARSON
 # Evaluate the correlation score between the crowd-sourcing user exposure corr
@@ -107,6 +108,21 @@ _C.SOLVER.CORR_TYPE = 'KENDALL'
 _C.SOLVER.FILTERING = True
 # FILTERING THRESHOLD
 _C.SOLVER.FILT = 0.1
+
+# ---------------------------------------------------------------------------- #
+# FOCAL EXPOSURE
+# ---------------------------------------------------------------------------- #
+_C.FE = VISPEL()
+# Focusing factor in the Focal Exposure (FE) function.
+_C.FE.GAMMA = 2
+# Scaling constant in the Focal Exposure (FE) function.
+_C.FE.K = 4
+# Extreme visual concept score lower threshold.
+_C.FE.TAU_e = 0.3
+# Ratio threshold between extreme and non-extreme concepts
+_C.FE.TAU_o = 0.66
+# Image object-ness threshold.
+_C.FE.TAU_i = 0.6
 
 # ---------------------------------------------------------------------------- #
 # CLUSTEROR

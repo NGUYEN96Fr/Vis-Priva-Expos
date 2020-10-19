@@ -1,3 +1,4 @@
+import numpy as np
 from exposure.focal_exposure import focal_exposure as FE
 
 
@@ -69,14 +70,14 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
 
         if object_ in detectors:
             # Statistic on extreme concepts
-            if detectors[object_] > 0.3:
+            if detectors[object_] > cfg.FE.TAU_e:
                 attract_pos_concepts.append(object_)
-            elif detectors[object_] < -0.3:
+            elif detectors[object_] < -cfg.FE.TAU_e:
                 attract_neg_concepts.append(object_)
 
-            if 0 <= detectors[object_] <= 0.3:
+            if 0 <= detectors[object_] <= cfg.FE.TAU_e:
                 neutral_pos_concepts.append(object_)
-            if -0.3 <= detectors[object_] < 0:
+            if -cfg.FE.TAU_e <= detectors[object_] < 0:
                 neutral_neg_concepts.append(object_)
 
             # Estimate object-ness of the image
@@ -97,8 +98,9 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
 
 
     if len(neutral_pos_concepts) != 0:
+
         ratio = len(attract_pos_concepts)/len(neutral_pos_concepts)
-        if ratio > 0 and ratio < 2/3:
+        if ratio > 0 and ratio < cfg.FE.TAU_o:
             scale_pos_flag = True
         else:
             scale_pos_flag = False
@@ -107,14 +109,16 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
 
     if len(neutral_neg_concepts) != 0:
         ratio = len(attract_neg_concepts)/len(neutral_neg_concepts)
-        if ratio > 0 and ratio < 2/3:
+        if ratio > 0 and ratio < cfg.FE.TAU_o:
             scale_neg_flag = True
         else:
             scale_neg_flag = False
     else:
         scale_neg_flag = False
 
+
     for object_, scores in photo.items():
+
         obj_score = 0
         if object_ in detectors:
             if not load_detectors:
@@ -129,23 +133,17 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
             # Only scale object scores when object-ness is sufficiently high, and
             # exist numerous neutral objects as the same type (positive or negative)
             if detectors[object_] >= 0:
-                if scale_pos_flag and objectness > 0.6:
-                # if scale_pos_flag and obj_score > 0.7:
-                # if obj_score > 0.7:
-                # if objectness > 0.7:
+                if scale_pos_flag and objectness > cfg.FE.TAU_i:
                     scale_flag = True
-                    scaled_expo = FE(detectors[object_], cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+                    scaled_expo = FE(detectors[object_], cfg.FE.GAMMA, cfg.FE.K)
                 else:
                     scaled_expo = detectors[object_]
                 expo_pos.append(scaled_expo)
 
             if detectors[object_] <= 0:
-                if scale_neg_flag and objectness > 0.6:
-                # if scale_neg_flag and obj_score > 0.7:
-                # if obj_score > 0.7:
-                # if objectness > 0.7:
+                if scale_neg_flag and objectness > cfg.FE.TAU_i:
                     scale_flag = True
-                    scaled_expo = FE(detectors[object_], cfg.SOLVER.GAMMA, cfg.SOLVER.K)
+                    scaled_expo = FE(detectors[object_], cfg.FE.GAMMA, cfg.FE.K)
                 else:
                     scaled_expo = detectors[object_]
                 expo_neg.append(scaled_expo)
@@ -160,6 +158,86 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
     else:
         expo_neg = 0
     expo_obj = (expo_pos, expo_neg, objectness)
+
+    return expo_obj, scale_flag
+
+
+def pooled_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
+    """
+    Apply max-pooling method to calculate photo exposures
+
+    Parameters
+    ----------
+    photo
+    f_top
+    detectors
+    opt_threshs
+    load_detectors
+    cfg
+
+    Returns
+    -------
+
+    """
+    obj_ness = []
+    concepts = []
+
+    for object_, scores in photo.items():
+
+        if object_ in detectors:
+
+            # Estimate object-ness of the image
+            if not load_detectors:
+                valid_obj = [score for score in scores if score >= f_top]
+            else:
+                valid_obj = [score for score in scores if score >= opt_threshs[object_]]
+
+            if sum(valid_obj) > 0:
+                obj_ness.append(sum(valid_obj)/len(valid_obj))
+            else:
+                obj_ness.append(0)
+
+            concepts.append(detectors[object_])
+
+    if len(concepts) > 0:
+
+        pos_concepts = []
+        neg_concepts = []
+        obj_img = []
+        max_index = np.argmax(np.abs(concepts))
+        max_concept = concepts[max_index]
+
+        for k in range(len(concepts)):
+            if abs(concepts[k]) == abs(max_concept):
+                scaled_concept = FE(concepts[k], cfg.FE.GAMMA, cfg.FE.K)
+                obj_img.append(obj_ness[k])
+
+                if concepts[k] > 0:
+                    pos_concepts.append(scaled_concept)
+                else:
+                    neg_concepts.append(scaled_concept)
+
+        if len(pos_concepts) > 0:
+            pos_ = sum(pos_concepts)/len(pos_concepts)
+        else:
+            pos_ = 0
+
+        if len(neg_concepts) > 0:
+            neg_ = sum(neg_concepts)/len(neg_concepts)
+        else:
+            neg_ = 0
+
+        if len(obj_img) > 0:
+            obj_ = sum(obj_img)/len(obj_img)
+        else:
+            obj_ = 0
+
+        expo_obj = (pos_, neg_, obj_)
+        scale_flag = True
+
+    else:
+        expo_obj = (0, 0, 0)
+        scale_flag = False
 
     return expo_obj, scale_flag
 
@@ -196,7 +274,14 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg):
     expo = {}
     count_rescaled_imgs = []
     for photo in user_photos:
-        (pos_expo, neg_expo, objectness), scale_flag =  photo_expo(user_photos[photo], f_top, detectors, opt_threshs, load_detectors, cfg)
+        if cfg.SOLVER.PFT == 'ORG':
+            (pos_expo, neg_expo, objectness), scale_flag = photo_expo(user_photos[photo], f_top, detectors, opt_threshs,
+                                                                       load_detectors, cfg)
+
+        elif cfg.SOLVER.PFT == 'POOLING':
+            (pos_expo, neg_expo, objectness), scale_flag = pooled_expo(user_photos[photo], f_top, detectors, opt_threshs,
+                                                                      load_detectors, cfg)
+
         f_expo_pos = pos_expo
         f_expo_neg = neg_expo
         f_dens = objectness
@@ -252,7 +337,5 @@ def community_expo(users, f_top, detectors, opt_threshs, load_detectors, cfg):
         expo[user], scaled_images, user_images = user_expo(photos, f_top, detectors, opt_threshs, load_detectors, cfg)
         scaled += scaled_images
         total += user_images
-
-    print(scaled,'/',total)
 
     return expo
