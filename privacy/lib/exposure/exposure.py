@@ -15,7 +15,6 @@ def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
 
     """
     if transform == 'ORG':
-
         return [f_expo_pos, f_expo_neg, f_dens]
 
     if transform == 'VOTE':
@@ -24,6 +23,7 @@ def feature_transform(f_expo_pos, f_expo_neg, f_dens, transform):
         else:
             f_expo = f_expo_neg
         return [f_expo, f_dens]
+
 
 def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
     """Estimate photo exposure
@@ -84,7 +84,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
             if not load_detectors:
                 valid_obj = [score for score in scores if score >= f_top]
                 if sum(valid_obj) > 0:
-                    obj_score += sum(valid_obj)/len(valid_obj)
+                    obj_score += sum(valid_obj) / len(valid_obj)
             else:
                 valid_obj = [score for score in scores if score >= opt_threshs[object_]]
                 if sum(valid_obj) > 0:
@@ -92,30 +92,34 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
             objectness.append(obj_score)
 
     if sum(objectness) != 0:
-        objectness = sum(objectness)/len(objectness)
+        objectness = sum(objectness) / len(objectness)
     else:
         objectness = 0
 
+    if cfg.FE.MODE == 'IMAGE':
 
-    if len(neutral_pos_concepts) != 0:
+        if len(neutral_pos_concepts) != 0:
 
-        ratio = len(attract_pos_concepts)/len(neutral_pos_concepts)
-        if ratio >= 0 and ratio < cfg.FE.TAU_o:
-            scale_pos_flag = True
+            ratio = len(attract_pos_concepts) / len(neutral_pos_concepts)
+            if 0 < ratio < cfg.FE.TAU_o:
+                scale_pos_flag = True
+            else:
+                scale_pos_flag = False
         else:
             scale_pos_flag = False
-    else:
-        scale_pos_flag = False
 
-    if len(neutral_neg_concepts) != 0:
-        ratio = len(attract_neg_concepts)/len(neutral_neg_concepts)
-        if ratio >= 0 and ratio < cfg.FE.TAU_o:
-            scale_neg_flag = True
+        if len(neutral_neg_concepts) != 0:
+            ratio = len(attract_neg_concepts) / len(neutral_neg_concepts)
+            if 0 < ratio < cfg.FE.TAU_o:
+                scale_neg_flag = True
+            else:
+                scale_neg_flag = False
         else:
             scale_neg_flag = False
-    else:
-        scale_neg_flag = False
 
+    elif cfg.FE.MODE == 'OBJECT':
+        scale_pos_flag = True
+        scale_neg_flag = True
 
     for object_, scores in photo.items():
 
@@ -124,7 +128,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
             if not load_detectors:
                 valid_obj = [score for score in scores if score >= f_top]
                 if sum(valid_obj) > 0:
-                    obj_score += sum(valid_obj)/len(valid_obj)
+                    obj_score += sum(valid_obj) / len(valid_obj)
             else:
                 valid_obj = [score for score in scores if score >= opt_threshs[object_]]
                 if sum(valid_obj) > 0:
@@ -140,7 +144,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
                     scaled_expo = detectors[object_]
                 expo_pos.append(scaled_expo)
 
-            if detectors[object_] <= 0:
+            if detectors[object_] < 0:
                 if scale_neg_flag and objectness > cfg.FE.TAU_i:
                     scale_flag = True
                     scaled_expo = FE(detectors[object_], cfg.FE.GAMMA, cfg.FE.K)
@@ -149,12 +153,12 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
                 expo_neg.append(scaled_expo)
 
     if sum(expo_pos) != 0:
-        expo_pos = sum(expo_pos)/len(expo_pos)
+        expo_pos = sum(expo_pos) / len(expo_pos)
     else:
         expo_pos = 0
 
     if sum(expo_neg) != 0:
-        expo_neg = sum(expo_neg)/len(expo_neg)
+        expo_neg = sum(expo_neg) / len(expo_neg)
     else:
         expo_neg = 0
     expo_obj = (expo_pos, expo_neg, objectness)
@@ -193,7 +197,7 @@ def pooled_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
                 valid_obj = [score for score in scores if score >= opt_threshs[object_]]
 
             if sum(valid_obj) > 0:
-                obj_ness.append(sum(valid_obj)/len(valid_obj))
+                obj_ness.append(sum(valid_obj) / len(valid_obj))
             else:
                 obj_ness.append(0)
 
@@ -218,17 +222,17 @@ def pooled_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
                     neg_concepts.append(scaled_concept)
 
         if len(pos_concepts) > 0:
-            pos_ = sum(pos_concepts)/len(pos_concepts)
+            pos_ = sum(pos_concepts) / len(pos_concepts)
         else:
             pos_ = 0
 
         if len(neg_concepts) > 0:
-            neg_ = sum(neg_concepts)/len(neg_concepts)
+            neg_ = sum(neg_concepts) / len(neg_concepts)
         else:
             neg_ = 0
 
         if len(obj_img) > 0:
-            obj_ = sum(obj_img)/len(obj_img)
+            obj_ = sum(obj_img) / len(obj_img)
         else:
             obj_ = 0
 
@@ -276,11 +280,12 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg):
     for photo in user_photos:
         if cfg.SOLVER.PFT == 'ORG':
             (pos_expo, neg_expo, objectness), scale_flag = photo_expo(user_photos[photo], f_top, detectors, opt_threshs,
-                                                                       load_detectors, cfg)
+                                                                      load_detectors, cfg)
 
         elif cfg.SOLVER.PFT == 'POOLING':
-            (pos_expo, neg_expo, objectness), scale_flag = pooled_expo(user_photos[photo], f_top, detectors, opt_threshs,
-                                                                      load_detectors, cfg)
+            (pos_expo, neg_expo, objectness), scale_flag = pooled_expo(user_photos[photo], f_top, detectors,
+                                                                       opt_threshs,
+                                                                       load_detectors, cfg)
 
         f_expo_pos = pos_expo
         f_expo_neg = neg_expo

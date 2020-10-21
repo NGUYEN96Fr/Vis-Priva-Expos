@@ -34,7 +34,7 @@ def main():
     -------
 
     """
-
+    MODEs = ['OBJECT'] # FE mode
     EPSs = [0.05, 0.1, 0.15, 0.2]
     KEEPs = [0.8, 0.85, 0.9, 0.95, 1.0]
     FEATURE_TYPEs = ['VOTE', 'ORG']
@@ -56,16 +56,17 @@ def main():
     out_dir = os.path.join(args.directory, args.file.split('.slurm')[0])
     counter = 0
 
-    for eps in EPSs:
-        for keep in KEEPs:
-            for feature in FEATURE_TYPEs:
-                if args.detector == 'MOBI':
-                    model_part = common_part+'rf_kmeans_ft_mobi_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
-                elif args.detector == 'RCNN':
-                    model_part = common_part+'rf_kmeans_ft_rcnn_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
-                param_part = model_part+' --opts'+' USER_SELECTOR.EPS '+str(eps)+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
-                writer.write(param_part+' &\n')
-                counter += 1
+    for mode in MODEs:
+        for eps in EPSs:
+            for keep in KEEPs:
+                for feature in FEATURE_TYPEs:
+                    if args.detector == 'MOBI':
+                        model_part = common_part+'rf_kmeans_ft_mobi_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
+                    elif args.detector == 'RCNN':
+                        model_part = common_part+'rf_kmeans_ft_rcnn_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
+                    param_part = model_part+' --opts'+' FE.MODE '+mode+' USER_SELECTOR.EPS '+str(eps)+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
+                    writer.write(param_part+' &\n')
+                    counter += 1
 
     writer.write('wait\n')
 

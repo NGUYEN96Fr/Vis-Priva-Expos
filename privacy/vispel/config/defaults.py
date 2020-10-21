@@ -123,6 +123,10 @@ _C.FE.TAU_e = 0.3
 _C.FE.TAU_o = 0.66
 # Image object-ness threshold.
 _C.FE.TAU_i = 0.6
+# How to apply Focal Exposure
+# + IMAGE: apply in the image level
+# + OBJECT: apply in the object level
+_C.FE.MODE = 'OBJECT'
 
 # ---------------------------------------------------------------------------- #
 # CLUSTEROR
