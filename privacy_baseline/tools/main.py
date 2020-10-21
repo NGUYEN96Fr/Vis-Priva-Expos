@@ -77,7 +77,7 @@ def main():
     args = argument_parser().parse_args()
     cfg = set_up(args)
 
-    CROSS_VALs = [True]
+    CROSS_VALs = [True, False]
 
     for cross_val in CROSS_VALs:
         cfg.SOLVER.CROSS_VAL = cross_val
