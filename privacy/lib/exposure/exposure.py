@@ -100,7 +100,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
     if len(neutral_pos_concepts) != 0:
 
         ratio = len(attract_pos_concepts)/len(neutral_pos_concepts)
-        if ratio > 0 and ratio < cfg.FE.TAU_o:
+        if ratio >= 0 and ratio < cfg.FE.TAU_o:
             scale_pos_flag = True
         else:
             scale_pos_flag = False
@@ -109,7 +109,7 @@ def photo_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
 
     if len(neutral_neg_concepts) != 0:
         ratio = len(attract_neg_concepts)/len(neutral_neg_concepts)
-        if ratio > 0 and ratio < cfg.FE.TAU_o:
+        if ratio >= 0 and ratio < cfg.FE.TAU_o:
             scale_neg_flag = True
         else:
             scale_neg_flag = False

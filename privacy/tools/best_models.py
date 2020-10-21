@@ -1,7 +1,7 @@
 """
 The module verifies best trained models for situations within detectors
 
-     python best_models.py --path /home/nguyen/Documents/intern20/saved_models_mobi
+     python best_models.py --path /home/nguyen/Documents/intern20/saved_models_object
 
 """
 
@@ -49,10 +49,12 @@ def main():
 
             if test_result > best_result:
                 best_result = test_result
-                best_model = mpath
+                best_path = mpath
         print('#-----------------------#')
         print(sdetec)
         print(best_result)
+        best_model = pickle.load(open(best_path, 'rb'))
+        print(best_model.cfg)
 
 if __name__ == '__main__':
     main()
