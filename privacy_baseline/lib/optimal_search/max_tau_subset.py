@@ -1,7 +1,7 @@
 import math
 import tqdm
 import numpy as np
-from optimal_search.correlation import corr, pos_neg_corr
+from optimal_search.correlation import corr
 
 
 def select_subset(detectors, tau_fix):
@@ -27,7 +27,7 @@ def select_subset(detectors, tau_fix):
     return detector_subset
 
 
-def tau_subset(users, gt_user_expo, detectors, corr_type):
+def tau_subset(users, gt_user_expo, detectors, corr_type, cfg):
     """
     Estimate the best correlation score for a subset tau_detectors
 
@@ -55,8 +55,7 @@ def tau_subset(users, gt_user_expo, detectors, corr_type):
     for tau_fix in tqdm.tqdm(tau_fixes):
         detector_subset = select_subset(detectors, tau_fix)
 
-        tau_est = corr(users, gt_user_expo, detector_subset, corr_type)
-        #tau_est = pos_neg_corr(users, gt_user_expo, detector_subset, corr_type)
+        tau_est = corr(users, gt_user_expo, detector_subset, corr_type, cfg)
 
         if math.isnan(tau_est):
             tau_est = 0
@@ -70,7 +69,7 @@ def tau_subset(users, gt_user_expo, detectors, corr_type):
     return tau_max, opt_detectors, list_tau_estimate, threshold
 
 
-def tau_max_cross_val(users, gt_user_expo, detectors, corr_type, k_fold = 5):
+def tau_max_cross_val(users, gt_user_expo, detectors, corr_type, cfg, k_fold = 5):
     """Search tau max by cross validation
 
     :param: users
@@ -115,12 +114,12 @@ def tau_max_cross_val(users, gt_user_expo, detectors, corr_type, k_fold = 5):
 
             count += 1
 
-        tau_max, opt_detectors, _, threshold = tau_subset(train_fold, gt_user_expo, detectors, corr_type)
+        tau_max, opt_detectors, _, threshold = tau_subset(train_fold, gt_user_expo, detectors, corr_type, cfg)
 
         if str(threshold) not in threshold_dict:
             threshold_dict[str(threshold)] = {'score_val': [], 'opt_detectors': opt_detectors}
 
-        score_val = corr(val_fold, gt_user_expo, opt_detectors, corr_type)
+        score_val = corr(val_fold, gt_user_expo, opt_detectors, corr_type, cfg)
 
         threshold_dict[str(threshold)]['score_val'].append(score_val)
 

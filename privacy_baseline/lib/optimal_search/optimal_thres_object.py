@@ -1,9 +1,9 @@
 import math
 import tqdm
 import numpy as np
-from optimal_search.correlation import corr, pos_neg_corr
+from optimal_search.correlation import corr
 
-def search_thres(train_data, gt_user_expo, detector_score, corr_type):
+def search_thres(train_data, gt_user_expo, detector_score, corr_type, cfg):
     """
 
     :param train_data:
@@ -23,8 +23,7 @@ def search_thres(train_data, gt_user_expo, detector_score, corr_type):
 
     for threshold in threshold_list:
         detector = {detector_score[0]: (threshold, detector_score[1])}
-        tau = corr(train_data, gt_user_expo, detector, corr_type)
-        # tau = pos_neg_corr(train_data, gt_user_expo, detector, corr_type)
+        tau = corr(train_data, gt_user_expo, detector, corr_type, cfg)
         if math.isnan(tau):
             tau = 0
         tau_list.append(tau)
@@ -35,7 +34,7 @@ def search_thres(train_data, gt_user_expo, detector_score, corr_type):
     return tau_max, threshold_max
 
 
-def search_optimal_thres(train_data, gt_user_expo, detectors, corr_type):
+def search_optimal_thres(train_data, gt_user_expo, detectors, corr_type, cfg):
     """Search optimal object thresholds
     for all type of object within a given correlation type 
     
@@ -64,45 +63,7 @@ def search_optimal_thres(train_data, gt_user_expo, detectors, corr_type):
 
     for detector, score in tqdm.tqdm(detectors.items()):
         detector_score = [detector,score]
-        tau_max, threshold_max = search_thres(train_data, gt_user_expo, detector_score, corr_type)
+        tau_max, threshold_max = search_thres(train_data, gt_user_expo, detector_score, corr_type, cfg)
         max_tau_detectors[detector] = (tau_max, threshold_max, score)
 
     return max_tau_detectors
-
-
-
-def export_tau_ranking(opt_thresh_situ, save_file):
-    """
-    Examinate the tau ranking of objects having high impacts in each situation \
-    tau was calculated when taking independently each object.
-
-    :param opt_thresh_situ:
-        {situ1:  {object1: (tau_max_1, threshold1, score1), ...}, ...}
-
-    :return:
-
-    """
-    for situ, objects in opt_thresh_situ.items():
-        objects_ = []
-        taus = []
-        threshs = []
-        scores = []
-
-        for object, tau_thresh_score in objects.items():
-
-            objects_.append(object)
-            taus.append(tau_thresh_score[0])
-            threshs.append(tau_thresh_score[1])
-            scores.append(tau_thresh_score[2])
-        taus2 = [float(format(x,'.2g')) for x in taus]
-        writer = open('%stau_obj_ranking_%s'%(save_file,situ),'w')
-        writer.write('object\ttau\tthreshold\tscore\tranking\n')
-
-        sorted_indexes = list(np.argsort(np.asarray(taus2))[::-1])
-        N = len(sorted_indexes)
-
-        for i, index_ in enumerate(sorted_indexes):
-            if abs(scores[index_]) >= 1:
-                writer.write('%s\t%s\t%s\t%s\t%s/%s\n'%(objects_[index_], taus2[index_], threshs[index_], scores[index_], i, N))
-
-        writer.close()

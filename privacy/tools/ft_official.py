@@ -20,7 +20,7 @@ from situ.acronym import situ_decoding
 from vispel.config import get_cfg
 from vispel.vispel import VISPEL
 
-def default_argument_parser():
+def argument_parser():
     """
     Create a parser with some common arguments.
 
@@ -77,7 +77,7 @@ def main():
     trained_models = []
     test_corrs = []
 
-    args = default_argument_parser().parse_args()
+    args = argument_parser().parse_args()
     cfg = set_up(args)
 
     PFTs = ['ORG', 'POOLING']
