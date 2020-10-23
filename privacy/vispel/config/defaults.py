@@ -90,6 +90,8 @@ _C.SOLVER = VISPEL()
 # Photo feature type
 # - ORG: Original
 # - POOLING: max-pooling applied on detected visual concept scores
+# - POOLINGx2: double max-pooling applied on detected visual concept scores,
+# and object-ness scores
 _C.SOLVER.PFT = 'ORG'
 # Top confidence detected objects of a detector
 # in a considered image.

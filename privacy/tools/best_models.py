@@ -1,7 +1,7 @@
 """
 The module verifies best trained models for situations within detectors
 
-     python best_models.py --path /home/nguyen/Documents/intern20/saved_models_object
+     python best_models.py --path /home/nguyen/Documents/intern20/models_FEo_pooling_VISPEL
 
 """
 
@@ -54,7 +54,7 @@ def main():
         print(sdetec)
         print(best_result)
         best_model = pickle.load(open(best_path, 'rb'))
-        print(best_model.cfg)
+        print(best_model.cfg.SOLVER.PFT)
 
 if __name__ == '__main__':
     main()

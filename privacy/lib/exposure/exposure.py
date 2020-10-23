@@ -197,7 +197,12 @@ def pooled_expo(photo, f_top, detectors, opt_threshs, load_detectors, cfg):
                 valid_obj = [score for score in scores if score >= opt_threshs[object_]]
 
             if sum(valid_obj) > 0:
-                obj_ness.append(sum(valid_obj) / len(valid_obj))
+
+                if cfg.SOLVER.PFT == 'POOLINGx2':
+                    obj_ness.append(max(valid_obj))
+
+                elif cfg.SOLVER.PFT == 'POOLING':
+                    obj_ness.append(sum(valid_obj) / len(valid_obj))
             else:
                 obj_ness.append(0)
 
@@ -282,7 +287,7 @@ def user_expo(user_photos, f_top, detectors, opt_threshs, load_detectors, cfg):
             (pos_expo, neg_expo, objectness), scale_flag = photo_expo(user_photos[photo], f_top, detectors, opt_threshs,
                                                                       load_detectors, cfg)
 
-        elif cfg.SOLVER.PFT == 'POOLING':
+        elif cfg.SOLVER.PFT == 'POOLING' or cfg.SOLVER.PFT == 'POOLINGx2':
             (pos_expo, neg_expo, objectness), scale_flag = pooled_expo(user_photos[photo], f_top, detectors,
                                                                        opt_threshs,
                                                                        load_detectors, cfg)

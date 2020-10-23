@@ -80,7 +80,7 @@ def main():
     args = argument_parser().parse_args()
     cfg = set_up(args)
 
-    PFTs = ['ORG', 'POOLING']
+    PFTs = ['POOLINGx2']
     DETECTOR_LOADs = [True, False]
     F_TOPs = [0, 0.2, 0.4]
     Ks = [10, 15, 20]
