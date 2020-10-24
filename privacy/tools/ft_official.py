@@ -42,8 +42,6 @@ def argument_parser():
 
 
 def save_model(model, filename, out_dir):
-    # root = os.getcwd()
-    # out_dir_path = os.path.join(root, out_dir)
 
     out_dir_path = out_dir
     if not os.path.exists(out_dir_path):
@@ -80,36 +78,32 @@ def main():
     args = argument_parser().parse_args()
     cfg = set_up(args)
 
-    PFTs = ['POOLINGx2']
     DETECTOR_LOADs = [True, False]
     F_TOPs = [0, 0.2, 0.4]
     Ks = [10, 15, 20]
     GAMMAs = [0, 1, 2, 3, 4]
 
-    for ptf in PFTs:
-        cfg.SOLVER.PFT = ptf
+    for load in tqdm.tqdm(DETECTOR_LOADs):
+        cfg.DETECTOR.LOAD = load
 
-        for load in tqdm.tqdm(DETECTOR_LOADs):
-            cfg.DETECTOR.LOAD = load
+        for f_top in F_TOPs:
+            cfg.SOLVER.F_TOP = f_top
 
-            for f_top in F_TOPs:
-                cfg.SOLVER.F_TOP = f_top
+            for gamma in GAMMAs:
+                cfg.FE.GAMMA = gamma
 
-                for gamma in GAMMAs:
-                    cfg.FE.GAMMA = gamma
+                for k in Ks:
+                    cfg.FE.K = k
 
-                    for k in Ks:
-                        cfg.FE.K = k
+                    model = VISPEL(cfg, situ_decoding(args.situation))
 
-                        model = VISPEL(cfg, situ_decoding(args.situation))
+                    model.train_vispel()
+                    trained_models.append(copy.deepcopy(model))
 
-                        model.train_vispel()
-                        trained_models.append(copy.deepcopy(model))
+                    model.test_vispel()
+                    test_corrs.append(model.test_result)
 
-                        model.test_vispel()
-                        test_corrs.append(model.test_result)
-
-                        del model
+                    del model
 
     if cfg.OUTPUT.VERBOSE:
         print("Save modeling !!!")

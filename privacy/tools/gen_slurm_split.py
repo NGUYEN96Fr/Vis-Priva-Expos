@@ -3,7 +3,7 @@ This file generates .slurm files to fine-tune models
 
 Usage:
 
-    python3 gen_slurm_splits.py -f it_mobi.slurm -p allcpu -n node99 -e 1 -s IT -d MOBI
+    python3 gen_slurm_split.py -f it_mobi.slurm -p allcpu -n node09 -e 1 -s IT -d MOBI -pft POOLINGx2
 """
 import os
 import argparse
@@ -24,6 +24,7 @@ def argument_parser():
     parser.add_argument("-e", "--exclusive", required=True, help="1 to turn on the exclusive mode")
     parser.add_argument("-s", "--situation", required=True, help="IT, ACCOM, BANK, WAIT")
     parser.add_argument("-d", "--detector", required=True, help="MOBI, RCNN")
+    parser.add_argument("-pft", required=True, help="POOLINGx2, POOLING, ORG")
 
     return parser
 
@@ -88,7 +89,7 @@ def main():
                         model_part = common_part+'rf_kmeans_ft_mobi_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
                     elif args.detector == 'RCNN':
                         model_part = common_part+'rf_kmeans_ft_rcnn_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
-                    param_part = model_part+' --opts'+' FE.MODE '+mode+' USER_SELECTOR.EPS '+str(eps)+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
+                    param_part = model_part+' --opts'+' FE.MODE '+mode+' USER_SELECTOR.EPS '+str(eps)+' SOLVER.PFT '+args.pft+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
                     if counter < 20:
                         writer_1.write(param_part+' &\n')
                     else:
