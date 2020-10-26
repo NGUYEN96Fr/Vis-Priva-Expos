@@ -1,8 +1,7 @@
 """
 The module verifies best trained models for situations within detectors
 
-     python best_models.py --path /home/nguyen/Documents/intern20/models_FEo_pooling_VISPEL
-     python best_models.py --path /home/nguyen/Documents/intern20/models_POOLINGx2_VISPEL
+     python best_models.py --path /home/nguyen/Documents/intern20/models_baseline_FE
 
 """
 
@@ -38,14 +37,14 @@ def main():
         # list of trained models
         spath = os.path.join(args.path, sdetec)
         models = os.listdir(spath)
+        models = [m for m in models if '.pkl' in m]
         best_result = -1
 
         for model in models:
             mpath = os.path.join(spath, model)
             # loaded model
             lmodel = pickle.load(open(mpath, 'rb'))
-            lmodel.set_seeds()
-            lmodel.test_vispel()
+            lmodel.test()
             test_result = lmodel.test_result
 
             if test_result > best_result:
@@ -54,8 +53,5 @@ def main():
         print('#-----------------------#')
         print(sdetec)
         print(best_result)
-        best_model = pickle.load(open(best_path, 'rb'))
-        print(best_model.cfg)
-
 if __name__ == '__main__':
     main()

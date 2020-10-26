@@ -2,7 +2,7 @@
 This module load the trained model and reproduce its results
 
 Use:
-    python model_info.py --model_name /home/nguyen/Documents/intern20/models_baseline_FE/bank_mobi/bank_mobi_10.pkl
+    python model_info.py --model_name test_/bank_mobi_0.pkl
 """
 
 import pickle
@@ -38,7 +38,7 @@ def info():
     print('#-----------------------------------#')
     print('# TEST CORR')
     print("#-----------------------------------#")
-    print(model.opt_detectors)
+    print(model.test_result)
 
 
 if __name__ == '__main__':
