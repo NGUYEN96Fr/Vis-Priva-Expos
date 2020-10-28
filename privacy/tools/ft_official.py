@@ -30,6 +30,7 @@ def argument_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config_file", default="", metavar="FILE", help="path to config file")
     parser.add_argument("--model_name", required= True, help= "saved modeling name")
+    parser.add_argument("--fe", required=True, help="1 to turn on the focal exposure")
     parser.add_argument("--situation", required=True, help="IT, ACCOM, BANK, WAIT")
     parser.add_argument(
         "--opts",
@@ -80,10 +81,13 @@ def main():
 
     DETECTOR_LOADs = [True, False]
     F_TOPs = [0, 0.2, 0.4]
-    # Ks = [10, 15, 20]
-    # GAMMAs = [0, 1, 2, 3, 4]
-    Ks = [10]
-    GAMMAs = [0]
+
+    if args.fe == 1:
+        Ks = [10, 15, 20]
+        GAMMAs = [0, 1, 2, 3, 4]
+    else:
+        Ks = [10]
+        GAMMAs = [0]
 
     for load in tqdm.tqdm(DETECTOR_LOADs):
         cfg.DETECTOR.LOAD = load

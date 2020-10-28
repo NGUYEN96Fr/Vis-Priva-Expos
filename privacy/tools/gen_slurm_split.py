@@ -3,7 +3,7 @@ This file generates .slurm files to fine-tune models
 
 Usage:
 
-    python3 gen_slurm_split.py -f it_mobi.slurm -p allcpu -n node09 -e 1 -s IT -d MOBI -pft POOLINGx2
+    python3 gen_slurm_split.py -f it_mobi.slurm -p allcpu -n node09 -e 1 -s IT -d MOBI -pft POOLING -fe 1
 """
 import os
 import argparse
@@ -25,6 +25,7 @@ def argument_parser():
     parser.add_argument("-s", "--situation", required=True, help="IT, ACCOM, BANK, WAIT")
     parser.add_argument("-d", "--detector", required=True, help="MOBI, RCNN")
     parser.add_argument("-pft", required=True, help="POOLINGx2, POOLING, ORG")
+    parser.add_argument("-fe", required=True, help="1 to turn on the Focal Exposure")
 
     return parser
 
@@ -86,9 +87,9 @@ def main():
             for keep in KEEPs:
                 for feature in FEATURE_TYPEs:
                     if args.detector == 'MOBI':
-                        model_part = common_part+'rf_kmeans_ft_mobi_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
+                        model_part = common_part+'rf_kmeans_ft_mobi_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation+' --fe '+args.fe
                     elif args.detector == 'RCNN':
-                        model_part = common_part+'rf_kmeans_ft_rcnn_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation
+                        model_part = common_part+'rf_kmeans_ft_rcnn_cv8.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation+' --fe '+args.fe
                     param_part = model_part+' --opts'+' FE.MODE '+mode+' USER_SELECTOR.EPS '+str(eps)+' SOLVER.PFT '+args.pft+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
                     if counter < 20:
                         writer_1.write(param_part+' &\n')
