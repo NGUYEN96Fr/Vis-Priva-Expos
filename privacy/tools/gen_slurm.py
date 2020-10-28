@@ -3,7 +3,7 @@ This file generates .slurm files to fine-tune models
 
 Usage:
 
-    python3 gen_slurm.py -f bank_mobi.slurm -p gpu-test -n node21 -e 1 -s BANK -d MOBI
+    python3 gen_slurm.py -f bank_mobi.slurm -p gpu-test -n node21 -e 1 -s BANK -d MOBI -pft POOLINGx2 -fe 1
 """
 import os
 import argparse
