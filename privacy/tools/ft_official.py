@@ -80,8 +80,10 @@ def main():
 
     DETECTOR_LOADs = [True, False]
     F_TOPs = [0, 0.2, 0.4]
-    Ks = [10, 15, 20]
-    GAMMAs = [0, 1, 2, 3, 4]
+    # Ks = [10, 15, 20]
+    # GAMMAs = [0, 1, 2, 3, 4]
+    Ks = [10]
+    GAMMAs = [0]
 
     for load in tqdm.tqdm(DETECTOR_LOADs):
         cfg.DETECTOR.LOAD = load

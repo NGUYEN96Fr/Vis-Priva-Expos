@@ -54,8 +54,8 @@ def main():
         print('#-----------------------#')
         print(sdetec)
         print(best_result)
-        best_model = pickle.load(open(best_path, 'rb'))
-        print(best_model.cfg)
+        # best_model = pickle.load(open(best_path, 'rb'))
+        # print(best_model.cfg)
 
 if __name__ == '__main__':
     main()
