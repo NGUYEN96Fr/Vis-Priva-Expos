@@ -3,7 +3,7 @@ This file generates .slurm files to fine-tune models
 
 Usage:
 
-    python3 gen_slurm_split.py -f it_mobi.slurm -p allcpu -n node09 -e 1 -s IT -d MOBI -pft POOLING -fe 1
+    python3 gen_slurm_split.py -f it_mobi.slurm -p allcpu -n node09 -e 1 -s IT -d MOBI -pft ORG -fe 1
 """
 import os
 import argparse

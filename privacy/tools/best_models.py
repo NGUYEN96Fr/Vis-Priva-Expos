@@ -3,6 +3,9 @@ The module verifies best trained models for situations within detectors
 
      python best_models.py --path /home/nguyen/Documents/intern20/models_FEo_pooling_VISPEL
      python best_models.py --path /home/nguyen/Documents/intern20/models_POOLINGx2_VISPEL
+     python best_models.py --path /home/nguyen/Documents/intern20/models_POOLING_VISPEL
+     python best_models.py --path /home/nguyen/Documents/intern20/models_OBJECT_VISPEL
+     python best_models.py --path /home/nguyen/Documents/intern20/models_ORG
 
 """
 
@@ -33,6 +36,8 @@ def main():
     args = argument_parser().parse_args()
     # list of situations within corresponding detector
     sdetecs = os.listdir(args.path)
+    mobis = []
+    rcnns = []
 
     for sdetec in sdetecs:
         # list of trained models
@@ -53,9 +58,18 @@ def main():
                 best_path = mpath
         print('#-----------------------#')
         print(sdetec)
+        if 'rcnn' in sdetec:
+            rcnns.append(best_result)
+
+        if 'mobi' in sdetec:
+            mobis.append(best_result)
+
         print(best_result)
         # best_model = pickle.load(open(best_path, 'rb'))
         # print(best_model.cfg)
+
+    print('RCNN avg: ',sum(rcnns)/len(rcnns))
+    print('MOBI avg: ',sum(mobis)/len(mobis))
 
 if __name__ == '__main__':
     main()

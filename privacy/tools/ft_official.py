@@ -80,10 +80,11 @@ def main():
     cfg = set_up(args)
 
     DETECTOR_LOADs = [True, False]
-    F_TOPs = [0, 0.2, 0.4]
+    F_TOPs = [0, 0.2, 0.3]
+    FILTs = [0.0, 0.2, 0.4]
 
     if args.fe == 1:
-        Ks = [10, 15, 20]
+        Ks = [13, 17, 23, 25]
         GAMMAs = [0, 1, 2, 3, 4]
     else:
         Ks = [10]
@@ -98,18 +99,21 @@ def main():
             for gamma in GAMMAs:
                 cfg.FE.GAMMA = gamma
 
-                for k in Ks:
-                    cfg.FE.K = k
+                for filt in FILTs:
+                    cfg.SOLVER.FILT = filt
 
-                    model = VISPEL(cfg, situ_decoding(args.situation))
+                    for k in Ks:
+                        cfg.FE.K = k
 
-                    model.train_vispel()
-                    trained_models.append(copy.deepcopy(model))
+                        model = VISPEL(cfg, situ_decoding(args.situation))
 
-                    model.test_vispel()
-                    test_corrs.append(model.test_result)
+                        model.train_vispel()
+                        trained_models.append(copy.deepcopy(model))
 
-                    del model
+                        model.test_vispel()
+                        test_corrs.append(model.test_result)
+
+                        del model
 
     if cfg.OUTPUT.VERBOSE:
         print("Save modeling !!!")
