@@ -20,6 +20,7 @@ from situ.acronym import situ_decoding
 from vispel.config import get_cfg
 from vispel.vispel import VISPEL
 
+
 def argument_parser():
     """
     Create a parser with some common arguments.
@@ -29,9 +30,12 @@ def argument_parser():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--config_file", default="", metavar="FILE", help="path to config file")
-    parser.add_argument("--model_name", required= True, help= "saved modeling name")
+    parser.add_argument("--model_name", required=True, help="saved modeling name")
     parser.add_argument("--fe", required=True, help="1 to turn on the focal exposure")
     parser.add_argument("--situation", required=True, help="IT, ACCOM, BANK, WAIT")
+    parser.add_argument("--N", required=True, help="Number of training profiles: "
+                                                   "-1: ALL user profiles"
+                                                   "N: N profiles (N < 400)")
     parser.add_argument(
         "--opts",
         help="Modify config options using the command-line 'KEY VALUE' pairs",
@@ -43,7 +47,6 @@ def argument_parser():
 
 
 def save_model(model, filename, out_dir):
-
     out_dir_path = out_dir
     if not os.path.exists(out_dir_path):
         os.makedirs(out_dir_path)
@@ -81,10 +84,10 @@ def main():
 
     DETECTOR_LOADs = [True, False]
     F_TOPs = [0, 0.2, 0.3]
-    FILTs = [0.0, 0.2, 0.4]
+    FILTs = [0.1]
 
     if args.fe == 1:
-        Ks = [13, 17, 23, 25]
+        Ks = [10, 15, 20, 25]
         GAMMAs = [0, 1, 2, 3, 4]
     else:
         Ks = [10]
@@ -105,7 +108,7 @@ def main():
                     for k in Ks:
                         cfg.FE.K = k
 
-                        model = VISPEL(cfg, situ_decoding(args.situation))
+                        model = VISPEL(cfg, situ_decoding(args.situation), args.N)
 
                         model.train_vispel()
                         trained_models.append(copy.deepcopy(model))
@@ -122,7 +125,8 @@ def main():
     best_model = trained_models[max_corr_index]
     save_model(best_model, args.model_name, cfg.OUTPUT.DIR)
     print(test_corrs)
-    print('Best Model Result: ',test_corrs[max_corr_index])
+    print('Best Model Result: ', test_corrs[max_corr_index])
+
 
 if __name__ == '__main__':
     main()

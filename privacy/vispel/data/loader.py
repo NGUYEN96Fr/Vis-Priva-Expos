@@ -1,12 +1,12 @@
 from detectors.activator import activator
 from loader.data_loader import train_test, gt_user_expos, vis_concepts
 
-def data_loader(root, cfg, situation):
-    """
 
+def data_loader(root, cfg, situation, N=-1):
+    """
+    N: number of training profiles
     :return:
     """
-
 
     # Basic data-loader
 
@@ -27,13 +27,24 @@ def data_loader(root, cfg, situation):
     if cfg.MODEL.DEBUG:
         X_train_set = X_mini_batches['30']  # 30 % training users
     else:
-        X_train_set = X_mini_batches['100']
+        if int(N) == -1:
+            X_train_set = X_mini_batches['100']
+        else:
+            X_all = X_mini_batches['100']
+            count = 0
+            X_train_set = {}
+            for user_, photos_ in X_all.items():
+                count += 1
+                if count <= int(N):
+                    X_train_set[user_] = photos_
+                else:
+                    break
 
     situ_gt_expos = expos[situation]
     situ_vis_concepts = concepts[situation]
 
     # Construct active detectors
-    detectors, opt_threds = activator(concepts, situation,\
+    detectors, opt_threds = activator(concepts, situation, \
                                       cfg.DATASETS.PRE_VIS_CONCEPTS, cfg.DETECTOR.LOAD)
 
     return X_train_set, X_test_set, X_community, \

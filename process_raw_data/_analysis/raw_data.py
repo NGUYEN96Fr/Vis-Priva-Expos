@@ -251,13 +251,13 @@ def plot():
     shifted_cmap = shiftedColorMap(cmap, midpoint=0.75, name='shifted')
     im = plt.matshow(vis_pattern_array, fignum= 1, cmap=shifted_cmap)
     fig = plt.gcf()
-    fig.colorbar(im)
+    fig.colorbar(im, orientation="horizontal", pad=0.2, shrink = 0.5)
     plt.yticks(situ_spots, situs)
     ax = plt.gca()
     plt.xticks(pattern_spots,patterns,rotation ='vertical')
 
     ax.xaxis.tick_bottom()
-    plt.savefig('kmeans.jpg')
+    plt.savefig('kmeans.eps')
 
 
 

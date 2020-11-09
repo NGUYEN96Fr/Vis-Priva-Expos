@@ -6,6 +6,7 @@ The module verifies best trained models for situations within detectors
      python best_models.py --path /home/nguyen/Documents/intern20/models_POOLING_VISPEL
      python best_models.py --path /home/nguyen/Documents/intern20/models_OBJECT_VISPEL
      python best_models.py --path /home/nguyen/Documents/intern20/models_ORG
+     python best_models.py --path /home/nguyen/Documents/intern20/models_OBJECT_VISPEL_31_10
 
 """
 

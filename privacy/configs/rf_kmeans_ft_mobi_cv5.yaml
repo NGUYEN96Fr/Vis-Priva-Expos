@@ -2,7 +2,7 @@ _BASE_: "BASE-MOBINET.yaml"
 
 FINE_TUNING:
   STATUS: True
-  CV: 8
+  CV: 5
 
 CLUSTEROR:
   K_MEANS:

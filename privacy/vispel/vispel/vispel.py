@@ -17,14 +17,15 @@ class VISPEL(object):
 
     """
 
-    def __init__(self, cfg, situation):
+    def __init__(self, cfg, situation, N=-1):
         self.cfg = cfg
+        self.N = N
         self.root = os.getcwd().split('/privacy/tools')[0]
         self.situation = situation
         self.situ_encoding = load_acronym(situation)
-        self.X_train, self.X_test, self.X_community,\
-                    self.gt_expos, self.vis_concepts, \
-                    self.detectors,self.opt_threds= data_loader(self.root, self.cfg, self.situation)
+        self.X_train, self.X_test, self.X_community, \
+        self.gt_expos, self.vis_concepts, \
+        self.detectors, self.opt_threds = data_loader(self.root, self.cfg, self.situation, self.N)
         self.clusteror = None
         self.regressor = None
         self.feature_selector = None
@@ -43,7 +44,7 @@ class VISPEL(object):
         if self.cfg.OUTPUT.VERBOSE:
             print("#-------------------------------------------------#")
             print("# Train visual privacy exposure predictor          ")
-            print("#                  %s          " %self.situ_encoding)
+            print("#                  %s          " % self.situ_encoding)
             print("#-------------------------------------------------#")
 
         # Initiate training models
@@ -51,8 +52,9 @@ class VISPEL(object):
         regressor = regressor_builder(self.cfg)
 
         # Train ...
-        trained_clusteror, trained_regressor, feature_selector = trainer(self.situation, self.X_train, self.X_community,\
-                                                    self.gt_expos, clusteror, regressor, self.detectors, self.opt_threds, self.cfg)
+        trained_clusteror, trained_regressor, feature_selector = trainer(self.situation, self.X_train, self.X_community, \
+                                                                         self.gt_expos, clusteror, regressor,
+                                                                         self.detectors, self.opt_threds, self.cfg)
 
         self.clusteror = trained_clusteror
         self.regressor = trained_regressor
@@ -65,7 +67,7 @@ class VISPEL(object):
             print("# Evaluate visual privacy exposure predictor       ")
             print("#-------------------------------------------------#")
 
-        test_expo_features = community_expo(self.X_test, self.cfg.SOLVER.F_TOP,\
+        test_expo_features = community_expo(self.X_test, self.cfg.SOLVER.F_TOP, \
                                             self.detectors, self.opt_threds, self.cfg.DETECTOR.LOAD,
                                             self.cfg)
 
