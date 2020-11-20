@@ -159,11 +159,13 @@ def kmeans_pattern():
     """
     from sklearn.cluster import KMeans
 
-    path = '/home/nguyen/Documents/intern20/Vis-Priva-Expos/process_raw_data/raw_data/visual_concepts/processed_situations'
-    K = 40 # number of clusters
+    # path = '/home/nguyen/Documents/intern20/Vis-Priva-Expos/process_raw_data/raw_data/visual_concepts/processed_situations'
+    path = '/home/nguyen/Documents/intern20/Vis-Priva-Expos/process_raw_data/raw_data/user_exposures/v1/processed'
+    K = 57 # number of clusters
 
     vis_situs = os.listdir(path)
     vis_concepts = {}
+    situ_encode = {'job_search_IT.txt': 2,'bank_credit.txt': 1,'job_search_waiter_waitress.txt':3,'accommodation_search.txt':0}
 
     for vis_situ in vis_situs:
         print(vis_situ.split('.')[0])
@@ -174,8 +176,8 @@ def kmeans_pattern():
                 object_ = parts[0]
                 score_ = float(parts[1].split('\n')[0])*3
                 if object_ not in vis_concepts:
-                    vis_concepts[object_] = []
-                vis_concepts[object_].append(score_)
+                    vis_concepts[object_] = [0,0,0,0]
+                vis_concepts[object_][situ_encode[vis_situ]] = score_
 
     features =[]
     for concept, scores in vis_concepts.items():
@@ -186,6 +188,8 @@ def kmeans_pattern():
     kmeans = KMeans(n_clusters=K, random_state=0, max_iter=500).fit(features)
     centers = kmeans.cluster_centers_
     centers = centers.transpose()
+    print('min: ', np.min(centers))
+    print('max: ', np.max(centers))
 
     stats = {}
 
@@ -199,10 +203,11 @@ def kmeans_pattern():
         stats[pattern].append(concept)
 
     sum_centers = np.sum(centers, axis=0)
-    sorted_indexes = np.argsort(sum_centers)[::-1]
+    # sorted_indexes = np.argsort(sum_centers)[::-1]
+    sorted_indexes = np.argsort(sum_centers)
 
     org_stats = {}
-    sorted_centers = centers[:,sorted_indexes]
+    sorted_centers = centers[:, sorted_indexes]
     count_pattern = 1
 
     for index in range(K):
@@ -223,16 +228,55 @@ def kmeans_pattern():
                 
         print(message)
 
-
     return sorted_centers, org_stats
 
+
+def proc_user():
+    """
+
+    Returns
+    -------
+
+    """
+    situ_encode = {0: 'job_search_IT', 1: 'bank_credit', 2: 'job_search_waiter_waitress', 3: 'accommodation_search'}
+    path = '/home/nguyen/Documents/intern20/Vis-Priva-Expos/process_raw_data/raw_data/user_exposures/v1'
+    evaluators = [eva for eva in os.listdir(path) if '.txt' in eva]
+    situ_dict = {}
+    for eva in evaluators:
+        with open(os.path.join(path,eva)) as fp:
+            lines = fp.readlines()
+            for line in lines:
+                parts = line.split(' ')
+                if parts[1] != '4':
+                    situ_ = situ_encode[int(parts[1])]
+                    user_ = parts[0]
+                    score_ = int(parts[2].split('\n')[0])
+                    if situ_ not in situ_dict:
+                        situ_dict[situ_] = {}
+                    if user_ not in situ_dict[situ_]:
+                        situ_dict[situ_][user_] = []
+                    situ_dict[situ_][user_].append(score_)
+
+    save_path = os.path.join(path, 'processed')
+    if not os.path.exists(os.path.join(path, 'processed')):
+        os.mkdir(save_path)
+
+    for situ, users in situ_dict.items():
+        sav_file = os.path.join(save_path, situ+'.txt')
+        writer = open(sav_file, 'w')
+        for user, scores in users.items():
+            mean_ = np.mean(np.asarray(scores) - 4)/3
+            text_ = user+' '+str(mean_)+'\n'
+            writer.write(text_)
+        writer.close()
+    # print(situ_dict['job_search_IT']['53678425@N00'])
 
 def plot():
     """"""
     # vis_pattern_array, stats = count_vis_parttern()
     vis_pattern_array, stats = kmeans_pattern()
 
-    situs = ['BANK', 'IT', 'ACCOM', 'WAIT']
+    situs = ['ACC','BANK','IT','WAIT']
     situ_spots = np.arange(0,len(situs),1)
     pattern_spots = np.arange(0,vis_pattern_array.shape[1],1)
 
@@ -248,21 +292,23 @@ def plot():
         name='test',
         colors=['red', 'white', 'green']
     )
-    shifted_cmap = shiftedColorMap(cmap, midpoint=0.75, name='shifted')
+    shifted_cmap = shiftedColorMap(cmap, midpoint=0.3448, name='shifted')
     im = plt.matshow(vis_pattern_array, fignum= 1, cmap=shifted_cmap)
     fig = plt.gcf()
     fig.colorbar(im, orientation="horizontal", pad=0.2, shrink = 0.5)
     plt.yticks(situ_spots, situs)
     ax = plt.gca()
     plt.xticks(pattern_spots,patterns,rotation ='vertical')
+    plt.margins(0, 0)
 
     ax.xaxis.tick_bottom()
-    plt.savefig('kmeans.eps')
+    plt.savefig('user_kmeans.png', bbox_inches = 'tight',pad_inches = 0.05)
 
 
 
 def main():
     plot()
+    # proc_user()
 
 if __name__ == '__main__':
     main()

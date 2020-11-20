@@ -46,6 +46,7 @@ def data_loader(root, cfg, situation, N=-1):
     # Construct active detectors
     detectors, opt_threds = activator(concepts, situation, \
                                       cfg.DATASETS.PRE_VIS_CONCEPTS, cfg.DETECTOR.LOAD)
-
+    print('#########***********--------------------------###############')
+    print(len(X_train_set))
     return X_train_set, X_test_set, X_community, \
            situ_gt_expos, situ_vis_concepts, detectors, opt_threds

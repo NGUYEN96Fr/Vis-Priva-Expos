@@ -59,4 +59,12 @@ def sigmoid():
     fig = plt.gcf()
     fig.savefig('sigmoid.jpg')
 
-sigmoid()
+
+def plot_score_avg():
+    """"""
+
+    RCNNs = [0.44, 0.52, 0.51, 0.56]
+    MOBIs = [0.44, 0.45, 0.47, 0.51]
+    Nb= ['100', '200', '300', '400']
+
+# sigmoid()
