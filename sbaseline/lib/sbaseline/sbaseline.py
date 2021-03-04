@@ -15,7 +15,7 @@ class SBASELINE(object):
     def __init__(self, cfg, situ, save_file):
         self.cfg = cfg
         self.test_result = 0.0
-        self.opt_threshold = 0.0
+        self.opt_threshold = {}
         self.save_file = save_file
         self.situ = situ_decoding(situ)
         self.root = os.getcwd().split('/sbaseline/tools')[0]
@@ -30,11 +30,12 @@ class SBASELINE(object):
     def test(self):
         tdetectors = {}
         for detector, score in self.detectors.items():
-            tdetectors[detector] = [self.opt_threshold, score]
+            tdetectors[detector] = [self.opt_threshold[detector][1], score]
 
         self.test_result = corr(self.x_test, self.gt_expos,
                                 tdetectors, self.cfg.SOLVER.CORR_TYPE, self.cfg)
 
     def optimize(self):
         self.train()
+        print(self.opt_threshold)
         self.test()

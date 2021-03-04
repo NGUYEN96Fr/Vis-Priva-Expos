@@ -16,19 +16,23 @@ def search_thres(train_data, gt_user_expo, detectors, corr_type, cfg):
 
     """
     threshold_list = [float("{:.2f}".format(0.01 * i)) for i in range(101)]
-    tau_list = []
+    multi_opt_threshold = {}
 
-    for threshold in threshold_list:
-        tdetectors = {detector_score[0]: (threshold, detector_score[1]) for detector_score in detectors}
-        tau = corr(train_data, gt_user_expo, tdetectors, corr_type, cfg)
-        if math.isnan(tau):
-            tau = 0
-        tau_list.append(tau)
+    for detector, score in detectors:
+        tau_list = []
 
-    tau_max = max(tau_list)
-    opt_threshold = threshold_list[np.argmax(tau_list)]
+        for threshold in threshold_list:
+            tdetector = {detector: (threshold, score)}
+            tau = corr(train_data, gt_user_expo, tdetector, corr_type, cfg)
+            if math.isnan(tau):
+                tau = 0
+            tau_list.append(tau)
 
-    return tau_max, opt_threshold
+        tau_max = max(tau_list)
+        opt_threshold = threshold_list[np.argmax(tau_list)]
+        multi_opt_threshold[detector] = (tau_max, opt_threshold, score)
+
+    return multi_opt_threshold
 
 
 def search_optimal_thres(train_data, gt_user_expo, detectors, corr_type, cfg):
@@ -60,6 +64,6 @@ def search_optimal_thres(train_data, gt_user_expo, detectors, corr_type, cfg):
     for detector, score in detectors.items():
         list_detectors.append([detector, score])
 
-    tau_max, opt_thresh = search_thres(train_data, gt_user_expo, list_detectors, corr_type, cfg)
+    multi_opt_threshold = search_thres(train_data, gt_user_expo, list_detectors, corr_type, cfg)
 
-    return opt_thresh
+    return multi_opt_threshold
