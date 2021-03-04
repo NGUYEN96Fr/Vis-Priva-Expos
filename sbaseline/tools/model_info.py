@@ -34,7 +34,7 @@ def info():
     print('#-----------------------------------#')
     print('# MODEL CONFIGURATION')
     print("#-----------------------------------#")
-    print(model.cfg)
+    print(model.opt_threshold)
     print('#-----------------------------------#')
     print('# TEST CORR')
     print("#-----------------------------------#")

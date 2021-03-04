@@ -1,7 +1,7 @@
 """
 
 Baseline method
-    python3 main.py --config_file ../configs/mobi_BL.yaml --model_name bank_mobi.pkl --situation BANK
+    python3 main.py --config_file ../configs/mobi_BL.yaml --model_name bank_mobi1.pkl --situation BANK
 
 """
 import os
