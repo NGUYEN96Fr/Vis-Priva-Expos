@@ -1,0 +1,46 @@
+MODEL:
+  DEBUG: False
+  PLOT: False
+
+##
+DETECTOR:
+  LOAD: True
+
+##
+USER_SELECTOR:
+  STATE: True
+  EPS: 0.05
+  KEEP: 0.9
+
+##
+SOLVER:
+  F_TOP: 0.1
+  PFT: 'POOLING'
+  FEATURE_TYPE: 'ORG'
+  CORR_TYPE: 'PEARSON'
+  FILTERING: True
+  FILT: 0.1
+
+##
+FE:
+  GAMMA: 0
+  K: 15
+  TAU_e: 10.0
+  TAU_o: 0.66
+  TAU_i: 0.01
+
+##
+PCA:
+  STATE: False
+  N_COMPONENTS: 6
+
+##
+DATASETS:
+  TRAIN_TEST_SPLIT: "process_raw_data/out/train_test_split_mobinet_v1.json"
+  GT_USER_EXPOS: "process_raw_data/out/gt_usr_exposure_v1.json"
+  VIS_CONCEPTS: "process_raw_data/raw_data/visual_concepts/processed_situations"
+  PRE_VIS_CONCEPTS: "privacy_baseline/out/mobinet_optimal_thres_situs_v0.txt"
+
+##
+OUTPUT:
+  VERBOSE: False

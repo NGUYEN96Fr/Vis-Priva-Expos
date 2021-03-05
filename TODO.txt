@@ -1,0 +1,76 @@
+0. Test - Separate positive and negative features
+
+1. Test - Apply feature transform
+
+#################
+    PRIVACY     #
+#################
+
+***
+Need more robust features
+
+- try observe features F and target Y feed into model
+
+- base on training features, estimate which target should have the same values in the test set.
+
+***
+PCA shows that, if feature variances are spread more into the first two principal components, then the higher the Kendall correlation will be.
+
+==> Create strong feature extractors.
+
+Tasks:
+    - check number of valid user's photos -> many users have small number of valid photos.
+    - Apply focal exposure on object score
+
+Results:
+    -
+
+########################
+    BASE LINE PRIVACY   #
+########################
+
+***
+
+- Certains extreme classes having very low correlation when individually considered, because objects of these classes not
+exist in train users, but may in test users.
+
+- So, divide and conquer is the problem, because ignoring enormously extreme objects, so
+ need to always add extreme categories (abs(scores) >= 1) to active detectors.
+
++ old results
+    {'job_search_IT': 0.03011294716617603, 'bank_credit': 0.34673955818963437,
+    'job_search_waiter_waitress': 0.34435376607791474, 'accommodation_search': 0.290800804838157}
++ new 1
+    th = 0.8
+    {'job_search_IT': 0.3412731961984149, 'bank_credit': 0.24537445226572216,
+    'job_search_waiter_waitress': 0.28696147173159564, 'accommodation_search': 0.22618375803647267}
+
+    th = 1
+    {'job_search_IT': 0.10941491132374172, 'bank_credit': 0.2984730495110691,
+    'job_search_waiter_waitress': 0.34913645727344134, 'accommodation_search': 0.22618375803647267}
+
+- TAKE SUM OF PHOTO EXPOSURE IS A PROBLEM !!!
+
+
+- DISADVANTAGE OF KENDALL
+    >>> from scipy import stats
+    >>> x1 = [12, 12, 2, 1]
+    >>> x2 = [3,3,1,0]
+    >>> tau, p_value = stats.kendalltau(x1, x2)
+    >>> tau
+    1.0
+    >>>
+
+- CREATE A RANKING MAPPING FUNCTION
+
+######################
+
+NEW TASKS 9/10/2020
+
+######################
+
+- Réduire le nombre des paramètres:
+    + tau_a, tau_n : tau_e (symétrique)
+
+- Grid search sur le K, gamma, pour choisir les meilleurs folds:
+    + Optimiser sur ces folds sur tous les autres paramètres du Focal Exposure

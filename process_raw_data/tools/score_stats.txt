@@ -1,0 +1,4 @@
+job_search_IT:   453 score groups
+bank_credit:   426 score groups
+job_search_waiter_waitress:   487 score groups
+accommodation_search:   475 score groups
