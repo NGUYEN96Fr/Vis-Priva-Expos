@@ -60,15 +60,43 @@ class VISPEL(object):
         self.regressor = trained_regressor
         self.feature_selector = feature_selector
 
-    def test_vispel(self):
+    def test_vispel(self, half_vis=True):
+        """
+        half_vis: float
+            take into account a half of number visual concepts
+        """
 
         if self.cfg.OUTPUT.VERBOSE:
             print("#-------------------------------------------------#")
             print("# Evaluate visual privacy exposure predictor       ")
             print("#-------------------------------------------------#")
 
-        test_expo_features = community_expo(self.X_test, self.cfg.SOLVER.F_TOP, \
-                                            self.detectors, self.opt_threds, self.cfg.DETECTOR.LOAD,
+        sel_detectors = {}
+        sel_opt_threds = {}
+
+        if half_vis:
+            tol_concepts = []
+            sel_concepts = []
+
+            for obj, _ in self.detectors.items():
+                tol_concepts.append(obj)
+
+            while len(sel_concepts) <= int(len(tol_concepts) / 2):
+                index = np.random.randint(len(tol_concepts))
+                if tol_concepts[index] not in sel_concepts:
+                    sel_concepts.append(tol_concepts[index])
+
+            for obj in sel_concepts:
+                sel_detectors[obj] = self.detectors[obj]
+                if obj in self.opt_threds:
+                    sel_opt_threds[obj] = self.opt_threds[obj]
+
+        else:
+            sel_detectors = self.detectors
+            sel_opt_threds = self.opt_threds
+
+        test_expo_features = community_expo(self.X_test, self.cfg.SOLVER.F_TOP,\
+                                            sel_detectors, sel_opt_threds, self.cfg.DETECTOR.LOAD,
                                             self.cfg)
 
         reg_test_features, gt_test_expos = build_features(self.clusteror, test_expo_features,

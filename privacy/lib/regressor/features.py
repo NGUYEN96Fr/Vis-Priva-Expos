@@ -180,11 +180,16 @@ def build_features(clusteror, com_features, gt_situ_expos, cfg):
     """
     regression_features = []
     regression_targets = []
+    non_im_users = []   # users without valid images
+    for user, im_dict in com_features.items():
+        if len(im_dict) == 0:
+            non_im_users.append(user)
 
     for user, user_expo_features in com_features.items():
-        regression_features.append(user_features(clusteror,\
-                                                 user_expo_features, cfg))
-        regression_targets.append(gt_situ_expos[user])
+        if user not in non_im_users:
+            regression_features.append(user_features(clusteror,\
+                                                     user_expo_features, cfg))
+            regression_targets.append(gt_situ_expos[user])
 
     X_features = np.asarray(regression_features)
     y_targets = np.asarray(regression_targets)
