@@ -60,7 +60,7 @@ class VISPEL(object):
         self.regressor = trained_regressor
         self.feature_selector = feature_selector
 
-    def test_vispel(self, half_vis=True):
+    def test_vispel(self, half_vis=False):
         """
         half_vis: float
             take into account a half of number visual concepts
@@ -90,7 +90,6 @@ class VISPEL(object):
                 sel_detectors[obj] = self.detectors[obj]
                 if obj in self.opt_threds:
                     sel_opt_threds[obj] = self.opt_threds[obj]
-
         else:
             sel_detectors = self.detectors
             sel_opt_threds = self.opt_threds
