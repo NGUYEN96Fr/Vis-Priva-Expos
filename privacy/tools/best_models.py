@@ -12,11 +12,13 @@ The module verifies best trained models for situations within detectors
 
 """
 
+import random
 import os
 import pickle
 import argparse
 from pathlib import Path
 import _init_paths
+import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -34,7 +36,12 @@ def argument_parser():
     return parser
 
 
-def main():
+def set_seeds(seed_):
+    random.seed(seed_)
+    np.random.seed(seed_)
+
+
+def verify(avg_score):
     """
 
     Returns
@@ -58,11 +65,15 @@ def main():
         best_result = -1
         best_cfg = None
 
+        if sdetec not in avg_score:
+            avg_score[sdetec] = []
+
         for model in models:
             mpath = os.path.join(spath, model)
             # loaded model
             lmodel = pickle.load(open(mpath, 'rb'))
-            lmodel.set_seeds()
+            # lmodel.cfg.MODEL.SEED = seed
+            # lmodel.set_seeds()
             lmodel.test_vispel(half_vis=True)
             test_result = lmodel.test_result
 
@@ -70,22 +81,35 @@ def main():
                 best_result = test_result
                 best_cfg = lmodel.cfg
 
-        print('#-----------------------#')
-        print(sdetec)
-        print(best_result)
+        # print('#-----------------------#')
+        # print(sdetec)
+        # print(best_result)
+        avg_score[sdetec].append(best_result)
 
         with open(os.path.join(cfg_dir, sdetec+".pkl"), 'wb') as handle:
             pickle.dump(best_cfg, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-        if 'rcnn' in sdetec:
-            rcnns.append(best_result)
+        # if 'rcnn' in sdetec:
+        #     rcnns.append(best_result)
+        #
+        # if 'mobi' in sdetec:
+        #     mobis.append(best_result)
 
-        if 'mobi' in sdetec:
-            mobis.append(best_result)
-
-    print('RCNN avg: ',sum(rcnns)/len(rcnns))
-    print('MOBI avg: ',sum(mobis)/len(mobis))
+    # print('RCNN avg: ',sum(rcnns)/len(rcnns))
+    # print('MOBI avg: ',sum(mobis)/len(mobis))
 
 
 if __name__ == '__main__':
-    main()
+    SEEDs = [10, 100, 1000, 10000, 100000]
+    avg_score = {}
+    for seed in SEEDs:
+        print('SEED: ', seed)
+        set_seeds(seed)
+        verify(avg_score)
+
+    print(avg_score)
+
+    for sdetec, scores in avg_score.items():
+        avg_score[sdetec] = sum(scores)/len(scores)
+
+    print(avg_score)

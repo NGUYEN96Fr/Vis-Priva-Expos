@@ -3,7 +3,7 @@ This file generates .slurm files to fine-tune models
 
 Usage:
 
-    python3 gen_slurm_split.py -f it_mobi.slurm -p allcpu -n node09 -e 1 -s IT -d MOBI -pft ORG -fe 1 -N 100
+    python3 gen_slurm_split.py -f it_mobi.slurm -p allcpu -n node09 -e 1 -s IT -d MOBI -pft ORG -fe 1 -N 200
 """
 import os
 import argparse
@@ -39,6 +39,7 @@ def main():
     -------
 
     """
+    SEEDs = [10, 100, 1000, 100000, 1000000]
     MODEs = ['OBJECT'] # FE mode
     EPSs = [0.05, 0.1, 0.15, 0.2]
     KEEPs = [0.8, 0.85, 0.9, 0.95, 1.0]
@@ -85,20 +86,21 @@ def main():
     out_dir = os.path.join(args.directory, args.file.split('.slurm')[0])
     counter = 0
 
-    for mode in MODEs:
-        for eps in EPSs:
-            for keep in KEEPs:
-                for feature in FEATURE_TYPEs:
-                    if args.detector == 'MOBI':
-                        model_part = common_part+'rf_kmeans_ft_mobi_cv5.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation+' --fe '+args.fe+' --N '+str(args.N)
-                    elif args.detector == 'RCNN':
-                        model_part = common_part+'rf_kmeans_ft_rcnn_cv5.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation+' --fe '+args.fe+' --N '+str(args.N)
-                    param_part = model_part+' --opts'+' FE.MODE '+mode+' USER_SELECTOR.EPS '+str(eps)+' SOLVER.PFT '+args.pft+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
-                    if counter < 20:
-                        writer_1.write(param_part+' &\n')
-                    else:
-                        writer_2.write(param_part+' &\n')
-                    counter += 1
+    for seed in SEEDs:
+        for mode in MODEs:
+            for eps in EPSs:
+                for keep in KEEPs:
+                    for feature in FEATURE_TYPEs:
+                        if args.detector == 'MOBI':
+                            model_part = common_part+'rf_kmeans_ft_mobi_cv5.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation+' --fe '+args.fe+' --N '+str(args.N)
+                        elif args.detector == 'RCNN':
+                            model_part = common_part+'rf_kmeans_ft_rcnn_cv5.yaml --model_name '+save_model+'_'+str(counter)+'.pkl '+'--situation '+args.situation+' --fe '+args.fe+' --N '+str(args.N)
+                        param_part = model_part+' --opts'+' MODEL.SEED '+str(seed)+' FE.MODE '+mode+' USER_SELECTOR.EPS '+str(eps)+' SOLVER.PFT '+args.pft+' USER_SELECTOR.KEEP '+str(keep)+' SOLVER.FEATURE_TYPE '+str(feature)+' OUTPUT.DIR '+out_dir
+                        if counter < 20:
+                            writer_1.write(param_part+' &\n')
+                        else:
+                            writer_2.write(param_part+' &\n')
+                        counter += 1
 
     writer_1.write('wait\n')
     writer_2.write('wait\n')    
